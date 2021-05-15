@@ -117,10 +117,7 @@
       <script src="{% static 'js/project.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
       <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
-      {% endcompress %}
-
-      {% compress js_inline %}
-        {% include 'app/js.html' %}
+      {% include 'app/js.html' %}
       {% endcompress %}
 
     {% endblock javascript %}
