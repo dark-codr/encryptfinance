@@ -1,27 +1,5 @@
 // Sidebar styling
 
-.sidebar {
-  background-color: var(--side-bar);
-  width: 270px;
-  position: fixed;
-  height: 100%;
-  left: 0;
-  top: 0;
-  z-index: 10;
-  transition: width 300ms;
-
-
-  .sidebar-brand {
-    padding-left: 1.9rem;
-    margin-bottom: -1rem;
-    color: var(--color-text);
-    height: 65px;
-
-    img {
-      height: 40px;
-    }
-  }
-}
 
 
 
@@ -29,8 +7,21 @@
   html {
     font-size: 60%;
   }
-  .sidebar ul {
-    margin-left: 2rem;
+  .sidebar {
+    width: 0;
+    transition: width 300ms;
+  
+    img {
+      display: none;
+    }
+
+    span {
+      display: none;
+    }
+
+    .sidebar-menu {
+      display: none;
+    }
   }
   
   .main-container .edit {
@@ -38,33 +29,66 @@
   }
   
   #nav-toggle {
-    display: none;
+    display: inline-block;
   }
 
   #nav-toggle:checked+.sidebar {
-    width: 0px;
-    align-items: center;
-
-    .sidebar-brand {
-      display: none;
-      margin-left: 1rem;
+    background-color: var(--side-bar);
+    width: 160px;
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    transition: width 300ms;
+    
+    .sidebar-brand img {
+      height: 3rem;
+      display: inline-block;
     }
 
-    ul {
+    .sidebar-brand,
+    .sidebar-menu {
+      display: inline-block;
       margin-left: 2rem;
-      display: none;
     }
   }
 
   #nav-toggle:checked+.sidebar .sidebar-brand h6 span:last-child,
   #nav-toggle:checked+.sidebar ul li span:last-child {
-    display: none;
+    display: inline-block;
   }
 }
 
 @media only screen and (min-width: 500px) and (max-width: 1900px ) {
-  #nav-toggle {
-    display: none;
+  .sidebar {
+    background-color: var(--side-bar);
+    width: 80px;
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    transition: width 300ms;
+  
+  
+    .sidebar-brand {
+      padding-left: 1.9rem;
+      margin-bottom: -1rem;
+      color: var(--color-text);
+      height: 65px;
+  
+      img {
+        height: 40px;
+      }
+    }
+
+    span {
+      display: none;
+    }
+  }
+    #nav-toggle {
+    display: inline-block;
   }
 
   .sidebar ul {
@@ -72,14 +96,19 @@
   }
 
   #nav-toggle:checked+.sidebar {
-    width: 80px;
+    width: 270px;
     align-items: center;
-
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    transition: width 300ms;
   }
 
   #nav-toggle:checked+.sidebar .sidebar-brand h6 span:last-child,
   #nav-toggle:checked+.sidebar ul li span:last-child {
-    display: none;
+    display: inline-block;
   }
 }
 
