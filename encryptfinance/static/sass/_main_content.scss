@@ -8,32 +8,51 @@
   #edit {
     top: -3rem;
   }
-  
+
+  #slpls {
+    display: none;
+  }
+
+  .header-title {
+    margin-top: 1rem;
+  }
+
   #nav-toggle:checked~.main-container {
     margin-left: 160px;
+    margin-top: 2rem;
     width: calc(100% - 160px);
-  }
+    min-height: calc(100% - 2rem);
+    transition: margin-left 300ms;
 
-  #nav-toggle:checked~.main-container header {
-    left: 160px;
-    width: calc(100% - 160px);
-  }
+    
 
-  #nav-toggle:checked~.main-container header .header-title span,
-  .main-container header .header-title span,
-  #nav-toggle:checked~.main-container header #r-nav nav,
-  .main-container header #r-nav nav,
-  .user-pill {
-    display: none;
+    .header {
+      position: fixed;
+      left: 160px;
+      width: calc(100% - 160px);
+      height: 65px;
+
+      .user-pill {
+        margin-top: 0;
+
+        h5,
+        h6,
+        small {
+          color: var(--color-heading);
+          margin: 0;
+          line-height: .3;
+        }
+      }
+    }
   }
 
   .main-container {
     margin-left: 0;
-    margin-top: 65px;
+    margin-top: 3.4rem;
     width: 100%;
-    min-height: calc(100vh - 67.4px);
+    min-height: calc(100% - 65px);
     transition: margin-left 300ms;
-  
+
     //  Header
     .header {
       position: fixed;
@@ -49,11 +68,11 @@
       z-index: 100;
       transition: left 300ms;
       top: 0;
-  
-  
+
+
       .user-pill {
         margin-top: 0;
-  
+
         h5,
         h6,
         small {
@@ -62,11 +81,11 @@
           line-height: .3;
         }
       }
-  
+
       #r-nav {
         display: flex;
         align-items: center;
-  
+
         .user-wrapper {
           position: relative;
           height: 40px;
@@ -76,50 +95,50 @@
           padding: .5rem 1rem .5rem .5rem;
           border-radius: 30px;
           margin-top: -0.4rem;
-  
+
           &:hover,
           &:active {
             background-color: var(--dark-nav-bar);
-  
+
             img {
               border-radius: 50%;
               margin-right: .7rem;
             }
-  
+
             h6 {
               margin-bottom: .3rem;
               padding: 0;
               font-size: .7rem;
               color: var(--nav-bar);
             }
-  
+
             small {
               font-size: .5rem;
               color: var(--nav-bar);
             }
           }
-  
+
           img {
             border-radius: 50%;
             margin-right: .7rem;
           }
-  
+
           h6 {
             margin-bottom: .1rem;
             padding: 0;
             font-size: .7rem;
             color: var(--nav-bar);
           }
-  
+
           small {
             font-size: .5rem;
             color: var(--nav-bar);
           }
         }
       }
-  
+
     }
-  
+
     main {
       padding-top: 1.2rem;
       padding-left: 1.2rem;
@@ -128,9 +147,9 @@
       min-height: calc(100vh - 67.4px);
       position: relative;
     }
-  
+
     .card {
-  
+
       h6,
       h5,
       h4,
@@ -139,47 +158,47 @@
       h1 {
         color: var(--profile-color);
       }
-  
+
       i {
         color: var(--profile-color);
       }
-  
+
       p {
         color: var(--profile-color);
         font-weight: 600;
         size: .7rem;
       }
     }
-  
+
     .edit {
       color: var(--nav-bar);
       position: absolute;
       top: 0;
       right: 1rem;
-  
+
       i {
         margin-bottom: 1rem;
         color: var(--profile-color);
-  
+
         &:hover {
           color: var(--accent-color)
         }
       }
     }
-  
-  
+
+
     // currency cards
     .dashboard-cards {
       width: 100%;
       position: inherit;
-  
+
       .card-single {
         margin-left: 0;
         margin-right: 0;
-  
+
         .card {
           &:hover {
-  
+
             h6,
             h5,
             h4,
@@ -188,16 +207,16 @@
             h1 {
               color: var(--color-text);
             }
-  
+
             i {
               background-color: var(--color-heading);
               right: -2.1rem;
               top: -1rem;
               color: var(--color-accent);
             }
-  
+
           }
-  
+
           h6,
           h5,
           h4,
@@ -205,17 +224,17 @@
           h2,
           h1 {
             color: var(--color-heading);
-  
+
             i {
               color: var(--color-text);
             }
           }
         }
-  
+
         .head {
           position: inherit;
         }
-  
+
         i {
           position: absolute;
           font-size: 2.1rem;
@@ -225,21 +244,21 @@
           background-color: var(--nav-bar);
           border-radius: 50%;
         }
-  
+
         .currency-detail {
           color: var(--nav-bar);
-  
+
           small {
             font-size: xx-small;
           }
         }
       }
-    }  
+    }
   }
 
 }
 
-@media only screen and (min-width: 500px) and (max-width: 1900px){
+@media only screen and (min-width: 500px) and (max-width: 1900px) {
   #nav-toggle:checked~.main-container {
     margin-left: 270px;
     margin-top: 65px;
@@ -264,7 +283,7 @@
 
       .user-pill {
         margin-top: 0;
-  
+
         h5,
         h6,
         small {
@@ -283,9 +302,9 @@
       min-height: calc(100vh - 67.4px);
       position: relative;
     }
-  
+
     .card {
-  
+
       h6,
       h5,
       h4,
@@ -294,47 +313,47 @@
       h1 {
         color: var(--profile-color);
       }
-  
+
       i {
         color: var(--profile-color);
       }
-  
+
       p {
         color: var(--profile-color);
         font-weight: 600;
         size: .7rem;
       }
     }
-  
+
     .edit {
       color: var(--nav-bar);
       position: absolute;
       top: 0;
       right: 1rem;
-  
+
       i {
         margin-bottom: 1rem;
         color: var(--profile-color);
-  
+
         &:hover {
           color: var(--accent-color)
         }
       }
     }
-  
-  
+
+
     // currency cards
     .dashboard-cards {
       width: 100%;
       position: inherit;
-  
+
       .card-single {
         margin-left: 0;
         margin-right: 0;
-  
+
         .card {
           &:hover {
-  
+
             h6,
             h5,
             h4,
@@ -343,16 +362,16 @@
             h1 {
               color: var(--color-text);
             }
-  
+
             i {
               background-color: var(--color-heading);
               right: -2.1rem;
               top: -1rem;
               color: var(--color-accent);
             }
-  
+
           }
-  
+
           h6,
           h5,
           h4,
@@ -360,17 +379,17 @@
           h2,
           h1 {
             color: var(--color-heading);
-  
+
             i {
               color: var(--color-text);
             }
           }
         }
-  
+
         .head {
           position: inherit;
         }
-  
+
         i {
           position: absolute;
           font-size: 2.1rem;
@@ -380,23 +399,23 @@
           background-color: var(--nav-bar);
           border-radius: 50%;
         }
-  
+
         .currency-detail {
           color: var(--nav-bar);
-  
+
           small {
             font-size: xx-small;
           }
         }
       }
-    }  
+    }
 
   }
-  
+
   .main-container {
     margin-left: 80px;
     width: calc(100% - 80px);
-  
+
     //  Header
     .header {
       position: fixed;
@@ -412,11 +431,11 @@
       z-index: 100;
       transition: left 300ms;
       top: 0;
-  
-  
+
+
       .user-pill {
         margin-top: 0;
-  
+
         h5,
         h6,
         small {
@@ -425,11 +444,11 @@
           line-height: .3;
         }
       }
-  
+
       #r-nav {
         display: flex;
         align-items: center;
-  
+
         .user-wrapper {
           position: relative;
           height: 40px;
@@ -439,50 +458,50 @@
           padding: .5rem 1rem .5rem .5rem;
           border-radius: 30px;
           margin-top: -0.4rem;
-  
+
           &:hover,
           &:active {
             background-color: var(--dark-nav-bar);
-  
+
             img {
               border-radius: 50%;
               margin-right: .7rem;
             }
-  
+
             h6 {
               margin-bottom: .3rem;
               padding: 0;
               font-size: .7rem;
               color: var(--nav-bar);
             }
-  
+
             small {
               font-size: .5rem;
               color: var(--nav-bar);
             }
           }
-  
+
           img {
             border-radius: 50%;
             margin-right: .7rem;
           }
-  
+
           h6 {
             margin-bottom: .1rem;
             padding: 0;
             font-size: .7rem;
             color: var(--nav-bar);
           }
-  
+
           small {
             font-size: .5rem;
             color: var(--nav-bar);
           }
         }
       }
-  
+
     }
-  
+
     main {
       padding-top: 1.2rem;
       padding-left: 1.2rem;
@@ -491,9 +510,9 @@
       min-height: calc(100vh - 67.4px);
       position: relative;
     }
-  
+
     .card {
-  
+
       h6,
       h5,
       h4,
@@ -502,47 +521,47 @@
       h1 {
         color: var(--profile-color);
       }
-  
+
       i {
         color: var(--profile-color);
       }
-  
+
       p {
         color: var(--profile-color);
         font-weight: 600;
         size: .7rem;
       }
     }
-  
+
     .edit {
       color: var(--nav-bar);
       position: absolute;
       top: 0;
       right: 1rem;
-  
+
       i {
         margin-bottom: 1rem;
         color: var(--profile-color);
-  
+
         &:hover {
           color: var(--accent-color)
         }
       }
     }
-  
-  
+
+
     // currency cards
     .dashboard-cards {
       width: 100%;
       position: inherit;
-  
+
       .card-single {
         margin-left: 0;
         margin-right: 0;
-  
+
         .card {
           &:hover {
-  
+
             h6,
             h5,
             h4,
@@ -551,16 +570,16 @@
             h1 {
               color: var(--color-text);
             }
-  
+
             i {
               background-color: var(--color-heading);
               right: -2.1rem;
               top: -1rem;
               color: var(--color-accent);
             }
-  
+
           }
-  
+
           h6,
           h5,
           h4,
@@ -568,17 +587,17 @@
           h2,
           h1 {
             color: var(--color-heading);
-  
+
             i {
               color: var(--color-text);
             }
           }
         }
-  
+
         .head {
           position: inherit;
         }
-  
+
         i {
           position: absolute;
           font-size: 2.1rem;
@@ -588,19 +607,19 @@
           background-color: var(--nav-bar);
           border-radius: 50%;
         }
-  
+
         .currency-detail {
           color: var(--nav-bar);
-  
+
           small {
             font-size: xx-small;
           }
         }
       }
-    }  
+    }
   }
 }
 
 .widget {
-  padding: .8rem;
+  padding: 0 .8rem;
 }

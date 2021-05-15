@@ -662,23 +662,35 @@ a:hover {
     font-size: 70%; }
   #edit {
     top: -3rem; }
+  #slpls {
+    display: none; }
+  .header-title {
+    margin-top: 1rem; }
   #nav-toggle:checked ~ .main-container {
     margin-left: 160px;
-    width: calc(100% - 160px); }
-  #nav-toggle:checked ~ .main-container header {
-    left: 160px;
-    width: calc(100% - 160px); }
-  #nav-toggle:checked ~ .main-container header .header-title span,
-  .main-container header .header-title span,
-  #nav-toggle:checked ~ .main-container header #r-nav nav,
-  .main-container header #r-nav nav,
-  .user-pill {
-    display: none; }
+    margin-top: 2rem;
+    width: calc(100% - 160px);
+    min-height: calc(100% - 2rem);
+    -webkit-transition: margin-left 300ms;
+    transition: margin-left 300ms; }
+    #nav-toggle:checked ~ .main-container .header {
+      position: fixed;
+      left: 160px;
+      width: calc(100% - 160px);
+      height: 65px; }
+      #nav-toggle:checked ~ .main-container .header .user-pill {
+        margin-top: 0; }
+        #nav-toggle:checked ~ .main-container .header .user-pill h5,
+        #nav-toggle:checked ~ .main-container .header .user-pill h6,
+        #nav-toggle:checked ~ .main-container .header .user-pill small {
+          color: var(--color-heading);
+          margin: 0;
+          line-height: .3; }
   .main-container {
     margin-left: 0;
-    margin-top: 65px;
+    margin-top: 3.4rem;
     width: 100%;
-    min-height: calc(100vh - 67.4px);
+    min-height: calc(100% - 65px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
     .main-container .header {
@@ -1095,8 +1107,8 @@ a:hover {
             font-size: xx-small; } }
 
 .widget {
-  padding: 12.8px;
-  padding: .8rem; }
+  padding: 0 12.8px;
+  padding: 0 .8rem; }
 
 .kilimanjaro_area {
   position: relative;
