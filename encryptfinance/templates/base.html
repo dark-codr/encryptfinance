@@ -59,9 +59,7 @@
     <!-- Your stuff: Third-party CSS libraries go here -->
     <link href="{% static 'css/iziToast.min.css' %}" rel="stylesheet">
 
-    {% compress css_inline %}
     {% include 'app/css.html' %}
-    {% endcompress %}
 
     {% endblock %}
     <link rel="canonical" href="/">
@@ -112,13 +110,11 @@
       <!-- Your stuff: Third-party javascript libraries go here -->
 
       <!-- place project specific Javascript in this file -->
-      {% compress js_inline %}
       <script src="{% static 'js/iziToast.min.js' %}"></script>
       <script src="{% static 'js/project.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
       <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
       {% include 'app/js.html' %}
-      {% endcompress %}
 
     {% endblock javascript %}
 
