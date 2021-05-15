@@ -488,4 +488,5 @@ KEEP_COMMENTS_ON_MINIFYING = True
 
 COOKIE_CONSENT_LOG_ENABLED = False
 
-
+# latest update for django 3.2
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
