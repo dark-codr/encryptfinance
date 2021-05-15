@@ -1,0 +1,59 @@
+{% load static i18n %}
+
+<div class="dashboard-cards">
+  <div class="row card-single">
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="head">
+          <h5>BTC<i class="lab la-bitcoin"></i></h5>
+        </div>
+        <div>
+          <div class="currency-detail">
+            <small class="d-block"><b>Bal:</b> {% if request.user.is_authenticated %}<b id="btc_val"></b>{% else %}0.00{% endif %}</small>
+            <small class="d-block"><b>Daily ROI:</b> {% if request.user.is_authenticated %}{{request.user.profit|floatformat:2}}{% else %}0.00{% endif %}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="head">
+          <h5>ETH <i class="lab la-ethereum"></i></h5>
+        </div>
+        <div>
+          <div class="currency-detail">
+            <small class="d-block"><b>Bal:</b> {% if request.user.is_authenticated %}<b id="eth_val"></b>{% else %}0.00{% endif %}</small>
+            <small class="d-block"><b>Daily ROI:</b> {% if request.user.is_authenticated %}{{request.user.profit|floatformat:2}}{% else %}0.00{% endif %}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="head">
+          <h5>USD <i class="las la-dollar-sign"></i></h5>
+        </div>
+        <div>
+          <div class="currency-detail">
+            <small class="d-block"><b>Bal:</b> {% if request.user.is_authenticated %}<b id="bal">{{request.user.balance|floatformat:2}}</b>{% else %}0.00{% endif %}</small>
+            <small class="d-block"><b>Daily ROI:</b> {% if request.user.is_authenticated %}{{request.user.profit|floatformat:2}}{% else %}0.00{% endif %}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div class="head">
+          <h5>EUR <i class="las la-euro-sign"></i></h5>
+        </div>
+        <div>
+          <div class="currency-detail">
+            <small class="d-block"><b>Bal:</b> {% if request.user.is_authenticated %}<b id="ltc_val"></b>{% else %}0.00{% endif %}</small>
+            <small class="d-block"><b>Daily ROI:</b> {% if request.user.is_authenticated %}{{request.user.profit|floatformat:2}}{% else %}0.00{% endif %}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

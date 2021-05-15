@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Transaction History: {{ request.user.username }}{% endblock %}
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+{% include 'app/dashboard-cards.html' %}
+<div class="widget">
+  <div class="card">
+    <div class="card-body">
+      <div class="card-header mb-4">
+        <h3>Transaction History</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Amount</th>
+              <th>Transaction Type</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for dp in deposits %}
+            <tr>
+              <td>
+                {{ dp.depositor }}
+              </td>
+              <td {% if dp.approval == "VERIFIED" %}class="text-success font-weight-bold"{% endif %}>
+                {{ dp.amount }}
+              </td>
+              <td>
+                Invest
+              </td>
+              <td>
+                {{ dp.created }}
+              </td>
+              <td class="font-weight-bold">
+                {{ dp.approval }}
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-center"> 
+                No Transaction has been made yet.
+              </td>  
+            </tr>
+            {% endfor %}
+            {% for wd in withdrawals %}
+            <tr>
+              <td>
+                {{ wd.withdrawer }}
+              </td>
+              <td {% if wd.approval == "VERIFIED" %}class="text-danger font-weight-bold"{% endif %}>
+                {{ wd.amount }}
+              </td>
+              <td>
+                Withdrawal
+              </td>
+              <td>
+                {{ wd.created }}
+              </td>
+              <td class="font-weight-bold">
+                {{ wd.approval }}
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-center"> 
+                No Withdrawals has been made yet.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+ 
+    </div>
+  </div>
+  </div>
+{% endblock %}

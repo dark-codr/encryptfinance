@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=encryptfinance
+POSTGRES_USER=EEkODBkYWuByveTLkUzwxVurFUYYIFur
+POSTGRES_PASSWORD=ecwtAKUT0qonV2jI8APPUhiyn1zaxUUkQsrkjmA5RBPSG2ZYwbX1ja6MvkHNXPzG

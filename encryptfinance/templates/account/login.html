@@ -1,0 +1,224 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block inner %}
+<div class="widget">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card">
+
+        <div class="card-body mb-3">
+          <div class="card-header  mb-4">
+            <h1>{% trans "Sign In" %}</h1>
+          </div>
+
+          <form class="login mt-4" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <a class="button text-primary secondaryAction" href="{% url 'account_reset_password' %}"><small class="font-weight-bold">{% trans "Forgot Password?" %}</small></a>
+            <button class="primaryAction my-3 btn btn-block btn-warning" type="submit">{% trans "Sign In" %}</button>
+
+            {% get_providers as socialaccount_providers %}
+          
+            {% if socialaccount_providers %}
+            <p>
+              <small>
+              {% blocktrans with site.name as site_name %}Please sign in with one
+            of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+            for a {{ site_name }} account and sign in below:{% endblocktrans %}
+              </small>
+            </p>
+    
+            <div class="socialaccount_ballot">
+            
+              <ul class="socialaccount_providers">
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+              </ul>
+            
+              <div class="login-or">{% trans 'or' %}</div>
+            
+            </div>
+            
+            {% include "socialaccount/snippets/login_extra.html" %}
+            
+            {% else %}
+            <p>
+              <small>
+              {% blocktrans %}If you have not created an account yet, then please
+            <a href="{{ signup_url }}" class="text-primary font-weight-bold">sign up</a> first.{% endblocktrans %}
+              </small>
+            </p>
+            {% endif %}
+    
+          </form>
+
+        </div>
+        
+        
+        
+      </div>
+      <div class="col-md-5">
+        <div class="card">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+        {
+        "colorTheme": "light",
+        "dateRange": "1M",
+        "showChart": true,
+        "locale": "en",
+        "largeChartUrl": "",
+        "isTransparent": false,
+        "showSymbolLogo": true,
+        "width": "400",
+        "height": "660",
+        "plotLineColorGrowing": "rgba(255, 152, 0, 1)",
+        "plotLineColorFalling": "rgba(255, 152, 0, 1)",
+        "gridLineColor": "rgba(240, 243, 250, 1)",
+        "scaleFontColor": "rgba(120, 123, 134, 1)",
+        "belowLineFillColorGrowing": "rgba(255, 229, 153, 0.12)",
+        "belowLineFillColorFalling": "rgba(255, 229, 153, 0.12)",
+        "symbolActiveColor": "rgba(0, 255, 0, 0.12)",
+        "tabs": [
+          {
+            "title": "Indices",
+            "symbols": [
+              {
+                "s": "FOREXCOM:SPXUSD",
+                "d": "S&P 500"
+              },
+              {
+                "s": "FOREXCOM:NSXUSD",
+                "d": "Nasdaq 100"
+              },
+              {
+                "s": "FOREXCOM:DJI",
+                "d": "Dow 30"
+              },
+              {
+                "s": "INDEX:NKY",
+                "d": "Nikkei 225"
+              },
+              {
+                "s": "INDEX:DEU30",
+                "d": "DAX Index"
+              },
+              {
+                "s": "FOREXCOM:UKXGBP",
+                "d": "UK 100"
+              }
+            ],
+            "originalTitle": "Indices"
+          },
+          {
+            "title": "Commodities",
+            "symbols": [
+              {
+                "s": "CME_MINI:ES1!",
+                "d": "S&P 500"
+              },
+              {
+                "s": "CME:6E1!",
+                "d": "Euro"
+              },
+              {
+                "s": "COMEX:GC1!",
+                "d": "Gold"
+              },
+              {
+                "s": "NYMEX:CL1!",
+                "d": "Crude Oil"
+              },
+              {
+                "s": "NYMEX:NG1!",
+                "d": "Natural Gas"
+              },
+              {
+                "s": "CBOT:ZC1!",
+                "d": "Corn"
+              }
+            ],
+            "originalTitle": "Commodities"
+          },
+          {
+            "title": "Bonds",
+            "symbols": [
+              {
+                "s": "CME:GE1!",
+                "d": "Eurodollar"
+              },
+              {
+                "s": "CBOT:ZB1!",
+                "d": "T-Bond"
+              },
+              {
+                "s": "CBOT:UB1!",
+                "d": "Ultra T-Bond"
+              },
+              {
+                "s": "EUREX:FGBL1!",
+                "d": "Euro Bund"
+              },
+              {
+                "s": "EUREX:FBTP1!",
+                "d": "Euro BTP"
+              },
+              {
+                "s": "EUREX:FGBM1!",
+                "d": "Euro BOBL"
+              }
+            ],
+            "originalTitle": "Bonds"
+          },
+          {
+            "title": "Forex",
+            "symbols": [
+              {
+                "s": "FX:EURUSD"
+              },
+              {
+                "s": "FX:GBPUSD"
+              },
+              {
+                "s": "FX:USDJPY"
+              },
+              {
+                "s": "FX:USDCHF"
+              },
+              {
+                "s": "FX:AUDUSD"
+              },
+              {
+                "s": "FX:USDCAD"
+              }
+            ],
+            "originalTitle": "Forex"
+          }
+        ]
+      }
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+  </div>
+</div>
+
+{% endblock %}

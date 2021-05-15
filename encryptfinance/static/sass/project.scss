@@ -1,0 +1,31 @@
+/* 
+
+  Style By Encrypt Finance (MIT License)
+  ---------------------------------------------
+
+  we are using rem unit to make unit conversion 
+  easy for us all around the site.
+  using 10px would be 1rem = 10px and 2rem = 20px
+  and in reverse 30px = 3rem {30/10}
+
+  default-browser-font-size = 16px
+  my-default-font-size = 10px
+*/
+
+
+
+
+// project specific CSS goes here
+@import 'variables';
+
+@import 'globals';
+@import 'header';
+@import 'sidebar';
+@import 'cta_section';
+@import 'plan_section';
+@import 'news';
+@import 'main_content';
+@import 'footer';
+
+
+

@@ -1,0 +1,83 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block inner %}
+<div class="widget">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card">
+
+        <div class="card-body mb-3">
+          <div class="card-header mb-4">
+            <h1>{% trans "Sign Out" %}</h1>
+          </div>
+
+          <p class="mt-4">{% trans 'Are you sure you want to sign out?' %}</p>
+
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button class="btn btn-block font-weight-bold btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+          </form>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+      <!-- TradingView Widget BEGIN euro-usd-->
+      <div class="tradingview-widget-container mb-2">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {
+        "symbol": "FX:EURUSD",
+        "width": 350,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "locale": "en"
+      }
+        </script>
+      </div>
+      <!-- TradingView Widget END -->   
+      
+      <!-- TradingView Widget BEGIN  bitcoin-usd-->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {
+        "symbol": "FX:BTCUSD",
+        "width": 350,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "locale": "en"
+      }
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+
+
+      <!-- TradingView Widget BEGIN doge-usd-->
+      <div class="tradingview-widget-container mt-2">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+        {
+        "symbol": "",
+        "width": 350,
+        "colorTheme": "light",
+        "isTransparent": false,
+        "locale": "en"
+      }
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+  </div>
+</div>
+{% endblock %}

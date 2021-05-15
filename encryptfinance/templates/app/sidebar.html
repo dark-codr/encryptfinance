@@ -1,0 +1,87 @@
+{% load static i18n %}
+{% url 'dashboard' as dashboard%}
+{% url 'users:detail' request.user.username as user %}
+{% url 'users:update' as update_profile %}
+{% url 'users:verify' request.user.username as verify %}
+{% url 'transactions:withdraw' as withdraw %}
+{% url 'transactions:deposit' as invest %}
+{% url 'transactions:history' as transactions %}
+{% url 'transactions:recover' as recover %}
+{% url 'transactions:support' as support %}
+{% url 'admin:index' as admin %}
+{% url 'transactions:verify' as admin_transactions %}
+
+{% url 'mt5' as mt5 %}
+<input type="checkbox" id="nav-toggle">
+<div class="sidebar py-3">
+    <div class="sidebar-brand">
+        <h6><img src="{% static 'images/logo.png' %}" alt="Logo"><span> Encrypt Finance</span></h6>
+    </div>
+
+    <div class="sidebar-menu">
+      <ul>
+        {% if request.user.is_authenticated %}
+        <li {% if request.path == dashboard %}class="active"{% endif %}>
+          <a href="{% url 'dashboard' %}">
+            <i class="las la-igloo"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <li {% if request.path == user or request.path == update_profile or request.path == "/accounts/email/" %}class="active"{% endif %}>
+          <a href="{{user}}">
+            <i class="las la-user"></i> <span>Account</span>
+          </a>
+        </li>
+        <li {% if request.path == mt5 %}class="active"{% endif %}>
+          <a href="{{mt5}}">
+            <i class="las la-tachometer-alt"></i> <span>MT5 Trader</span>
+          </a>
+        </li>
+        <li {% if request.path == transactions %}class="active"{% endif %}>
+          <a href="{{transactions}}">
+            <i class="las la-wallet"></i> <span>Transactions</span>
+          </a>
+        </li>
+        <li {% if request.path == invest %}class="active"{% endif %}>
+          <a href="{{invest}}">
+            <i class="las la-piggy-bank"></i> <span>Invest</span>
+          </a>
+        </li>
+          {% if request.user.is_verified %}
+        <li {% if request.path == withdraw %}class="active"{% endif %}>
+          <a href="{{withdraw}}">
+            <i class="las la-coins"></i> <span>Withdraw</span>
+          </a>
+        </li>
+        <li {% if request.path == recover %}class="active"{% endif %}>
+          <a href="{{recover}}">
+            <i class="las la-hands-helping"></i> <span>Recover Funds</span>
+          </a>
+        </li>
+        {% else %}
+          <li {% if request.path == verify %}class="active"{% endif %}>
+            <a href="{{verify}}">
+              <i class="las la-certificate"></i> <span>Verify Account</span>
+            </a>
+          </li>
+          {% endif %}
+        {% endif %}
+        <li {% if request.path == support %}class="active"{% endif %}>
+          <a href="{{support}}">
+            <i class="las la-headset"></i> <span>Support</span>
+          </a>
+        </li>
+        {% if request.user.is_superuser %}
+        <li {% if request.path == admin %}class="active"{% endif %}>
+          <a href="{{admin}}">
+            <i class="las la-user-shield"></i> <span>Admin Dashboard</span>
+          </a>
+        </li>
+        <li {% if request.path == admin_transactions %}class="active"{% endif %}>
+          <a href="{{admin_transactions}}">
+            <i class="las la-hand-holding-usd"></i> <span>Verify Transactions</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+</div>

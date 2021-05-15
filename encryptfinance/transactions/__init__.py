@@ -1,0 +1,1 @@
+default_app_config = "encryptfinance.Transactions.apps.TransactionsConfig"

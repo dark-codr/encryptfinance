@@ -1,0 +1,157 @@
+{% load static i18n compress cookie_consent_tags %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Encrypt Finance{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %} Stock Brokerage Investor Website {% endblock %}">
+    <meta name="keywords" content="{% block keywords %} Stock Broker, Investor Website, encrypt finance, bitcoin trading, trading website {% endblock %}">
+    <meta name="author" content="Encrypt Finance">
+    <meta name="color-scheme" content="dark | light">
+
+    <!-- Social Media Metas -->
+    <meta property="author" content="Encrypt Finance">
+    <meta property="og:title" content="Encrypt Finance - Crypto Trading & Investment Platform">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Stock Brokerage Investor Website">
+    <meta property="og:image" content="{% static 'images/logo.png' %}">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:site_name" content="Encrypt Finance - Crypto Trading & Investment Platform">
+    <meta name="twitter:image:alt" content="Encrypt Finance Logo Icon">
+
+    {% if request|cookie_group_accepted:"analytics" %}
+    <!-- social analytics from fb and twitter -->
+    <meta property="fb:app_id" content="">
+    <meta name="twitter:site" content="@encrypt_finance">
+    {% endif %}
+
+
+    <!-- Preconnects to improve performance -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://stackpath.bootstrapcdn.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net/">
+    <link rel="preconnect" href="https://maxst.icons8.com/">
+
+  
+  
+
+    <!-- Favicon for tab bars -->
+    <link rel="shortcut icon" href="{% static 'images/favicons/favicon.ico' %}" type="image/x-icon" sizes="32x32">
+    <link rel="shortcut icon" href="{% static 'images/favicons/favicon.ico' %}" type="image/x-icon" sizes="192x192">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/favicons/favicon.ico' %}" type="image/x-icon">
+
+    {% block css %}
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link
+    href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Public+Sans:wght@300;400&family=Paytone+One&Abril+Fatface&family=Architects+Daughter&family=Montserrat:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,500&display=swap"
+    rel="stylesheet">
+    <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Webicon from icons8 -->
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <link href="{% static 'css/iziToast.min.css' %}" rel="stylesheet">
+
+    {% compress css %}
+    {% include 'app/css.html' %}
+    {% endcompress %}
+
+    {% endblock %}
+    <link rel="canonical" href="/">
+
+
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+    {% block sidebar %}
+    {% endblock %}
+
+    <div class="main-container">
+      {% include 'app/header.html' %}
+      {% block strip %}{% endblock %}
+
+      <main>
+        {% block content %}
+          <p>Use this document as a way to quick start any new project.</p>
+        {% endblock content %}
+      </main>
+
+      {% block wide %}
+      {% endblock %}
+
+        {% include 'app/footer.html' %}      
+      
+
+    </div> <!-- /container -->
+
+    {% block modal %}{% endblock modal %}
+
+    <!-- Le javascript
+    ================================================== -->
+    {# Placed at the top of the document so pages load faster with defer #}
+    {% block javascript %}
+      <!-- Bootstrap JS and its dependencies-->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+      <!-- Your stuff: Third-party javascript libraries go here -->
+
+      <!-- place project specific Javascript in this file -->
+      {% compress js_inline %}
+      <script src="{% static 'js/iziToast.min.js' %}"></script>
+      <script src="{% static 'js/project.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+      <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+      {% endcompress %}
+
+      {% compress js %}
+        {% include 'app/js.html' %}
+      {% endcompress %}
+
+    {% endblock javascript %}
+
+    {% for message in messages %} 
+      <script type=text/javascript>
+        iziToast.settings({
+          timeout: 7000,
+          position: 'bottomRight',
+          drag: true,
+          pauseOnHover: true,
+          transitionIn: 'flipInX',
+          transitionOut: 'flipOutX',
+          transitionInMobile: 'fadeInUp',
+          transitionOutMobile: 'fadeOutDown',
+          close: true,
+          progressBar: true,
+          progressBarEasing: 'ease',
+          icon: 'icone-{{ message.tags }}',
+        });
+        iziToast.{{ message.tags }}({
+          id: '{{ message.tags }}',
+          title: '{{ message.tags|capfirst }}',
+          message: '{{ message }}',
+        });
+      </script>
+    {% endfor %} 
+
+    {% block inline_javascript %}
+
+    {# Script tags with only code, no src (defer by default) #}
+    {% endblock inline_javascript %}
+  </body>
+</html>

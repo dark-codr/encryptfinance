@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}MT5 Trader{% endblock %}
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+<iframe src="https://trade.mql5.com/trade?demo_all_servers=1&amp;startup_mode=open_demo&amp;lang=us&amp;save_password=off" allowfullscreen="allowfullscreen" style="width: 100%; min-height: calc(100vh - 100px); border: none;"></iframe>
+{% endblock %}

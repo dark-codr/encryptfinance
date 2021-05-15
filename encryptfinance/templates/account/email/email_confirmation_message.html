@@ -1,0 +1,21 @@
+{% extends "account/email/base.html" %}
+{% load account i18n %}
+
+{% block subject %}
+{% trans "Confirm E-mail Address" %}
+{% endblock %}
+
+{% block content %}
+{% user_display user as user_display %}
+  <p>
+    {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+      You're receiving this e-mail because user {{ user_display }} has given your e-mail address to register an account on {{ site_domain }}.
+    {% endblocktrans %}
+  </p>
+
+  <p>
+    {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+      To confirm this is correct, go to {{ activate_url }}
+    {% endblocktrans %}
+    </p>
+{% endblock %}

@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block strip %}
+<section id="cta" class="text-center">
+  <div class="action">
+    <img src="{% static 'images/logo.png' %}" alt="Logo Marker">
+    <h3>{% trans 'Trade Stocks and Currencies here' %}</h3>
+    <p>Join the world and trade in the <b class="font-weight-bolder text-warning">No 1. broker and investment
+        platform</b> today</p>
+    <a href="{% url 'account_signup' %}" class="btn btn-warning font-weight-bold">{% trans 'Start Here' %}</a>
+  </div>
+</section>
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container" style="margin-top: -1.8rem; position: relative;">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+      "symbols": [
+        {
+          "proName": "FOREXCOM:SPXUSD",
+          "title": "S&P 500"
+        },
+        {
+          "proName": "FOREXCOM:NSXUSD",
+          "title": "Nasdaq 100"
+        },
+        {
+          "proName": "FX_IDC:EURUSD",
+          "title": "EUR/USD"
+        },
+        {
+          "proName": "BITSTAMP:BTCUSD",
+          "title": "BTC/USD"
+        },
+        {
+          "proName": "BITSTAMP:ETHUSD",
+          "title": "ETH/USD"
+        }
+      ],
+        "showSymbolLogo": true,
+          "colorTheme": "light",
+            "isTransparent": false,
+              "displayMode": "adaptive",
+                "locale": "en"
+    }
+  </script>
+</div>
+<!-- TradingView Widget END -->
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+{% include 'app/dashboard-cards.html' %}
+{% endif %}
+{% include 'app/economic-calendar.html' %}
+{% endblock %}
+
+{% block wide %}
+<section class="card" style="width:100%;">
+  <div class="widget">
+    <div class="card-body text-center"
+      style="height: 350px; background-image: url('{% static 'images/bg/tading.jpg' %}'); background-repeat:no-repeat; background-position: center;">
+      <div style="width:50%;" class="mx-auto my-auto">
+        <h4>Trade anywhere</h4>
+        <p>We have ensured our platform displays perfectly well with multiple devices, making it easy for you to start
+          trading with safety and convenience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrapper">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card text-white card-has-bg click-col"
+          style="background-image:url('https://unsplash.com/photos/N__BnvQ_w18');">
+          <img class="card-img d-none" src="https://unsplash.com/photos/N__BnvQ_w18"
+            alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <small class="card-meta mb-2">Daily Plan</small>
+              <h4 class="card-title mt-0 "><a class="text-white" herf="#">Enjoy a <small class="text-warning">30% ROI</small></a></h4>
+              <small><i class="las la-calendar text-white"></i> contract duration: <b>Daily</b> </small>
+            </div>
+
+            <div class="my-4 mx-auto text-center">
+              <div class="text-center">
+                <h4 class="text-white">$ 100 <small class="text-warning">Min</small></h4>
+                <br>
+                <h4 class="text-white">$ 500 <small class="text-warning">Max</small></h4>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="media">
+                 <div class="mr-3 rounded-circle bg-warning p-2">
+                  <i class="las la-coins" style="font-size:2rem;"></i>
+                 </div> 
+                 <div class="media-body">
+                  
+                  <a href="{% url 'transactions:deposit' %}" class="btn btn-warning font-weight-bold mt-2">Invest</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card text-white card-has-bg click-col"
+          style="background-image:url('https://unsplash.com/photos/N__BnvQ_w18');">
+          <img class="card-img d-none" src="https://unsplash.com/photos/N__BnvQ_w18"
+            alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <small class="card-meta mb-2">Silver Plan</small>
+              <h4 class="card-title mt-0 "><a class="text-white" herf="#">Enjoy <small class="text-warning">300% ROI</small></a></h4>
+              <small><i class="las la-calendar text-white"></i> contract duration: <b>14 Days</b> </small>
+            </div>
+
+            <div class="my-4 mx-auto text-center">
+              <div class="text-center">
+                <h4 class="text-white">$ 1000 <small class="text-warning">Min</small></h4>
+                <br>
+                <h4 class="text-white">$ 4000 <small class="text-warning">Max</small></h4>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="media">
+                 <div class="mr-3 rounded-circle bg-warning p-2">
+                  <i class="las la-coins" style="font-size:2rem;"></i>
+                 </div> 
+                 <div class="media-body">
+                  
+                  <a href="{% url 'transactions:deposit' %}" class="btn btn-warning font-weight-bold mt-2">Invest</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="card text-white card-has-bg click-col"
+          style="background-image:url('https://unsplash.com/photos/N__BnvQ_w18');">
+          <img class="card-img d-none" src="https://unsplash.com/photos/N__BnvQ_w18"
+            alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <small class="card-meta mb-2">Gold Plan</small>
+              <h4 class="card-title mt-0 "><a class="text-white" herf="#">Enjoy <small class="text-warning">500% ROI</small></a></h4>
+              <small><i class="las la-calendar text-white"></i> contract duration: <b>60 Days</b> </small>
+            </div>
+
+            <div class="my-4 mx-auto text-center">
+              <div class="text-center">
+                <h4 class="text-white">$ 4000 <small class="text-warning">Min</small></h4>
+                <br>
+                <h4 class="text-white">$ 50000 <small class="text-warning">Max</small></h4>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="media">
+                 <div class="mr-3 rounded-circle bg-warning p-2">
+                  <i class="las la-coins" style="font-size:2rem;"></i>
+                 </div> 
+                 <div class="media-body">
+                  
+                  <a href="{% url 'transactions:deposit' %}" class="btn btn-warning font-weight-bold mt-2">Invest</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card text-white card-has-bg click-col"
+          style="background-image:url('https://unsplash.com/photos/N__BnvQ_w18');">
+          <img class="card-img d-none" src="https://unsplash.com/photos/N__BnvQ_w18"
+            alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body">
+              <small class="card-meta mb-2">Diamond Plan</small>
+              <h4 class="card-title mt-0 "><a class="text-white" herf="#">Enjoy <small class="text-warning">700% ROI</small></a></h4>
+              <small><i class="las la-calendar text-white"></i> contract duration: <b>90 Days</b> </small>
+            </div>
+
+            <div class="my-4 mx-auto text-center">
+              <div class="text-center">
+                <h4 class="text-white">$ 50000 <small class="text-warning">Min</small></h4>
+                <br>
+                <h4 class="text-white">$ 100000 <small class="text-warning">Max</small></h4>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="media">
+                 <div class="mr-3 rounded-circle bg-warning p-2">
+                  <i class="las la-coins" style="font-size:2rem;"></i>
+                 </div> 
+                 <div class="media-body">
+                  
+                  <a href="{% url 'transactions:deposit' %}" class="btn btn-warning font-weight-bold mt-2">Invest</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="news">
+  <main class="widget">
+    <div class="h1 text-center" id="pageHeaderTitle">News Trends</div>
+  
+    <article class="postcard blue">
+      <a class="postcard__img_link" href="#">
+        <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+      </a>
+      <div class="postcard__text">
+        <h1 class="postcard__title blue"><a href="#">Podcast Title</a></h1>
+        <div class="postcard__subtitle small">
+          <time datetime="2020-05-25 12:00:00">
+            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+          </time>
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+          <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+          <li class="tag__item play blue">
+            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+          </li>
+        </ul>
+      </div>
+    </article>
+    <article class="postcard red">
+      <a class="postcard__img_link" href="#">
+        <img class="postcard__img" src="https://picsum.photos/500/502" alt="Image Title" />	
+      </a>
+      <div class="postcard__text">
+        <h1 class="postcard__title red"><a href="#">Podcast Title</a></h1>
+        <div class="postcard__subtitle small">
+          <time datetime="2020-05-25 12:00:00">
+            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+          </time>
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+          <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+          <li class="tag__item play red">
+            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+          </li>
+        </ul>
+      </div>
+    </article>
+    <article class="postcard green">
+      <a class="postcard__img_link" href="#">
+        <img class="postcard__img" src="https://picsum.photos/502/502" alt="Image Title" />
+      </a>
+      <div class="postcard__text">
+        <h1 class="postcard__title green"><a href="#">Podcast Title</a></h1>
+        <div class="postcard__subtitle small">
+          <time datetime="2020-05-25 12:00:00">
+            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+          </time>
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+          <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+          <li class="tag__item play green">
+            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+          </li>
+        </ul>
+      </div>
+    </article>
+    <article class="postcard yellow">
+      <a class="postcard__img_link" href="#">
+        <img class="postcard__img" src="https://picsum.photos/501/501" alt="Image Title" />
+      </a>
+      <div class="postcard__text">
+        <h1 class="postcard__title yellow"><a href="#">Podcast Title</a></h1>
+        <div class="postcard__subtitle small">
+          <time datetime="2020-05-25 12:00:00">
+            <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+          </time>
+        </div>
+        <div class="postcard__bar"></div>
+        <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim quidem excepturi, illum quos!</div>
+        <ul class="postcard__tagbox">
+          <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+          <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+          <li class="tag__item play yellow">
+            <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+          </li>
+        </ul>
+      </div>
+    </article>
+  </main>
+</section>
+
+{% endblock %}

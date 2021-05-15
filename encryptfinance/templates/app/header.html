@@ -1,0 +1,33 @@
+{% load static i18n %}
+<!--========== HEADER ==========-->
+<header class="header">
+  <h5 class="header-title">
+    <label for="nav-toggle">
+      <i class="las la-bars"></i> <span id="slpls">Dashboard</span>
+    </label>
+  </h5>
+  <div id="r-nav">
+    <nav class="mr-3">
+      {% if not request.user.is_authenticated%}
+      <a href="{% url 'account_login' %}" class="btn btn-login ">Login</a>
+      <a href="{% url 'account_signup' %}" class="btn btn-signup ">Signup</a>
+      {% endif %}
+
+      {% if request.user.is_authenticated%}
+      <a href="{% url 'users:detail' request.user.username  %}" class="btn btn-login ">Profile</a>
+      <a href="{% url 'account_logout' %}" class="btn btn-signup ">Logout</a>
+      {% endif %}
+    </nav>
+    {% if request.user.is_authenticated %}
+    <div class="user-wrapper">
+      <img src="{% if request.user.userprofile.passport %}{{request.user.userprofile.passport.url}}{% else %}{% static 'images/user.png' %}{% endif %}" width="30px" height="30px" alt="{{request.user.get_full_name}} Passport">
+      <div class="user-pill">
+        <h6>{{request.user.get_full_name|capfirst}}</h6>
+        <!-- <p><small><span><b>PLAN</b></span> {{request.user.plan}}</small></p> -->
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</header>
+
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard: {{ object.username }}{% endblock %}
+
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+{% include 'app/dashboard-cards.html' %}
+{% include 'app/economic-calendar.html' %}
+{% endblock %}

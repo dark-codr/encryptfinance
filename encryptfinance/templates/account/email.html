@@ -1,0 +1,105 @@
+
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+{% trans "Account" %}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'app/set_sidebar.html' %}
+{% endblock %}
+
+{% block inner %}
+<div class="widget">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+
+        <div class="card-body mb-3">
+          <div class="card-header mb-4">
+            <h1>{% trans "E-mail Addresses" %}</h1>
+          </div>
+
+          {% if user.emailaddress_set.all %}
+          <p class="mt-4">{% trans 'The following e-mail addresses are associated with your account:' %}</p>
+
+          <form action="{% url 'account_email' %}" class="email_list mb-5" method="post">
+          {% csrf_token %}
+          <fieldset class="blockLabels">
+
+            {% for emailaddress in user.emailaddress_set.all %}
+            <div class="radio">
+              <label for="email_radio_{{forloop.counter}}" class="{% if emailaddress.primary %}primary_email{%endif%}">
+                <table class="table table-borderless">
+                  <tbody>
+                    <th scope="row">
+                      <input class="mr-2" id="email_radio_{{forloop.counter}}" type="radio" name="email" {% if emailaddress.primary or user.emailaddress_set.count == 1 %}checked="checked"{%endif %} value="{{emailaddress.email}}"/>
+                    {{ emailaddress.email }}
+                    </th>
+                    <th>
+                      {% if emailaddress.verified %}
+                      <span class="verified font-weight-bold text-success">{% trans "Verified" %}</span>
+                      {% else %}
+                      <span class="unverified font-weight-bold text-danger">{% trans "Unverified" %}</span>
+                      {% endif %}
+                      {% if emailaddress.primary %}| <span class="primary text-primary">{% trans "Primary" %}</span>{% endif %}
+                    </th>
+                  </tbody>
+                </table>
+              </label>
+            </div>
+            {% endfor %}
+
+          <div class="form-group">
+                <button class="secondaryAction btn btn-block btn-primary font-weight-bold" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
+                <button class="secondaryAction btn btn-block btn-warning" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
+                <button class="primaryAction btn btn-block btn-danger font-weight-bold" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+          </div>
+
+          </fieldset>
+          </form>
+
+          {% else %}
+          <div class="card text-white bg-danger">
+            <p><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p>
+          </div>
+          {% endif %}
+
+            <div class="card-header mb-3">
+              <h4>{% trans "Add New E-mail Address" %}</h4>
+            </div>
+
+              <form method="post" action="{% url 'account_email' %}" class="add_email">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <button class="btn btn-block font-weight-bold btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
+              </form>
+          </div>
+          </div>
+          </div>
+          </div>
+</div>
+{% endblock %}
+
+
+{% block inline_javascript %}
+{{ block.super }}
+<script type="text/javascript">
+window.addEventListener('DOMContentLoaded',function() {
+  const message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+  const actions = document.getElementsByName('action_remove');
+  if (actions.length) {
+    actions[0].addEventListener("click", function(e) {
+      if (!confirm(message)) {
+        e.preventDefault();
+      }
+    });
+  }
+});
+
+$('.form-group').removeClass('row');
+</script>
+{% endblock %}

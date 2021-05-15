@@ -1,0 +1,39 @@
+{% load static i18n %}
+{% url 'dashboard' as dashboard%}
+{% url 'users:detail' request.user.username as user %}
+{% url 'users:update' as update_profile %}
+{% url 'account_change_password' as res_password %}
+{% url 'transactions:support' as support %}
+
+<div class="sidebar py-3">
+    <div class="sidebar-brand">
+        <h6><span><img src="{% static 'images/logo.png' %}" alt=""></span> Encrypt Finance</h6>
+    </div>
+
+    <div class="sidebar-menu">
+      <ul>
+        {% if request.user.is_authenticated %}
+        <li {% if request.path == dashboard %}class="active"{% endif %}>
+          <a href="{% url 'dashboard' %}">
+            <i class="las la-igloo"></i> Dashboard
+          </a>
+        </li>
+        <li {% if request.path == user or request.path == update_profile or request.path == "/accounts/email/" %}class="active"{% endif %}>
+          <a href="{{user}}">
+            <i class="las la-user"></i> Account
+          </a>
+        </li>
+        <li {% if request.path == res_password %}class="active"{% endif %}>
+          <a href="{{res_password}}">
+            <i class="las la-key"></i> Password Change
+          </a>
+        </li>
+        {% endif %}
+        <li {% if request.path == support %}class="active"{% endif %}>
+          <a href="{{support}}">
+            <i class="las la-headset"></i> Support
+          </a>
+        </li>
+      </ul>
+    </div>
+</div>

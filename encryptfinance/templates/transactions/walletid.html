@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags static %}
+
+{% block title %}Copy Wallet ID | {{ request.user.username }}{% endblock %}
+
+{% block sidebar %}
+{% include 'app/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="widget">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+
+        <div class="card-body mb-3">
+          <div class="card-header">
+            <h3>Copy Wallet ID</h3>
+          </div>
+
+          <div class="mt-4">
+            {% if walletid %}
+              <p class="login-box-msg" ><strong class="text-bold text-success">Your payment is pending.</strong><br>"copy the wallet id to complete your transactions and paste when making payments with bitcoin mobile applications like Luno, Blockchain etc or place the QR Code in front of a bitcoin ATM Machine".</p>
+
+              <div class="mb-3 text-center">
+                <img class="img-fluid center" src="{% if walletid.qrcode %}{{walletid.qrcode.url}}{% else %}{% static 'images/default-avatar.png' %}{% endif %}" alt="QR CODE">
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" id="copyItem" class="form-control" readonly placeholder="" aria-label="" aria-describedby="basic-addon1" value="{{walletid.walletID}}">
+
+                <div class="input-group-append">
+                    <button class="btn btn-outline-warding" data-toggle="tooltip" title="Copy Text" type="button" onclick="copyFunction()" id="copyButton"><i class="las la-copy"></i></button>
+                </div>
+              </div>
+            {% else %}
+            <p class="text-danger text-bold text-center">WE ARE EXPERIENCING TECHNICALITIES. PLEASE TRY AGAIN LATER</p>
+            {% endif %}
+
+            <a class="btn btn-warning font-weight-bold btn-block" href="{% url 'users:detail' request.user.username %}">DONE</a>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div> 
+{% endblock %}
+
+{% block inline_javascript %}
+<script>
+    function copyFunction() {
+    /* Get the text field */
+    var copyText = document.getElementById("copyItem");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    var tooltip = document.getElementById("copyButton");
+    tooltip.title = "Copied: " + copyText.value;
+
+    /* Alert the copied text */
+    // alert("Copied WalletID: " + copyText.value);
+    }
+</script>
+{% endblock %}
