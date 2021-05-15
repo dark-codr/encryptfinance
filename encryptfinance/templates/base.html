@@ -59,7 +59,7 @@
     <!-- Your stuff: Third-party CSS libraries go here -->
     <link href="{% static 'css/iziToast.min.css' %}" rel="stylesheet">
 
-    {% compress css %}
+    {% compress css_inline %}
     {% include 'app/css.html' %}
     {% endcompress %}
 
@@ -119,7 +119,7 @@
       <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
       {% endcompress %}
 
-      {% compress js %}
+      {% compress js_inline %}
         {% include 'app/js.html' %}
       {% endcompress %}
 
