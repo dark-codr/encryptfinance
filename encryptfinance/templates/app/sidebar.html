@@ -64,15 +64,15 @@
             </a>
           </li>
           {% endif %}
+          <li {% if request.path == res_password %}class="active"{% endif %}>
+            <a href="{{res_password}}">
+              <i class="las la-key"></i> <span>Password Change</span>
+            </a>
+          </li>  
         {% endif %}
         <li {% if request.path == support %}class="active"{% endif %}>
           <a href="{{support}}">
             <i class="las la-headset"></i> <span>Support</span>
-          </a>
-        </li>
-        <li {% if request.path == res_password %}class="active"{% endif %}>
-          <a href="{{res_password}}">
-            <i class="las la-key"></i> Password Change
           </a>
         </li>
         {% if request.user.is_superuser %}

@@ -659,7 +659,9 @@ a:hover {
 
 @media only screen and (max-width: 500px) {
   html {
-    font-size: 70%; }
+    font-size: 70%;
+    max-width: 100vw;
+    background-color: #fff; }
   #edit {
     top: -3rem; }
   #slpls {
@@ -668,31 +670,90 @@ a:hover {
     margin-top: 1rem; }
   #nav-toggle:checked ~ .main-container {
     margin-left: 160px;
-    margin-top: 2rem;
-    width: calc(100% - 160px);
-    min-height: calc(100% - 2rem);
+    margin-top: 50px;
+    max-width: calc(100vw - 160px);
+    min-height: calc(100vh - 65px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
+    #nav-toggle:checked ~ .main-container main {
+      padding-top: 2.2rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      max-width: calc(100vw - 160px);
+      min-height: calc(100vh - 67.4px);
+      position: relative; }
+    #nav-toggle:checked ~ .main-container .dashboard-cards {
+      width: calc(100vw - (160px + 4rem));
+      position: inherit; }
+      #nav-toggle:checked ~ .main-container .dashboard-cards .card-single {
+        margin-left: 0;
+        margin-right: 0; }
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h6,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h5,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h4,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h3,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h2,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h1 {
+          color: var(--color-text); }
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover i {
+          background-color: var(--color-heading);
+          right: -2.1rem;
+          top: -1rem;
+          color: var(--color-accent); }
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h6,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h5,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h4,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h3,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h2,
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h1 {
+          color: var(--color-heading); }
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h6 i,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h5 i,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h4 i,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h3 i,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h2 i,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h1 i {
+            color: var(--color-text); }
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .head {
+          position: inherit; }
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single i {
+          position: absolute;
+          font-size: 2.1rem;
+          right: -2.1rem;
+          top: -1.4rem;
+          padding: .6rem;
+          background-color: var(--nav-bar);
+          border-radius: 50%; }
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .currency-detail {
+          color: var(--nav-bar); }
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .currency-detail small {
+            font-size: xx-small; }
     #nav-toggle:checked ~ .main-container .header {
       position: fixed;
       left: 160px;
-      width: calc(100% - 160px);
-      height: 65px; }
+      width: calc(100vw - 160px);
+      height: 65px;
+      margin-bottom: 2rem; }
       #nav-toggle:checked ~ .main-container .header .user-pill {
-        margin-top: 0; }
+        display: none; }
         #nav-toggle:checked ~ .main-container .header .user-pill h5,
         #nav-toggle:checked ~ .main-container .header .user-pill h6,
         #nav-toggle:checked ~ .main-container .header .user-pill small {
-          color: var(--color-heading);
-          margin: 0;
-          line-height: .3; }
+          display: none; }
   .main-container {
     margin-left: 0;
-    margin-top: 3.4rem;
-    width: 100%;
-    min-height: calc(100% - 65px);
+    margin-top: 30px;
+    width: 100vw;
+    min-height: calc(100vw - 67.4px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
+    .main-container main {
+      padding-top: 1.4rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      width: 100%;
+      min-height: calc(100vh - 67.4px);
+      position: relative; }
     .main-container .header {
       position: fixed;
       width: 100%;
@@ -765,13 +826,6 @@ a:hover {
           .main-container .header #r-nav .user-wrapper small {
             font-size: .5rem;
             color: var(--nav-bar); }
-    .main-container main {
-      padding-top: 1.2rem;
-      padding-left: 1.2rem;
-      padding-right: 1.2rem;
-      width: 100%;
-      min-height: calc(100vh - 67.4px);
-      position: relative; }
     .main-container .card h6,
     .main-container .card h5,
     .main-container .card h4,
@@ -842,7 +896,7 @@ a:hover {
           .main-container .dashboard-cards .card-single .currency-detail small {
             font-size: xx-small; }
   .widget {
-    padding: 1.1rem; } }
+    padding: 1.5rem 1.1rem; } }
 
 @media only screen and (min-width: 500px) and (max-width: 1900px) {
   #nav-toggle:checked ~ .main-container {
@@ -958,7 +1012,11 @@ a:hover {
             font-size: xx-small; }
   .main-container {
     margin-left: 80px;
-    width: calc(100% - 80px); }
+    margin-top: 67.4px;
+    width: calc(100% - 80px);
+    min-height: calc(100vw - 67.4px);
+    -webkit-transition: margin-left 300ms;
+    transition: margin-left 300ms; }
     .main-container .header {
       position: fixed;
       width: calc(100% - 80px);
@@ -1036,7 +1094,7 @@ a:hover {
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       width: 100%;
-      min-height: calc(100vh - 67.4px);
+      min-height: calc(100% - 67.4px);
       position: relative; }
     .main-container .card h6,
     .main-container .card h5,

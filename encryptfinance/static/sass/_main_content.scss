@@ -3,6 +3,9 @@
 @media only screen and (max-width: 500px) {
   html {
     font-size: 70%;
+    max-width: 100vw;
+    background-color: #fff;
+
   }
 
   #edit {
@@ -19,28 +22,101 @@
 
   #nav-toggle:checked~.main-container {
     margin-left: 160px;
-    margin-top: 2rem;
-    width: calc(100% - 160px);
-    min-height: calc(100% - 2rem);
+    margin-top: 50px;
+    max-width: calc(100vw - 160px);
+    min-height: calc(100vh - 65px);
     transition: margin-left 300ms;
 
+    main {
+      padding-top: 2.2rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      max-width: calc(100vw - 160px);
+      min-height: calc(100vh - 67.4px);
+      position: relative;
+    }
 
+    .dashboard-cards {
+      width: calc(100vw - (160px + 4rem));
+      position: inherit;
+
+      .card-single {
+        margin-left: 0;
+        margin-right: 0;
+
+        .card {
+          &:hover {
+
+            h6,
+            h5,
+            h4,
+            h3,
+            h2,
+            h1 {
+              color: var(--color-text);
+            }
+
+            i {
+              background-color: var(--color-heading);
+              right: -2.1rem;
+              top: -1rem;
+              color: var(--color-accent);
+            }
+
+          }
+
+          h6,
+          h5,
+          h4,
+          h3,
+          h2,
+          h1 {
+            color: var(--color-heading);
+
+            i {
+              color: var(--color-text);
+            }
+          }
+        }
+
+        .head {
+          position: inherit;
+        }
+
+        i {
+          position: absolute;
+          font-size: 2.1rem;
+          right: -2.1rem;
+          top: -1.4rem;
+          padding: .6rem;
+          background-color: var(--nav-bar);
+          border-radius: 50%;
+        }
+
+        .currency-detail {
+          color: var(--nav-bar);
+
+          small {
+            font-size: xx-small;
+          }
+        }
+      }
+    }
 
     .header {
       position: fixed;
       left: 160px;
-      width: calc(100% - 160px);
+      width: calc(100vw - 160px);
       height: 65px;
+      margin-bottom: 2rem;
 
       .user-pill {
-        margin-top: 0;
+        display: none;
 
         h5,
         h6,
         small {
-          color: var(--color-heading);
-          margin: 0;
-          line-height: .3;
+          display: none;
         }
       }
     }
@@ -48,10 +124,21 @@
 
   .main-container {
     margin-left: 0;
-    margin-top: 3.4rem;
-    width: 100%;
-    min-height: calc(100% - 65px);
+    margin-top: 30px;
+    width: 100vw;
+    min-height: calc(100vw - 67.4px);
     transition: margin-left 300ms;
+
+
+
+    main {
+      padding-top: 1.4rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      width: 100%;
+      min-height: calc(100vh - 67.4px);
+      position: relative;
+    }
 
     //  Header
     .header {
@@ -68,7 +155,6 @@
       z-index: 100;
       transition: left 300ms;
       top: 0;
-
 
       .user-pill {
         margin-top: 0;
@@ -137,15 +223,6 @@
         }
       }
 
-    }
-
-    main {
-      padding-top: 1.2rem;
-      padding-left: 1.2rem;
-      padding-right: 1.2rem;
-      width: 100%;
-      min-height: calc(100vh - 67.4px);
-      position: relative;
     }
 
     .card {
@@ -258,7 +335,7 @@
 
 
   .widget {
-    padding: 1.1rem;
+    padding: 1.5rem 1.1rem;
   }
 }
 
@@ -418,7 +495,10 @@
 
   .main-container {
     margin-left: 80px;
+    margin-top: 67.4px;
     width: calc(100% - 80px);
+    min-height: calc(100vw - 67.4px);
+    transition: margin-left 300ms;
 
     //  Header
     .header {
@@ -511,7 +591,7 @@
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       width: 100%;
-      min-height: calc(100vh - 67.4px);
+      min-height: calc(100% - 67.4px);
       position: relative;
     }
 

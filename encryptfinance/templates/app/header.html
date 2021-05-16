@@ -20,7 +20,7 @@
     {% if request.user.is_authenticated %}
     <div class="user-wrapper">
       <a href="{% url 'users:detail' request.user.username  %}">
-      <img src="{% if request.user.userprofile.passport %}{{request.user.userprofile.passport.url}}{% else %}{% static 'images/user.png' %}{% endif %}" width="30px" height="30px" alt="{{request.user.get_full_name}} Passport">
+      <img src="{% if request.user.userprofile %}{{request.user.userprofile.passport.url}}{% else %}{% static 'images/user.png' %}{% endif %}" width="30px" height="30px" alt="{{request.user.get_full_name}} Passport">
       </a>
       <div class="user-pill">
         <h6>{% if not request.user.get_full_name %}{{request.user.username|capfirst}}{% else %}{{request.user.get_full_name|capfirst}}{% endif %}</h6>
