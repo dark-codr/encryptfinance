@@ -4,10 +4,20 @@
 {% url 'users:update' as update_profile %}
 {% url 'account_change_password' as res_password %}
 {% url 'transactions:support' as support %}
+{% url 'users:verify' request.user.username as verify %}
+{% url 'transactions:withdraw' as withdraw %}
+{% url 'transactions:deposit' as invest %}
+{% url 'transactions:history' as transactions %}
+{% url 'transactions:recover' as recover %}
+{% url 'transactions:support' as support %}
+{% url 'admin:index' as admin %}
+{% url 'transactions:verify' as admin_transactions %}
 
+{% url 'mt5' as mt5 %}
+<input type="checkbox" id="nav-toggle">
 <div class="sidebar py-3">
     <div class="sidebar-brand">
-        <h6><span><img src="{% static 'images/logo.png' %}" alt=""></span> Encrypt Finance</h6>
+        <h6><img src="{% static 'images/logo.png' %}" alt="Logo"><span> Encrypt Finance</span></h6>
     </div>
 
     <div class="sidebar-menu">
@@ -15,7 +25,7 @@
         {% if request.user.is_authenticated %}
         <li {% if request.path == dashboard %}class="active"{% endif %}>
           <a href="{% url 'dashboard' %}">
-            <i class="las la-igloo"></i> Dashboard
+            <i class="las la-igloo"></i> <span>Dashboard</span>
           </a>
         </li>
         <li {% if request.path == user or request.path == update_profile or request.path == "/accounts/email/" %}class="active"{% endif %}>
