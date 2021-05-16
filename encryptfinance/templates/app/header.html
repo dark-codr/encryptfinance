@@ -9,18 +9,18 @@
   <div id="r-nav">
     <nav class="mr-3">
       {% if not request.user.is_authenticated%}
-      <a href="{% url 'account_login' %}" class="btn btn-login ">Login</a>
-      <a href="{% url 'account_signup' %}" class="btn btn-signup ">Signup</a>
+      <a href="{% url 'account_login' %}" class="btn btn-login font-weight-bold ">Login</a>
+      <a href="{% url 'account_signup' %}" class="btn btn-signup font-weight-bold ">Signup</a>
       {% endif %}
 
       {% if request.user.is_authenticated%}
-      <a href="{% url 'account_logout' %}" class="btn btn-signup ">Logout</a>
+      <a href="{% url 'account_logout' %}" class="btn btn-signup font-weight-bold ">Logout</a>
       {% endif %}
     </nav>
     {% if request.user.is_authenticated %}
     <div class="user-wrapper">
       <a href="{% url 'users:detail' request.user.username  %}">
-      <img src="{% if request.user.userprofile %}{{request.user.userprofile.passport.url}}{% else %}{% static 'images/user.png' %}{% endif %}" width="30px" height="30px" alt="{{request.user.get_full_name}} Passport">
+      <img src="{% if not request.user.userprofile.passport %}{% static 'images/user.png' %}{% else %}{{request.user.userprofile.passport.url}}{% endif %}" width="30px" height="30px" alt="{{request.user.get_full_name}} Passport">
       </a>
       <div class="user-pill">
         <h6>{% if not request.user.get_full_name %}{{request.user.username|capfirst}}{% else %}{{request.user.get_full_name|capfirst}}{% endif %}</h6>
