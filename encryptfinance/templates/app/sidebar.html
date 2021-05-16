@@ -70,6 +70,11 @@
             <i class="las la-headset"></i> <span>Support</span>
           </a>
         </li>
+        <li {% if request.path == res_password %}class="active"{% endif %}>
+          <a href="{{res_password}}">
+            <i class="las la-key"></i> Password Change
+          </a>
+        </li>
         {% if request.user.is_superuser %}
         <li {% if request.path == admin %}class="active"{% endif %}>
           <a href="{{admin}}">
