@@ -840,7 +840,9 @@ a:hover {
         .main-container .dashboard-cards .card-single .currency-detail {
           color: var(--nav-bar); }
           .main-container .dashboard-cards .card-single .currency-detail small {
-            font-size: xx-small; } }
+            font-size: xx-small; }
+  .widget {
+    padding: 1.1rem; } }
 
 @media only screen and (min-width: 500px) and (max-width: 1900px) {
   #nav-toggle:checked ~ .main-container {
@@ -1104,11 +1106,9 @@ a:hover {
         .main-container .dashboard-cards .card-single .currency-detail {
           color: var(--nav-bar); }
           .main-container .dashboard-cards .card-single .currency-detail small {
-            font-size: xx-small; } }
-
-.widget {
-  padding: 0 12.8px;
-  padding: 0 .8rem; }
+            font-size: xx-small; }
+  .widget {
+    padding: 1.1rem; } }
 
 .kilimanjaro_area {
   position: relative;

@@ -24,7 +24,7 @@
     min-height: calc(100% - 2rem);
     transition: margin-left 300ms;
 
-    
+
 
     .header {
       position: fixed;
@@ -256,6 +256,10 @@
     }
   }
 
+
+  .widget {
+    padding: 1.1rem;
+  }
 }
 
 @media only screen and (min-width: 500px) and (max-width: 1900px) {
@@ -618,8 +622,8 @@
       }
     }
   }
-}
 
-.widget {
-  padding: 0 .8rem;
+  .widget {
+    padding: 1.1rem;
+  }
 }
