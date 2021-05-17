@@ -4,17 +4,18 @@
 <div class="container">
   <div class="demo">
     <div class="container">
+        <h3 class="text-center mb-3">Testimonials</h3>
         <div class="row">
             <div class="col-md-12">
                 <div id="testimonial-slider" class="owl-carousel">
-                    {% for test in recent_testimonial %}
+                    {% for test in recent_testimonials %}
                     <div class="testimonial">
                         <span class="las la-quote-left"></span>
                         <p class="description">
                             {{test.desc}}
                         </p>
                         <div class="testimonial-content">
-                            <div class="pic"><img src="{{test.pic.url}}" alt=""></div>
+                            <div class="pic"><img src="{{test.pic.url}}" width="70" alt=""></div>
                             <h3 class="title">{{test.name}}</h3>
                             <span class="post">{{test.created}}</span>
                         </div>

@@ -8,13 +8,14 @@ from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 
 from encryptfinance.users.forms import UserChangeForm, UserCreationForm, UserProfileForm, UserVerifyForm
-from encryptfinance.users.models import UserProfile, UserVerify
+from encryptfinance.users.models import UserProfile, UserVerify, Testimonial
 
 
 from ..utils.export_as_csv import ExportCsvMixin
 
 User = get_user_model()
 
+admin.site.register(Testimonial)
 admin.site.register(UserProfile)
 admin.site.register(UserVerify)
 

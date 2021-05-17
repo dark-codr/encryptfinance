@@ -3,7 +3,7 @@
 <header class="header">
   <h5 class="header-title">
     <label for="nav-toggle">
-      <i class="las la-bars"></i> <span id="slpls"><a href="{% url 'home' %}">EncryptFinance</a></span>
+      <i class="las la-bars mr-4"></i> <span id="slpls"><a href="{% url 'home' %}">EncryptFinance</a></span>
     </label>
   </h5>
   <div id="r-nav">
@@ -19,8 +19,8 @@
     </nav>
     {% if request.user.is_authenticated %}
     <div class="user-wrapper">
-      <div class="user-pill">
-        <h6>{% if not request.user.get_full_name %}{{request.user.username|capfirst}}{% else %}{{request.user.get_full_name|capfirst}}{% endif %}</h6>
+      <div class="user-pill text-center">
+        <h6>{% if not request.user.get_full_name %}{{request.user.username|capfirst}}{% else %}{{request.user.get_initials|capfirst}}{% endif %}</h6>
         <!-- <p><small><span><b>PLAN</b></span> {{request.user.plan}}</small></p> -->
       </div>
     </div>

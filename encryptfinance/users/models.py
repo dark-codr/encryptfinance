@@ -98,6 +98,13 @@ class User(AbstractUser):
     has_deposited = BooleanField(default=False)
     deposit_date = DateField(default=datetime.datetime.now, null=True, blank=True)
 
+
+    def get_initials(self):
+        fname = self.first_name[0].upper()
+        lname = self.last_name[0].upper()
+        return f"{fname} {lname}"
+
+
     @property
     def plan(self):
         if self.balance > 0.00 and self.balance <= 1000.00:
@@ -465,7 +472,7 @@ class UserVerify(TimeStampedModel):
 class Testimonial(TimeStampedModel):
     name = CharField(_("Testimonial Giver's Name"), max_length=500, null=True, blank=False)
     desc = TextField(_("Testimonial description"), max_length=1200, null=True, blank=False)
-    id_back = ImageField(
+    pic = ImageField(
         _("Testimonial Sender Image"),
         upload_to=testimonial_image,
         null=True,
