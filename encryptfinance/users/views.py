@@ -41,7 +41,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = User
     form_class = UserPersonalForm
-    # second_form_class = UserProfileForm
+    second_form_class = UserProfileForm
     template_name = 'users/user_form.html'
     success_message = _("Your personal information was successfully updated")
     slug_field = "username"
@@ -50,22 +50,31 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_url(self):
         return self.request.user.get_absolute_url()  # type: ignore [union-attr]
 
-    # def get_object(self):
-    #     if self.second_form_class(self.request.GET, instance=self.request.user.userprofile):
-    #         return self.second_form_class
-    #     elif self.form_class(self.request.GET, instance=self.request.user):
-    #         return self.form_class
+    def get_object(self):
+        self.user = self.request.user
+        self.user.userprofile = self.request.user.userprofile
+        return super().get_object()
 
+    def get(self, request, *args, **kwargs):
+        self.user = request.user
+        self.user.userprofile = request.user.userprofile
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["profileform"] = self.second_form_class(self.request.POST, self.request.FILES, instance=self.request.user)
+        return context
+    
 
     def form_valid(self, form):
         form = self.form_class(self.request.POST, instance=self.request.user)
-        # profileform = self.second_form_class(self.request.POST, self.request.FILES, instance=self.request.user.userprofile)
+        profileform = self.second_form_class(self.request.POST, self.request.FILES, instance=self.request.user)
 
         userdata = form.save(commit=False)
         userdata.save()
-        # profileform.save()
+        profileform.save()
         time = timezone.now()
-        title = "User Update"
+        title = "User Data Update"
         msg = f"{userdata.username} just updated his personal details at {time}"
         message = get_template('mail/admin-mail.html').render(context={"user_username": userdata.username, "title": title, "time": time, "message": msg})
         recepient = str(userdata.email)
@@ -85,54 +94,6 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 user_update_view = UserUpdateView.as_view()
 
 
-class UserVerifyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-
-    model = UserProfile
-    form_class = UserProfileForm
-    template_name = 'users/form.html'
-    success_message = _("You have verified your account")
-    slug_field = "username"
-    slug_url_kwarg = "username"
-
-    def get_success_url(self):
-        return self.request.user.get_absolute_url()  # type: ignore [union-attr]
-
-    # def get_object(self):
-    #     if self.second_form_class(self.request.GET, instance=self.request.user.userprofile):
-    #         return self.second_form_class
-    #     elif self.form_class(self.request.GET, instance=self.request.user):
-    #         return self.form_class
-
-
-    def form_valid(self, form):
-        form = self.form_class(self.request.POST, self.request.FILES, instance=self.request.user.userprofile)
-        # profileform = self.second_form_class(self.request.POST, self.request.FILES, instance=self.request.user.userprofile)
-
-        userdata = form.save(commit=False)
-        userdata.user = self.request.user
-        userdata.save()
-        # profileform.save()
-        time = timezone.now()
-        title = "New Profile Update"
-        msg = f"{userdata.username} just updated his profile at {time}"
-        message = get_template('mail/admin-mail.html').render(context={"user_username": userdata.username, "title": title, "time": time, "message": msg})
-        recepient = str(userdata.email)
-        mail = EmailMessage(
-                    title, 
-                    #f"{self.request.user.username} just updated his profile at {self.created}", 
-                    message,
-                    settings.EMAIL_HOST_USER, 
-                    [recepient], 
-                )
-        mail.content_subtype = "html"
-        mail.send()
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        return messages.error(self.request, "Form was not submited successfully. Check your informations!")
-user_update_profile_view = UserVerifyUpdateView.as_view()
-
-
 class UserRedirectView(LoginRequiredMixin, RedirectView):
 
     permanent = False
@@ -144,7 +105,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 user_redirect_view = UserRedirectView.as_view()
 
 
-class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     model = UserVerify
     form_class = UserVerifyForm
@@ -163,12 +124,9 @@ class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         self.user = request.user
         return super().get(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Verify Account"
-        return context
-
     def form_valid(self, form):
+        form = self.form_class(self.request.POST, self.request.FILES)
+        form.user = self.request.user
         form.save()
         time = timezone.now()
         title = "New Verification Request"
@@ -187,21 +145,3 @@ class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return messages.error(self.request, "Form was not submited successfully. Check your informations!")
 
 user_verify_view = UserVerifyCreateView.as_view()
-
-
-# def get_crypto_data():
-#     api_url = "https://www.google.com/search?q="+coin+"+price"
-#     HTML = requests.get(api_url)
-
-#     # perse the htl
-#     soup = BeautifulSoup(HTML.text, 'html.parser')
-
-#     # find current price
-#     text = soup.find("div", attrs={'class':'currenc'})
-#     try:
-#         data = requests.get(api_url).json()
-#     except Exception as e:
-#         print(e)
-#         data = dict()
-
-#     return data

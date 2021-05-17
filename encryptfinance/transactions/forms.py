@@ -7,12 +7,12 @@ from .models import Deposit, Withdrawal, User, RecoverFunds, Support
 class DepositForm(forms.ModelForm):
     class Meta:
         model = Deposit
-        fields = ["amount"]
+        fields = ["plan", "amount"]
 
     def __init__(self, *args, **kwargs):
         super(DepositForm, self).__init__(*args, **kwargs)
         self.fields['amount'].widget.attrs['class'] = 'form-control form-control-sm'
-        self.fields['amount'].widget.attrs['placeholder'] = 'Min $500.00 - $100,000.00 Max'
+        self.fields['amount'].widget.attrs['placeholder'] = 'Min $50.00 - $100,000.00 Max'
 
 
 class WithdrawalForm(forms.ModelForm):

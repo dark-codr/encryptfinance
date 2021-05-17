@@ -2,6 +2,7 @@
 {% url 'dashboard' as dashboard%}
 {% url 'users:detail' request.user.username as user %}
 {% url 'users:update' as update_profile %}
+{% url 'account_change_password' as res_password %}
 {% url 'users:verify' request.user.username as verify %}
 {% url 'transactions:withdraw' as withdraw %}
 {% url 'transactions:deposit' as invest %}
@@ -15,12 +16,12 @@
 <input type="checkbox" id="nav-toggle">
 <div class="sidebar py-3">
     <div class="sidebar-brand">
-        <h6><img src="{% static 'images/logo.png' %}" alt="Logo"><span> Encrypt Finance</span></h6>
+        <h6><a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Logo"><span> Encrypt Finance</span></a></h6>
     </div>
 
     <div class="sidebar-menu">
       <ul>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and not request.path == "/accounts/email/" %}
         <li {% if request.path == dashboard %}class="active"{% endif %}>
           <a href="{% url 'dashboard' %}">
             <i class="las la-igloo"></i> <span>Dashboard</span>
@@ -64,11 +65,13 @@
             </a>
           </li>
           {% endif %}
-          <li {% if request.path == res_password %}class="active"{% endif %}>
-            <a href="{{res_password}}">
-              <i class="las la-key"></i> <span>Password Change</span>
-            </a>
-          </li>  
+        {% endif %}
+        {% if not request.psth == "/accounts/email/" %}
+        <li {% if request.path == res_password %}class="active"{% endif %}>
+          <a href="{{res_password}}">
+            <i class="las la-key"></i> <span>Password Change</span>
+          </a>
+        </li>  
         {% endif %}
         <li {% if request.path == support %}class="active"{% endif %}>
           <a href="{{support}}">

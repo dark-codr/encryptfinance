@@ -29,7 +29,7 @@
           <div class="edit" id="edit">
             {% if object == request.user %}
             <!-- Action buttons -->
-                <a class="rounded-circle font-weight-bold mr-5" href="{% url 'users:update-profile' request.user.username %}" data-toggle="tooltip" data-placement="left" title="Edit Personal Information"><i class="las la-edit" style="font-size:1.3rem"></i></a>
+                <a class="rounded-circle font-weight-bold mr-5" href="{% url 'users:update' request.user.username %}" data-toggle="tooltip" data-placement="left" title="Edit Personal Information"><i class="las la-edit" style="font-size:1.3rem"></i></a>
                 <a class="rounded-circle font-weight-bold" href="{% url 'account_email' %}" data-toggle="tooltip" data-placement="left" title="Settings"><i class="las la-user-cog" style="font-size:1.3rem"></i></a>
                 <!-- Your Stuff: Custom user template urls -->
             <!-- End Action buttons -->

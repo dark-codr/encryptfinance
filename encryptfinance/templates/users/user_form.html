@@ -20,6 +20,11 @@
           <form class="form-horizontal mt-4" method="post" action="{% url 'users:update' request.user.username %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
+
+            <h3>Profile Details</h3>
+
+            {{ profileform|crispy }}
+            
             <div class="control-group">
               <div class="controls">
                 <button type="submit" class="btn btn-warning btn-block font-weight-bold">Update</button>
