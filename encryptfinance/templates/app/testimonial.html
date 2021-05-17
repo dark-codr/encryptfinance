@@ -7,39 +7,25 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="testimonial-slider" class="owl-carousel">
+                    {% for test in recent_testimonial %}
                     <div class="testimonial">
-                        <span class="icon fa fa-quote-left"></span>
+                        <span class="las la-quote-left"></span>
                         <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis sed sagittis at, sagittis quis neque. Praesent.
+                            {{test.desc}}
                         </p>
                         <div class="testimonial-content">
-                            <div class="pic"><img src="images/img-1.jpg" alt=""></div>
-                            <h3 class="title">williamson</h3>
-                            <span class="post">Web Developer</span>
+                            <div class="pic"><img src="{{test.pic.url}}" alt=""></div>
+                            <h3 class="title">{{test.name}}</h3>
+                            <span class="post">{{test.created}}</span>
                         </div>
                     </div>
-                    <div class="testimonial">
-                        <span class="icon fa fa-quote-left"></span>
+                    {% empty %}
+                    <div class="testimonal">
                         <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis sed sagittis at, sagittis quis neque. Praesent.
+                            no testimonials yet
                         </p>
-                        <div class="testimonial-content">
-                            <div class="pic"><img src="images/img-2.jpg" alt=""></div>
-                            <h3 class="title">Kristina</h3>
-                            <span class="post">Web Designer</span>
-                        </div>
                     </div>
-                    <div class="testimonial">
-                        <span class="icon fa fa-quote-left"></span>
-                        <p class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam justo neque, aliquet sit amet elementum vel, vehicula eget eros. Vivamus arcu metus, mattis sed sagittis at, sagittis quis neque. Praesent.
-                        </p>
-                        <div class="testimonial-content">
-                            <div class="pic"><img src="images/img-3.jpg" alt=""></div>
-                            <h3 class="title">Steve Thomas</h3>
-                            <span class="post">Web Developer</span>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

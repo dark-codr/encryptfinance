@@ -226,7 +226,7 @@ TEMPLATES = [
                 "encryptfinance.utils.context_processors.settings_context",
 
                 # third parties context_processors
-                # "countries_plus.context_processors.add_request_country",
+                "encryptfinance.users.context_processors.recent_testimonials",
             ],
         },
     }

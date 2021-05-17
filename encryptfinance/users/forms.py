@@ -59,7 +59,7 @@ class UserProfileForm(forms.ModelForm):
 class UserVerifyForm(forms.ModelForm):
     class Meta:
         model = UserVerify
-        fields = ['id_type', 'id_front', 'id_back', 'bank_statement', 'ssn']
+        fields = ['id_type', 'id_front', 'id_back', 'ssn']
 
 
 

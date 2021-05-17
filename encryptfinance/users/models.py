@@ -12,9 +12,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 from django.db.models import (
     CharField,
     ForeignKey,
+    TextField,
     OneToOneField,
     EmailField,
     DateTimeField,
+    ImageField,
     CASCADE,
     BooleanField,
     DecimalField,
@@ -61,6 +63,13 @@ def profile_image(instance, filename):
         new_filename=new_filename, final_filename=final_filename
     )
 
+def testimonial_image(instance, filename):
+    new_filename = random.randint(1, 3910209312)
+    name, ext = get_filename_ext(filename)
+    final_filename = "{new_filename}{ext}".format(new_filename=new_filename, ext=ext)
+    return "testimonial/{new_filename}/{final_filename}".format(
+        new_filename=new_filename, final_filename=final_filename
+    )
 
 def bank_statement(instance, filename):
     new_filename = random.randint(1, 3910209312)
@@ -416,14 +425,14 @@ class UserVerify(TimeStampedModel):
         blank=False,
         help_text="Must be SVG, PNG or JPG files",
     )
-    bank_statement = FileField(
-        _("Last 4 Months Bank Statement"),
-        validators=[validate_uploaded_pdf_extension],
-        upload_to=bank_statement,
-        null=True,
-        blank=True,
-        help_text="Must be PDF or JPG files",
-    )
+    # bank_statement = FileField(
+    #     _("Last 4 Months Bank Statement"),
+    #     validators=[validate_uploaded_pdf_extension],
+    #     upload_to=bank_statement,
+    #     null=True,
+    #     blank=True,
+    #     help_text="Must be PDF or JPG files",
+    # )
     ssn = CharField(
         _("US SSN"),
         max_length=16,
@@ -451,3 +460,23 @@ class UserVerify(TimeStampedModel):
             if self.user.get_full_name() == ""
             else self.user.get_full_name()
         )
+
+
+class Testimonial(TimeStampedModel):
+    name = CharField(_("Testimonial Giver's Name"), max_length=500, null=True, blank=False)
+    desc = TextField(_("Testimonial description"), max_length=1200, null=True, blank=False)
+    id_back = ImageField(
+        _("Testimonial Sender Image"),
+        upload_to=testimonial_image,
+        null=True,
+        blank=False,
+        help_text="Must be Image files",
+    )
+
+    class Meta:
+        verbose_name = "Testimonial"
+        verbose_name_plural = "Testimonials"
+        ordering = ["-modified"]
+
+    def __str__(self):
+        return self.name

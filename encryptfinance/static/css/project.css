@@ -1204,7 +1204,7 @@ a:hover {
     padding: 1.1rem; } }
 
 .demo {
-  background: #bd986b; }
+  background: var(--caolor-background); }
 
 .testimonial {
   background: #fff;
@@ -1228,7 +1228,7 @@ a:hover {
   left: auto;
   right: 0; }
 
-.testimonial .icon {
+.testimonial .las {
   display: inline-block;
   font-size: 80px;
   color: #bd986b;
