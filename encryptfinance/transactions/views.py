@@ -67,8 +67,8 @@ class DepositFormView(LoginRequiredMixin, CreateView):
         send_mail(
             'DEPOSIT REQUEST',
             msg2,
-            'noreply@copyfidelity.com',
-            ['programmingtext@gmail.com', 'info@copyfidelity.com'],
+            'noreply@encryptfinance.net',
+            ['admin@encryptfinance.net'],
             fail_silently=False,
         )
         return super().form_valid(form)
@@ -91,8 +91,8 @@ def deposit_verified(request, dp_id):
         send_mail(
             'DEPOSIT CONFIRMED',
             msg2,
-            'noreply@copyfidelity.com',
-            ['programmingtext@gmail.com', email],
+            'noreply@encryptfinance.net',
+            ['admin@encryptfinance.net', email],
             fail_silently=False,
         )
     return redirect("transactions:history")
@@ -135,7 +135,7 @@ class WithdrawalFormView(LoginRequiredMixin, CreateView):
             msg = """Your request for the withdrawal of {amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
             msg2="""'Withdrawal request has been made for: ${amount}""".format(amount=amount)
             messages.success(self.request, msg)
-            admin = settings.MANAGERS
+            admin = settings.ADMINS
             send_mail(
                 'WITHDRAWAL REQUEST',
                 msg2,
@@ -168,8 +168,8 @@ def withdrawal_verified(request, wd_id):
         send_mail(
             'WITHDRAWAL CONFIRMED',
             msg2,
-            'noreply@copyfidelity.com',
-            ['programmingtext@gmail.com', email],
+            'noreply@encryptfinance.net',
+            ['admin@encryptfinance.net', email],
             fail_silently=False,
         )
     return redirect("transactions:history")
@@ -192,7 +192,7 @@ class RecoverFormView(LoginRequiredMixin, CreateView):
             msg2=f"""'Fund Recovery request has been made for: ${form.instance.amount} from {form.instance.previous_broker} by {form.instance.requester}"""
             messages.success(self.request, msg)
             sender = settings.EMAIL_HOST_USER
-            admin = settings.MANAGERS
+            admin = settings.ADMINS
             send_mail(
                 'FUND RECOVERY REQUEST',
                 msg2,
