@@ -24,7 +24,7 @@
     margin-left: 160px;
     margin-top: 50px;
     max-width: calc(100vw - 160px);
-    min-height: calc(100vh - 65px);
+    min-height: 32px;
     transition: margin-left 300ms;
 
     main {
@@ -32,7 +32,7 @@
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       max-width: calc(100vw - 160px);
-      min-height: calc(100vh - 67.4px);
+      min-height: 320px;
       position: relative;
     }
 
@@ -136,7 +136,7 @@
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       width: 100%;
-      min-height: calc(100vh - 67.4px);
+      min-height: 320px;
       position: relative;
     }
 
@@ -497,7 +497,7 @@
     margin-left: 80px;
     margin-top: 67.4px;
     width: calc(100% - 80px);
-    min-height: calc(100vh - 67.4px);
+    min-height: calc(100vw - 67.4px);
     transition: margin-left 300ms;
 
     //  Header
