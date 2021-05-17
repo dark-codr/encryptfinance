@@ -706,6 +706,8 @@ a:hover {
     min-height: 32px;
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
+    #nav-toggle:checked ~ .main-container #slpls {
+      display: none; }
     #nav-toggle:checked ~ .main-container main {
       padding-top: 2.2rem;
       padding-left: 1.2rem;
@@ -937,6 +939,8 @@ a:hover {
     min-height: calc(100vh - 67.4px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
+    #nav-toggle:checked ~ .main-container #slpls {
+      display: none; }
     #nav-toggle:checked ~ .main-container .header {
       position: fixed;
       width: calc(100% - 270px);

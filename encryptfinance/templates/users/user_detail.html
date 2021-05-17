@@ -15,23 +15,21 @@
     <div class="card-header">
       <div class="row">
         <div class="col-sm-12 col-md-2">
-          <img src="{% if object.userprofile %}{{object.userprofile.passport.url}}{% else %}{% static 'images/user.png' %}{% endif %}" style="height: 5rem; margin-right:2rem; border-radius:50%;" alt="">
+          <img src="{% if request.user.userprofile.passport %}{{request.user.userprofile.passport.url}}{% else %}{% static 'images/user.png' %}{% endif %}" style="height: 5rem; margin-right:2rem; border-radius:50%;" alt="">
         </div>
         <div class="col-sm-10 col-md-9">
           <div class="ml-5">
-            {% if object.get_full_name %}
-            <h4>{{ object.get_full_name }} <span>{% if request.user.is_verified %}<i class="las la-certificate text-success"></i>{% endif %}</span></h4>
+            <h4>{{object.first_name}} {{object.last_name}} <span>{% if request.user.is_verified %}<i class="las la-certificate text-success"></i>{% endif %}</span></h4>
             <p class="mb-0 small"><i class="las la-globe"></i>: <small class="font-weight-bold">{{object.userprofile.nationality.name}}</small></p>
             <p class="mb-0 small"><i class="las la-fingerprint"></i>: <small class="font-weight-bold">{{object.unique_id}}</small></p>
             <p class="mb-0 small"><i class="las la-phone"></i>: <small class="font-weight-bold"><a class="text-secondary font-weight-bold" href="tel://+{{object.userprofile.international_number}}" >+{{object.userprofile.international_number}}</a></small></p>
-            {% endif %}
           </div>
         </div>
         <div class="col-sm-2 col-md-1">
           <div class="edit" id="edit">
             {% if object == request.user %}
             <!-- Action buttons -->
-                <a class="rounded-circle font-weight-bold mr-5" href="{% url 'users:update' %}" data-toggle="tooltip" data-placement="left" title="Edit Personal Information"><i class="las la-edit" style="font-size:1.3rem"></i></a>
+                <a class="rounded-circle font-weight-bold mr-5" href="{% url 'users:update-profile' request.user.username %}" data-toggle="tooltip" data-placement="left" title="Edit Personal Information"><i class="las la-edit" style="font-size:1.3rem"></i></a>
                 <a class="rounded-circle font-weight-bold" href="{% url 'account_email' %}" data-toggle="tooltip" data-placement="left" title="Settings"><i class="las la-user-cog" style="font-size:1.3rem"></i></a>
                 <!-- Your Stuff: Custom user template urls -->
             <!-- End Action buttons -->

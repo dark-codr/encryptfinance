@@ -30,6 +30,10 @@
     min-height: 32px;
     transition: margin-left 300ms;
 
+    #slpls {
+      display: none;
+    }
+
     main {
       padding-top: 2.2rem;
       padding-left: 1.2rem;
@@ -349,6 +353,10 @@
     width: calc(100% - 270px);
     min-height: calc(100vh - 67.4px);
     transition: margin-left 300ms;
+
+    #slpls {
+      display: none;
+    }
 
     .header {
       position: fixed;
