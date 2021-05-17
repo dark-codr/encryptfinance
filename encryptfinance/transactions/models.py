@@ -44,11 +44,23 @@ APPROVAL = (
     (FAILED, "FAILED"),
 )
 
+DAILY = "DAILY"
+SILVER = "SILVER"
+GOLD = "GOLD"
+DIAMOND = "DIAMOND"
+PLAN = (
+    (DAILY, "DAILY"),
+    (SILVER, "SILVER"),
+    (GOLD, "GOLD",),
+    (DIAMOND, "DIAMOND")
+)
+
 
 
 class Deposit(TimeStampedModel):
     depositor = ForeignKey(User, on_delete=CASCADE, null=True, blank=True, related_name="deposits")
     approval = CharField(choices=APPROVAL, default=PENDING, max_length=15, null=True, blank=True)
+    plan = CharField(choices=PLAN, default=DAILY, max_length=15, null=True, blank=True)
     amount = DecimalField(_('Deposited Amount'), decimal_places=2, max_digits=20, validators=[MinValueValidator(Decimal('50.00')), MaxValueValidator(Decimal('1000000.00'))], help_text="min-amount: $50, max-amount: $100000", null=True, blank=True)
     deposited = DateField(default=datetime.now)
 

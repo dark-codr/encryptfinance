@@ -59,6 +59,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.depositor = self.request.user
+        user = form.instance.depositor
         amount = form.instance.amount
         msg = """Your deposit of: ${amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
         messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')

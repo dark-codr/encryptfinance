@@ -1,4 +1,7 @@
 // Main content area styling
+.btn-warning {
+  color: black;
+}
 
 @media only screen and (max-width: 500px) {
   html {
@@ -13,7 +16,7 @@
   }
 
   #slpls {
-    display: none;
+    display: inline-block;
   }
 
   .header-title {

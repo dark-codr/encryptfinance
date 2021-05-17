@@ -1,3 +1,5 @@
+{% load static %}
+
 <footer class="kilimanjaro_area">
   <!-- Top Footer Area Start -->
   <div class="foo_top_header_one section_padding_100_70">
@@ -15,7 +17,7 @@
             <h5>Important Links</h5>
             <ul class="kilimanjaro_links">
               <li><a href="#">Terms & Conditions</a></li>
-              <li><a href="#">About Licences</a></li>
+              <li><a href="{% static 'file/encrypt.pdf' %}" target="_blank">About Licences</a></li>
               <li><a href="#">Help & Support</a></li>
               <li><a href="#">Careers</a></li>
               <li><a href="#">Privacy Policy</a></li>
@@ -25,7 +27,7 @@
         <div class="col-12 col-md-6 col-lg-4">
           <div class="kilimanjaro_part">
             <h5>Quick Contact</h5>
-            <div class="kilimanjaro_single_contact_info">
+            <div class="kilimanjaro_single_contact_info text-light">
               <h5>Phone:</h5>
               <p><a href="tel://+2107559649">+ (210) 755-9649</a> <br> <a href="tel://+375259347">+37 (525) 523-9347</a></p>
             </div>

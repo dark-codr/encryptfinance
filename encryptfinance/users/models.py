@@ -91,62 +91,62 @@ class User(AbstractUser):
 
     @property
     def plan(self):
-        if self.balance > 0.00 and self.balance < 4000.00:
-            return "BRONZE PLAN"
-        elif self.balance > 4000.00 and self.balance < 15000.00:
+        if self.balance > 0.00 and self.balance <= 1000.00:
+            return "DAILY PLAN"
+        elif self.balance > 1000.00 and self.balance <= 4000.00:
             return "SILVER PLAN"
-        elif self.balance > 15000.00 and self.balance < 50000.00:
+        elif self.balance > 4000.00 and self.balance <= 50000.00:
             return "GOLD PLAN"
-        elif self.balance > 50000.00 and self.balance < 100000.00:
+        elif self.balance > 50000.00 and self.balance <= 100000.00:
             return "DIAMOND PLAN"
         elif self.balance == 0.00:
             return "UNSUBSCRIBED"
 
     @property
     def rate(self):
-        if self.plan == "BRONZE PLAN":
-            return 0.01
+        if self.plan == "DAILY PLAN":
+            return 0.2
         elif self.plan == "SILVER PLAN":
-            return 0.02
+            return 3
         elif self.plan == "GOLD PLAN":
-            return 0.03
+            return 5
         elif self.plan == "DIAMOND PLAN":
-            return 0.10
+            return 7
         elif self.plan == "UNSUBSCRIBED":
             return 0.00
 
     @property
     def days(self):
-        if self.plan == "BRONZE PLAN":
-            return 30
+        if self.plan == "DAILY PLAN":
+            return 1
         elif self.plan == "SILVER PLAN":
-            return 60
+            return 14
         elif self.plan == "GOLD PLAN":
-            return 180
+            return 60
         elif self.plan == "DIAMOND PLAN":
-            return 365
+            return 90
         elif self.plan == "UNSUBSCRIBED":
             return 0
 
 
     def withdrawal_date(self):
         if self.plan == "BRONZE PLAN":
-            days = 30
+            days = 1
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 
         elif self.plan == "SILVER PLAN":
-            days = 60
+            days = 14
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 
         elif self.plan == "GOLD PLAN":
-            days = 180
+            days = 60
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 
         elif self.plan == "DIAMOND PLAN":
-            days = 365
+            days = 90
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 
@@ -157,25 +157,25 @@ class User(AbstractUser):
 
     def can_withdraw(self):
         if self.plan == "BRONZE PLAN":
-            days = 30
+            days = 1
             terminate_date = self.deposit_date + datetime.timedelta(days=days)
             if timezone.now().date() > terminate_date:
                 return True
 
         elif self.plan == "SILVER PLAN":
-            days = 60
+            days = 14
             terminate_date = self.deposit_date + datetime.timedelta(days=days)
             if timezone.now().date() > terminate_date:
                 return True
 
         elif self.plan == "GOLD PLAN":
-            days = 180
+            days = 60
             terminate_date = self.deposit_date + datetime.timedelta(days=days)
             if timezone.now().date() > terminate_date:
                 return True
 
         elif self.plan == "DIAMOND PLAN":
-            days = 365
+            days = 90
             terminate_date = self.deposit_date + datetime.timedelta(days=days)
             if timezone.now().date() > terminate_date:
                 return True

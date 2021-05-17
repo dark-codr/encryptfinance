@@ -33,6 +33,7 @@
     <link rel="preconnect" href="https://stackpath.bootstrapcdn.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net/">
     <link rel="preconnect" href="https://maxst.icons8.com/">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
   
   
@@ -55,7 +56,8 @@
 
     <!-- Webicon from icons8 -->
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
     <!-- Your stuff: Third-party CSS libraries go here -->
     <link href="{% static 'css/iziToast.min.css' %}" rel="stylesheet">
 
@@ -86,13 +88,17 @@
         {% block content %}
           <p>Use this document as a way to quick start any new project.</p>
         {% endblock content %}
-      </main>
 
-      {% include 'app/testimonial.html' %}      
+      </main>
       {% block wide %}
       {% endblock %}
 
+
+      {% include 'app/testimonial.html' %}  
+
+
       {% include 'app/footer.html' %}      
+
       
 
     </div> <!-- /container -->
@@ -109,7 +115,8 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
       <!-- Your stuff: Third-party javascript libraries go here -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>      <!-- place project specific Javascript in this file -->
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+      <!-- place project specific Javascript in this file -->
       <script src="{% static 'js/iziToast.min.js' %}"></script>
       <script src="{% static 'js/project.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
