@@ -19,6 +19,7 @@ from .forms import DepositForm, WithdrawalForm, RecoverForm, SupportForm
 from .models import Deposit, Withdrawal, RecoverFunds, Support
 
 from encryptfinance.wallets.models import Wallet
+from decimal import Decimal
 
 User = get_user_model()
 
@@ -83,7 +84,8 @@ def deposit_verified(request, dp_id):
     # deposit = Deposit.objects.all().get(pk=dp_id)
     if deposit.approval == "PENDING":
         deposit.approval = "VERIFIED"
-        deposit.depositor.balance += deposit.amount
+        balance = deposit.depositor.balance
+        balance = Decimal(balance) + Decimal(deposit.amount)
         deposit.depositor.save()
         deposit.save()
         msg2="""'Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=deposit.amount, depositor=deposit.depositor.email)
