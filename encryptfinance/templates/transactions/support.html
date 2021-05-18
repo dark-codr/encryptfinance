@@ -18,7 +18,7 @@
             <h3>Request for Support</h3>
             <p>Our support line is active 24/7</p>
           </div>
-          <form class="form-horizontal mt-4" method="post" action="{% url 'transactions:support' %}" enctype="multipart/form-data">
+          <form class="form-horizontal mt-4" method="post" action="{% url 'transactions:support' %}">
             {% csrf_token %}
             {{ form.media }}
             {{ form|crispy }}

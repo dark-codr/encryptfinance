@@ -221,7 +221,7 @@ class Support(LoginRequiredMixin, CreateView):
     model = Support
     template_name = "transactions/support.html"
     form_class = SupportForm
-    success_url = "home"
+    success_url = "/"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
