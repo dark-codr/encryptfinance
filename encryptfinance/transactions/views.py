@@ -169,7 +169,7 @@ def withdrawal_verified(request, wd_id):
             'WITHDRAWAL CONFIRMED',
             msg2,
             'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net', email],
+            ['admin@encryptfinance.net', "info@encryptfinance.net", email],
             fail_silently=False,
         )
     return redirect("transactions:history")
