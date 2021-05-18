@@ -123,11 +123,11 @@ class User(AbstractUser):
         if self.plan == "DAILY PLAN":
             return 0.2
         elif self.plan == "SILVER PLAN":
-            return 3
+            return 0.55
         elif self.plan == "GOLD PLAN":
-            return 5
+            return 0.7
         elif self.plan == "DIAMOND PLAN":
-            return 7
+            return 0.85
         elif self.plan == "UNSUBSCRIBED":
             return 0.00
 
@@ -136,11 +136,11 @@ class User(AbstractUser):
         if self.plan == "DAILY PLAN":
             return 1
         elif self.plan == "SILVER PLAN":
-            return 14
+            return 7
         elif self.plan == "GOLD PLAN":
-            return 60
+            return 14
         elif self.plan == "DIAMOND PLAN":
-            return 90
+            return 30
         elif self.plan == "UNSUBSCRIBED":
             return 0
 
@@ -152,17 +152,17 @@ class User(AbstractUser):
                 return self.deposit_date + datetime.timedelta(days=days)
 
         elif self.plan == "SILVER PLAN":
-            days = 14
+            days = 7
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 
         elif self.plan == "GOLD PLAN":
-            days = 60
+            days = 14
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 
         elif self.plan == "DIAMOND PLAN":
-            days = 90
+            days = 30
             if self.deposit_date:
                 return self.deposit_date + datetime.timedelta(days=days)
 

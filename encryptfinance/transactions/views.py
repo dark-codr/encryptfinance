@@ -89,6 +89,8 @@ def deposit_verified(request, dp_id):
         depositor.deposit_date = timezone.now()
         balance = deposit.depositor.balance
         amount = deposit.amount
+        dec_am = Decimal(amount)
+        print(dec_am)
         balance = balance + amount
         deposit.depositor.balance = balance
         deposit.depositor.save()
