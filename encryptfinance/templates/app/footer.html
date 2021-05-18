@@ -1,4 +1,5 @@
 {% load static %}
+{% url 'transactions:support' as support %}
 
 <footer class="kilimanjaro_area">
   <!-- Top Footer Area Start -->
@@ -18,8 +19,7 @@
             <ul class="kilimanjaro_links">
               <li><a href="#">Terms & Conditions</a></li>
               <li><a href="{% static 'file/encrypt.pdf' %}" target="_blank">About Licences</a></li>
-              <li><a href="#">Help & Support</a></li>
-              <li><a href="#">Careers</a></li>
+              <li><a href="{{support}}">Help & Support</a></li>
               <li><a href="#">Privacy Policy</a></li>
             </ul>
           </div>
