@@ -84,11 +84,16 @@ def deposit_verified(request, dp_id):
     # deposit = Deposit.objects.all().get(pk=dp_id)
     if deposit.approval == "PENDING":
         deposit.approval = "VERIFIED"
+        depositor = deposit.depositor
+        depositor.has_deposited = True
+        depositor.deposit_date = timezone.now()
         balance = deposit.depositor.balance
-        balance = balance + Decimal(deposit.amount)
+        amount = deposit.amount
+        balance = balance + amount
+        deposit.depositor.balance = balance
         deposit.depositor.save()
         deposit.save()
-        msg2="""'Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=deposit.amount, depositor=deposit.depositor.email)
+        msg2="""'Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=deposit.depositor.email)
         email = deposit.depositor.email
         send_mail(
             'DEPOSIT CONFIRMED',
