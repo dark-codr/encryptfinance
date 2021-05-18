@@ -85,7 +85,7 @@ def deposit_verified(request, dp_id):
     if deposit.approval == "PENDING":
         deposit.approval = "VERIFIED"
         balance = deposit.depositor.balance
-        balance = Decimal(balance) + Decimal(deposit.amount)
+        balance = balance + Decimal(deposit.amount)
         deposit.depositor.save()
         deposit.save()
         msg2="""'Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=deposit.amount, depositor=deposit.depositor.email)
