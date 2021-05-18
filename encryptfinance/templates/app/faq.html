@@ -1,0 +1,29 @@
+<section class="section container">
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h3 class="display-5">FAQ</h3>
+    <p class="lead">
+      With your interest at heart, we have narrowed down the list of frequently asked questions for you.
+    </p>
+  </div>
+  <div class="accordion" id="accordionExample">
+    {% for f in recent_faq %}
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            {{f.question}}
+          </button>
+        </h2>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          {{f.answer}}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    No FAQs yet
+    {% endfor %}
+  </div>
+</section>

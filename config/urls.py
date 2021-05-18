@@ -49,6 +49,7 @@ urlpatterns += [
     path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type='text/plain'), name="robots"),
     path('cookies/', include('cookie_consent.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 

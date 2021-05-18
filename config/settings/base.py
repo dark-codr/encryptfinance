@@ -70,6 +70,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+    "django.contrib.flatpages",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.humanize", # Handy template tags
@@ -90,6 +91,9 @@ THIRD_PARTY_APPS = [
     # WYSWIC TEXT EDITOR
     "ckeditor",
     "ckeditor_uploader",
+
+    'tinymce',
+    # 'flatpages_tinymce',
     # COOKIE CONSENT
     "cookie_consent",
     # Country plus integration for iso, country phone code etc 
@@ -104,6 +108,7 @@ LOCAL_APPS = [
     "encryptfinance.users.apps.UsersConfig",
     "encryptfinance.transactions.apps.TransactionsConfig",
     "encryptfinance.wallets.apps.WalletsConfig",
+    "encryptfinance.flatpages_main.apps.FlatpagesMainConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -163,6 +168,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -254,7 +260,7 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
 SECURE_BROWSER_XSS_FILTER = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
-X_FRAME_OPTIONS = "DENY"
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # EMAIL
 # ------------------------------------------------------------------------------
@@ -450,14 +456,17 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # ------------------------------------------------------------------------------
 CKEDITOR_FILENAME_GENERATOR = "encryptfinance.utils.get_filename.get_filename"
 CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_IMAGE_BACKEND = "Pillow"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_JQUERY_URL = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
 CKEDITOR_BROWSE_SHOW_DIRS = True
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
-CKEDITOR_RESTRICT_BY_DATE = True
-CKEDITOR_RESTRICT_BY_USER = True
 
-from .ckeditor_config import CKEDITOR_CONFIGS
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": None,
+        # 'skin': 'office2013',
+    }
+}
 
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
 DJANGORESIZED_DEFAULT_QUALITY = 75
