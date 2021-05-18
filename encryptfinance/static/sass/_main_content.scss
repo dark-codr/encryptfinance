@@ -2,7 +2,10 @@
 .btn-warning {
   color: black;
 }
-
+.card {
+  background-color: var(--side-bar);
+  color: var(--color-heading);
+}
 @media only screen and (max-width: 500px) {
   html {
     font-size: 70%;
@@ -133,7 +136,7 @@
     margin-left: 0;
     margin-top: 30px;
     width: 100vw;
-    min-height: calc(100vw - 67.4px);
+    min-height: calc(100% - 67.4px);
     transition: margin-left 300ms;
 
 
@@ -240,15 +243,15 @@
       h3,
       h2,
       h1 {
-        color: var(--profile-color);
+        color: var(--color-text);
       }
 
       i {
-        color: var(--profile-color);
+        color: var(--color-text);
       }
 
       p {
-        color: var(--profile-color);
+        color: var(--color-text);
         font-weight: 600;
         size: .7rem;
       }
@@ -351,7 +354,7 @@
     margin-left: 270px;
     margin-top: 65px;
     width: calc(100% - 270px);
-    min-height: calc(100vh - 67.4px);
+    min-height: calc(100% - 67.4px);
     transition: margin-left 300ms;
 
     #slpls {
@@ -391,7 +394,7 @@
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       width: 100%;
-      min-height: calc(100vh - 67.4px);
+      min-height: calc(100% - 67.4px);
       position: relative;
     }
 
@@ -403,15 +406,15 @@
       h3,
       h2,
       h1 {
-        color: var(--profile-color);
+        color: var(--color-text);
       }
 
       i {
-        color: var(--profile-color);
+        color: var(--color-text);
       }
 
       p {
-        color: var(--profile-color);
+        color: var(--color-text);
         font-weight: 600;
         size: .7rem;
       }
@@ -508,7 +511,7 @@
     margin-left: 80px;
     margin-top: 67.4px;
     width: calc(100% - 80px);
-    min-height: calc(100vw - 67.4px);
+    min-height: calc(100% - 67.4px);
     transition: margin-left 300ms;
 
     //  Header
@@ -614,15 +617,15 @@
       h3,
       h2,
       h1 {
-        color: var(--profile-color);
+        color: var(--color-text);
       }
 
       i {
-        color: var(--profile-color);
+        color: var(--color-text);
       }
 
       p {
-        color: var(--profile-color);
+        color: var(--color-text);
         font-weight: 600;
         size: .7rem;
       }

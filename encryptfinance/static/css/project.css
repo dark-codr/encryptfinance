@@ -185,7 +185,7 @@ section {
   text-transform: uppercase; }
 
 #about-section {
-  background-color: #fff;
+  background-color: var(--side-bar);
   min-height: 360px;
   padding-top: 96px;
   padding-top: 6rem;
@@ -688,6 +688,10 @@ a:hover {
 .btn-warning {
   color: black; }
 
+.card {
+  background-color: var(--side-bar);
+  color: var(--color-heading); }
+
 @media only screen and (max-width: 500px) {
   html {
     font-size: 70%;
@@ -777,7 +781,7 @@ a:hover {
     margin-left: 0;
     margin-top: 30px;
     width: 100vw;
-    min-height: calc(100vw - 67.4px);
+    min-height: calc(100% - 67.4px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
     .main-container main {
@@ -865,11 +869,11 @@ a:hover {
     .main-container .card h3,
     .main-container .card h2,
     .main-container .card h1 {
-      color: var(--profile-color); }
+      color: var(--color-text); }
     .main-container .card i {
-      color: var(--profile-color); }
+      color: var(--color-text); }
     .main-container .card p {
-      color: var(--profile-color);
+      color: var(--color-text);
       font-weight: 600;
       size: .7rem; }
     .main-container .edit {
@@ -936,7 +940,7 @@ a:hover {
     margin-left: 270px;
     margin-top: 65px;
     width: calc(100% - 270px);
-    min-height: calc(100vh - 67.4px);
+    min-height: calc(100% - 67.4px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
     #nav-toggle:checked ~ .main-container #slpls {
@@ -974,7 +978,7 @@ a:hover {
       padding-left: 1.2rem;
       padding-right: 1.2rem;
       width: 100%;
-      min-height: calc(100vh - 67.4px);
+      min-height: calc(100% - 67.4px);
       position: relative; }
     #nav-toggle:checked ~ .main-container .card h6,
     #nav-toggle:checked ~ .main-container .card h5,
@@ -982,11 +986,11 @@ a:hover {
     #nav-toggle:checked ~ .main-container .card h3,
     #nav-toggle:checked ~ .main-container .card h2,
     #nav-toggle:checked ~ .main-container .card h1 {
-      color: var(--profile-color); }
+      color: var(--color-text); }
     #nav-toggle:checked ~ .main-container .card i {
-      color: var(--profile-color); }
+      color: var(--color-text); }
     #nav-toggle:checked ~ .main-container .card p {
-      color: var(--profile-color);
+      color: var(--color-text);
       font-weight: 600;
       size: .7rem; }
     #nav-toggle:checked ~ .main-container .edit {
@@ -1049,7 +1053,7 @@ a:hover {
     margin-left: 80px;
     margin-top: 67.4px;
     width: calc(100% - 80px);
-    min-height: calc(100vw - 67.4px);
+    min-height: calc(100% - 67.4px);
     -webkit-transition: margin-left 300ms;
     transition: margin-left 300ms; }
     .main-container .header {
@@ -1137,11 +1141,11 @@ a:hover {
     .main-container .card h3,
     .main-container .card h2,
     .main-container .card h1 {
-      color: var(--profile-color); }
+      color: var(--color-text); }
     .main-container .card i {
-      color: var(--profile-color); }
+      color: var(--color-text); }
     .main-container .card p {
-      color: var(--profile-color);
+      color: var(--color-text);
       font-weight: 600;
       size: .7rem; }
     .main-container .edit {
@@ -1204,7 +1208,9 @@ a:hover {
     padding: 1.1rem; } }
 
 .demo {
-  background: var(--color-background); }
+  background: var(--color-background);
+  margin-bottom: 48px;
+  margin-bottom: 3rem; }
 
 .testimonial {
   background: var(--side-bar);
@@ -1216,8 +1222,9 @@ a:hover {
 .testimonial:before,
 .testimonial:after {
   content: "";
-  border-top: 40px solid #fff;
+  border-top: 40px solid var(--color-heading);
   border-right: 125px solid transparent;
+  color: var(--color-text);
   position: absolute;
   bottom: -40px;
   left: 0; }
@@ -1231,13 +1238,13 @@ a:hover {
 .testimonial .las {
   display: inline-block;
   font-size: 80px;
-  color: #bd986b;
+  color: var(--color-heading);
   margin-bottom: 20px;
   opacity: 0.6; }
 
 .testimonial .description {
   font-size: 15px;
-  color: #393939;
+  color: var(--color-text);
   text-align: center;
   margin-bottom: 30px;
   opacity: 0.8; }
@@ -1249,7 +1256,7 @@ a:hover {
 
 .testimonial .pic {
   display: inline-block;
-  border: 2px solid #fff;
+  border: 2px solid var(--color-heading);
   border-radius: 50%;
   -webkit-box-shadow: 0 0 2px 2px #daad86;
           box-shadow: 0 0 2px 2px #daad86;
@@ -1271,7 +1278,7 @@ a:hover {
 .testimonial .post {
   display: block;
   font-size: 14px;
-  color: #ffd9b8; }
+  color: var(--color-text); }
 
 .owl-theme .owl-controls {
   margin-top: 0; }
@@ -1280,13 +1287,13 @@ a:hover {
   width: 32px;
   height: 10px;
   background: #fff;
-  border: 2px solid #bd986b;
+  border: 2px solid var(--color-heading);
   margin: 5px;
   opacity: 1; }
 
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span {
-  background: #ffd9b8;
+  background: var(--color-heading);
   border-color: #fff; }
 
 @media only screen and (max-width: 650px) and (min-width: 400px) {
