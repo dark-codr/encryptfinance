@@ -90,7 +90,7 @@ AWS_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 }
 
-AWS_DEFAULT_ACL = None
+AWS_DEFAULT_ACL = 'public-read'
 AWS_DOWNLOAD_EXPIRE = 5000
 AWS_FILE_EXPIRE = 200
 AWS_PRELOAD_METADATA = True

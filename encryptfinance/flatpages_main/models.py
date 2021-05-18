@@ -17,7 +17,7 @@ from model_utils.models import TimeStampedModel
 class FAQ(TimeStampedModel):
     question = CharField(_("FAQ Question"), max_length=500, null=True, blank=True, unique=True)
     answer = TextField(_("FAQ Answer"), null=True, blank=True, unique=True)
-    active = BooleanField(_("Wallet is Active?"), default=False)
+    active = BooleanField(_("FAQ Active?"), default=False)
 
     class Meta:
         verbose_name = "FAQ"

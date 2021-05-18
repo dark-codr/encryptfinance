@@ -233,6 +233,7 @@ TEMPLATES = [
 
                 # third parties context_processors
                 "encryptfinance.users.context_processors.recent_testimonials",
+                "encryptfinance.flatpages_main.context_processors.recent_faq",
             ],
         },
     }
