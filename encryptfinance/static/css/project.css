@@ -690,7 +690,7 @@ a:hover {
 
 .card {
   background-color: var(--side-bar);
-  color: var(--color-heading); }
+  color: var(--color-text); }
 
 @media only screen and (max-width: 500px) {
   html {
@@ -725,32 +725,34 @@ a:hover {
       #nav-toggle:checked ~ .main-container .dashboard-cards .card-single {
         margin-left: 0;
         margin-right: 0; }
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h6,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h5,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h4,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h3,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h2,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h1 {
+        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card {
           color: var(--color-text); }
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover i {
-          background-color: var(--color-heading);
-          right: -2.1rem;
-          top: -1rem;
-          color: var(--color-accent); }
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h6,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h5,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h4,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h3,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h2,
-        #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h1 {
-          color: var(--color-heading); }
-          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h6 i,
-          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h5 i,
-          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h4 i,
-          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h3 i,
-          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h2 i,
-          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h1 i {
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h6,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h5,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h4,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h3,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h2,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover h1 {
             color: var(--color-text); }
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card:hover i {
+            background-color: var(--color-heading);
+            right: -2.1rem;
+            top: -1rem;
+            color: var(--color-accent); }
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h6,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h5,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h4,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h3,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h2,
+          #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h1 {
+            color: var(--color-heading); }
+            #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h6 i,
+            #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h5 i,
+            #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h4 i,
+            #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h3 i,
+            #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h2 i,
+            #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .card h1 i {
+              color: var(--color-text); }
         #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .head {
           position: inherit; }
         #nav-toggle:checked ~ .main-container .dashboard-cards .card-single i {
@@ -762,7 +764,7 @@ a:hover {
           background-color: var(--nav-bar);
           border-radius: 50%; }
         #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .currency-detail {
-          color: var(--nav-bar); }
+          color: var(--color-text); }
           #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .currency-detail small {
             font-size: xx-small; }
     #nav-toggle:checked ~ .main-container .header {
@@ -892,32 +894,34 @@ a:hover {
       .main-container .dashboard-cards .card-single {
         margin-left: 0;
         margin-right: 0; }
-        .main-container .dashboard-cards .card-single .card:hover h6,
-        .main-container .dashboard-cards .card-single .card:hover h5,
-        .main-container .dashboard-cards .card-single .card:hover h4,
-        .main-container .dashboard-cards .card-single .card:hover h3,
-        .main-container .dashboard-cards .card-single .card:hover h2,
-        .main-container .dashboard-cards .card-single .card:hover h1 {
+        .main-container .dashboard-cards .card-single .card {
           color: var(--color-text); }
-        .main-container .dashboard-cards .card-single .card:hover i {
-          background-color: var(--color-heading);
-          right: -2.1rem;
-          top: -1rem;
-          color: var(--color-accent); }
-        .main-container .dashboard-cards .card-single .card h6,
-        .main-container .dashboard-cards .card-single .card h5,
-        .main-container .dashboard-cards .card-single .card h4,
-        .main-container .dashboard-cards .card-single .card h3,
-        .main-container .dashboard-cards .card-single .card h2,
-        .main-container .dashboard-cards .card-single .card h1 {
-          color: var(--color-heading); }
-          .main-container .dashboard-cards .card-single .card h6 i,
-          .main-container .dashboard-cards .card-single .card h5 i,
-          .main-container .dashboard-cards .card-single .card h4 i,
-          .main-container .dashboard-cards .card-single .card h3 i,
-          .main-container .dashboard-cards .card-single .card h2 i,
-          .main-container .dashboard-cards .card-single .card h1 i {
+          .main-container .dashboard-cards .card-single .card:hover h6,
+          .main-container .dashboard-cards .card-single .card:hover h5,
+          .main-container .dashboard-cards .card-single .card:hover h4,
+          .main-container .dashboard-cards .card-single .card:hover h3,
+          .main-container .dashboard-cards .card-single .card:hover h2,
+          .main-container .dashboard-cards .card-single .card:hover h1 {
             color: var(--color-text); }
+          .main-container .dashboard-cards .card-single .card:hover i {
+            background-color: var(--color-heading);
+            right: -2.1rem;
+            top: -1rem;
+            color: var(--color-accent); }
+          .main-container .dashboard-cards .card-single .card h6,
+          .main-container .dashboard-cards .card-single .card h5,
+          .main-container .dashboard-cards .card-single .card h4,
+          .main-container .dashboard-cards .card-single .card h3,
+          .main-container .dashboard-cards .card-single .card h2,
+          .main-container .dashboard-cards .card-single .card h1 {
+            color: var(--color-heading); }
+            .main-container .dashboard-cards .card-single .card h6 i,
+            .main-container .dashboard-cards .card-single .card h5 i,
+            .main-container .dashboard-cards .card-single .card h4 i,
+            .main-container .dashboard-cards .card-single .card h3 i,
+            .main-container .dashboard-cards .card-single .card h2 i,
+            .main-container .dashboard-cards .card-single .card h1 i {
+              color: var(--color-text); }
         .main-container .dashboard-cards .card-single .head {
           position: inherit; }
         .main-container .dashboard-cards .card-single i {
@@ -929,7 +933,7 @@ a:hover {
           background-color: var(--nav-bar);
           border-radius: 50%; }
         .main-container .dashboard-cards .card-single .currency-detail {
-          color: var(--nav-bar); }
+          color: var(--color-text); }
           .main-container .dashboard-cards .card-single .currency-detail small {
             font-size: xx-small; }
   .widget {
@@ -980,21 +984,23 @@ a:hover {
       width: 100%;
       min-height: calc(100% - 67.4px);
       position: relative; }
-    #nav-toggle:checked ~ .main-container .card h6,
-    #nav-toggle:checked ~ .main-container .card h5,
-    #nav-toggle:checked ~ .main-container .card h4,
-    #nav-toggle:checked ~ .main-container .card h3,
-    #nav-toggle:checked ~ .main-container .card h2,
-    #nav-toggle:checked ~ .main-container .card h1 {
+    #nav-toggle:checked ~ .main-container .card {
       color: var(--color-text); }
-    #nav-toggle:checked ~ .main-container .card i {
-      color: var(--color-text); }
-    #nav-toggle:checked ~ .main-container .card p {
-      color: var(--color-text);
-      font-weight: 600;
-      size: .7rem; }
+      #nav-toggle:checked ~ .main-container .card h6,
+      #nav-toggle:checked ~ .main-container .card h5,
+      #nav-toggle:checked ~ .main-container .card h4,
+      #nav-toggle:checked ~ .main-container .card h3,
+      #nav-toggle:checked ~ .main-container .card h2,
+      #nav-toggle:checked ~ .main-container .card h1 {
+        color: var(--color-text); }
+      #nav-toggle:checked ~ .main-container .card i {
+        color: var(--color-text); }
+      #nav-toggle:checked ~ .main-container .card p {
+        color: var(--color-text);
+        font-weight: 600;
+        size: .7rem; }
     #nav-toggle:checked ~ .main-container .edit {
-      color: var(--nav-bar);
+      color: var(--color-edit);
       position: absolute;
       top: 0;
       right: 1rem; }
@@ -1046,7 +1052,7 @@ a:hover {
           background-color: var(--nav-bar);
           border-radius: 50%; }
         #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .currency-detail {
-          color: var(--nav-bar); }
+          color: var(--color-text); }
           #nav-toggle:checked ~ .main-container .dashboard-cards .card-single .currency-detail small {
             font-size: xx-small; }
   .main-container {
@@ -1201,7 +1207,7 @@ a:hover {
           background-color: var(--nav-bar);
           border-radius: 50%; }
         .main-container .dashboard-cards .card-single .currency-detail {
-          color: var(--nav-bar); }
+          color: var(--color-text); }
           .main-container .dashboard-cards .card-single .currency-detail small {
             font-size: xx-small; }
   .widget {

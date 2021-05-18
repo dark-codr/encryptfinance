@@ -4,7 +4,7 @@
 }
 .card {
   background-color: var(--side-bar);
-  color: var(--color-heading);
+  color: var(--color-text);
 }
 @media only screen and (max-width: 500px) {
   html {
@@ -55,6 +55,7 @@
         margin-right: 0;
 
         .card {
+          color: var(--color-text);
           &:hover {
 
             h6,
@@ -104,7 +105,7 @@
         }
 
         .currency-detail {
-          color: var(--nav-bar);
+          color: var(--color-text);
 
           small {
             font-size: xx-small;
@@ -284,6 +285,7 @@
         margin-right: 0;
 
         .card {
+          color: var(--color-text);
           &:hover {
 
             h6,
@@ -333,7 +335,7 @@
         }
 
         .currency-detail {
-          color: var(--nav-bar);
+          color: var(--color-text);
 
           small {
             font-size: xx-small;
@@ -399,6 +401,7 @@
     }
 
     .card {
+      color: var(--color-text);
 
       h6,
       h5,
@@ -421,7 +424,7 @@
     }
 
     .edit {
-      color: var(--nav-bar);
+      color: var(--color-edit);
       position: absolute;
       top: 0;
       right: 1rem;
@@ -496,7 +499,7 @@
         }
 
         .currency-detail {
-          color: var(--nav-bar);
+          color: var(--color-text);
 
           small {
             font-size: xx-small;
@@ -707,7 +710,7 @@
         }
 
         .currency-detail {
-          color: var(--nav-bar);
+          color: var(--color-text);
 
           small {
             font-size: xx-small;
