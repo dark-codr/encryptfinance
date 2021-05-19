@@ -121,15 +121,15 @@ class User(AbstractUser):
     @property
     def rate(self):
         if self.plan == "DAILY PLAN":
-            return 0.2
+            return Decimal(0.2)
         elif self.plan == "SILVER PLAN":
-            return 0.55
+            return Decimal(0.55)
         elif self.plan == "GOLD PLAN":
-            return 0.7
+            return Decimal(0.7)
         elif self.plan == "DIAMOND PLAN":
-            return 0.85
+            return Decimal(0.85)
         elif self.plan == "UNSUBSCRIBED":
-            return 0.00
+            return Decimal(0.00)
 
     @property
     def days(self):
@@ -197,10 +197,7 @@ class User(AbstractUser):
                 return True
 
         elif self.plan == "UNSUBSCRIBED":
-            days = 0
-            terminate_date = self.deposit_date + datetime.timedelta(days=days)
-            if timezone.now().date() > terminate_date:
-                return False
+            return True
 
     def profit(self):
         if self.balance > 0:

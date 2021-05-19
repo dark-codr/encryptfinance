@@ -90,18 +90,17 @@ def deposit_verified(request, dp_id):
         balance = deposit.depositor.balance
         amount = deposit.amount
         dec_am = Decimal(amount)
-        print(dec_am)
-        balance = balance + amount
+        balance = Decimal(balance) + Decimal(amount)
         deposit.depositor.balance = balance
         deposit.depositor.save()
         deposit.save()
-        msg2="""'Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=deposit.depositor.email)
         email = deposit.depositor.email
+        msg2="""Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=email)
         send_mail(
             'DEPOSIT CONFIRMED',
             msg2,
             'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net', email],
+            ['admin@encryptfinance.net', "info@encryptfinance.net", email],
             fail_silently=False,
         )
     return redirect("transactions:history")
@@ -251,14 +250,6 @@ copy_wallet_id = CopyWalletId
 class AdminSeeAllTransactions(LoginRequiredMixin, ListView):
     model = User
     template_name = "transactions/admin_history.html"
-    # context_object_name = "investors"
-
-    # def get_queryset(self):
-    #     queryset = {
-    #         'all_deposits': Deposit.objects.all().filter(depositor=self.request.user.username), 
-    #         'all_deposits': Withdrawal.objects.all().filter(withdrawer=self.request.user.username)
-    #         }
-    #     return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
