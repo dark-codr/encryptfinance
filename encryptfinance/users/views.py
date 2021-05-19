@@ -135,11 +135,12 @@ class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         title = "New Verification Request"
         msg = f"{self.request.user.username} just submited informations for his profile verification at {time}"
         message = get_template('mail/admin-mail.html').render(context={"user_username": self.request.user.username, "title": title, "time": time, "message": msg})
-        recepient = str(self.request.user.email)
+        recepient = self.request.user.email
+        sender = settings.EMAIL_HOST_USER
         send_mail(
             title, 
             message, 
-            settings.EMAIL_HOST_USER, 
+            sender, 
             [recepient]
         )
         return super().form_valid(form)
