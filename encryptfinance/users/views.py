@@ -137,12 +137,15 @@ class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         message = get_template('mail/admin-mail.html').render(context={"user_username": self.request.user.username, "title": title, "time": time, "message": msg})
         recepient = self.request.user.email
         sender = settings.EMAIL_HOST_USER
-        send_mail(
+        mail = EmailMessage(
             title, 
             message, 
             sender, 
             [recepient]
         )
+        mail.content_subtype = "html"
+        mail.send()
+
         return super().form_valid(form)
 
     def form_invalid(self, form):
