@@ -204,9 +204,9 @@ class User(AbstractUser):
 
     def profit(self):
         if self.balance > 0:
-            return self.balance * self.rate
+            return Decimal(self.balance) * Decimal(self.rate)
         else:
-            return Decimal(0.00) * self.rate
+            return Decimal(0.00) * Decimal(self.rate)
 
     def get_absolute_url(self):
         """Get url for user's detail view.
