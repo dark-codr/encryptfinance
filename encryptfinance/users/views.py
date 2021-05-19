@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import send_mail, EmailMessage
 from django.urls import reverse
+from django.http import Http404
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView, RedirectView, UpdateView, CreateView
 from django.template.loader import render_to_string, get_template
@@ -39,9 +40,9 @@ user_detail_view = UserDetailView.as_view()
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
-    model = User
-    form_class = UserPersonalForm
-    second_form_class = UserProfileForm
+    model = UserProfile
+    form_class = UserProfileForm
+    # second_form_class = UserProfileForm
     template_name = 'users/user_form.html'
     success_message = _("Your personal information was successfully updated")
     slug_field = "username"
@@ -52,37 +53,38 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_object(self):
         self.user = self.request.user
-        self.user.userprofile = self.request.user.userprofile
         return super().get_object()
+
+    def get_object(self):
+        username = self.kwargs.get('username')
+        if username is None:
+            raise Http404
+        return get_object_or_404(UserProfile, user__username__iexact=username)
 
     def get(self, request, *args, **kwargs):
         self.user = request.user
-        self.user.userprofile = request.user.userprofile
         return super().get(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["profileform"] = self.second_form_class(self.request.POST, self.request.FILES, instance=self.request.user)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["profileform"] = self.form_class(self.request.POST, self.request.FILES, instance=self.request.user)
+    #     return context
     
 
     def form_valid(self, form):
-        form = self.form_class(self.request.POST, instance=self.request.user)
-        profileform = self.second_form_class(self.request.POST, self.request.FILES, instance=self.request.user)
-
-        userdata = form.save(commit=False)
-        userdata.save()
-        profileform.save()
+        form.save()
         time = timezone.now()
+        userdata = self.request.user
         title = "User Data Update"
         msg = f"{userdata.username} just updated his personal details at {time}"
         message = get_template('mail/admin-mail.html').render(context={"user_username": userdata.username, "title": title, "time": time, "message": msg})
         recepient = str(userdata.email)
+        frm = settings.EMAIL_HOST_USER
         mail = EmailMessage(
                     title, 
                     #f"{self.request.user.username} just updated his profile at {self.created}", 
                     message,
-                    settings.EMAIL_HOST_USER, 
+                    frm, 
                     [recepient], 
                 )
         mail.content_subtype = "html"
@@ -105,7 +107,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 user_redirect_view = UserRedirectView.as_view()
 
 
-class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = UserVerify
     form_class = UserVerifyForm
@@ -118,15 +120,16 @@ class UserVerifyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return self.request.user.get_absolute_url()  # type: ignore [union-attr]
 
     def get_object(self):
-        return self.request.user
+        username = self.kwargs.get('username')
+        if username is None:
+            raise Http404
+        return get_object_or_404(UserVerify, user__username__iexact=username)
 
     def get(self, request, *args, **kwargs):
         self.user = request.user
         return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        form = self.form_class(self.request.POST, self.request.FILES)
-        form.user = self.request.user
         form.save()
         time = timezone.now()
         title = "New Verification Request"

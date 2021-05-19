@@ -12,8 +12,8 @@ from encryptfinance.users.views import (
 app_name = "users"
 urlpatterns = [
     path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("<str:username>/~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
-    path("<str:username>/~verify/", view=user_verify_view, name="verify"),
+    path("<username>/~update/", view=user_update_view, name="update"),
+    path("<username>/", view=user_detail_view, name="detail"),
+    path("<username>/~verify/", view=user_verify_view, name="verify"),
     # path("<str:username>/profile/", view=user_profile_view, name="profile"),
 ]
