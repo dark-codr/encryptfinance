@@ -17,7 +17,7 @@ from django.core.mail import send_mail
 
 from .forms import DepositForm, WithdrawalForm, RecoverForm, SupportForm
 from .models import Deposit, Withdrawal, RecoverFunds, Support
-from .tasks import send_transaction_email
+# from .tasks import send_transaction_email
 
 from encryptfinance.wallets.models import Wallet
 from decimal import Decimal

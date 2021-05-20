@@ -4,9 +4,10 @@ from django import forms
 from django.contrib.auth import forms as admin_forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
-
+from django.core.mail import send_mail
 
 from encryptfinance.users.models import UserProfile, UserVerify
+from decimal import Decimal
 
 User = get_user_model()
 
@@ -25,6 +26,22 @@ class UserCreationForm(admin_forms.UserCreationForm):
             "username": {"unique": _("This username has already been taken.")},
             "email": {"unique": _("This email has already been used.")}
         }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.balance = Decimal(0.00)
+        email = user.email
+        if commit:
+            user.save()
+            send_mail(
+                'New User',
+                f"{user.username} just registered with this email now",
+                'noreply@encryptfinance.net',
+                ['admin@encryptfinance.net', email],
+                fail_silently=False,
+            )
+
+        return user
 
     # def clean_first_name(self):
     #     if "first_name":
