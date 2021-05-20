@@ -70,7 +70,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
             'DEPOSIT REQUEST',
             msg2,
             'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net'],
+            ['admin@encryptfinance.net', user.email],
             fail_silently=False,
         )
         return super().form_valid(form)
