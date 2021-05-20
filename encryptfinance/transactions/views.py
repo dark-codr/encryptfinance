@@ -62,6 +62,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.depositor = self.request.user
         user = form.instance.depositor
+        email = user.email
         amount = form.instance.amount
         msg = """Your deposit of: ${amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
         messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')
@@ -70,7 +71,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
             'DEPOSIT REQUEST',
             msg2,
             'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net', user.email],
+            ['admin@encryptfinance.net', email],
             fail_silently=False,
         )
         return super().form_valid(form)
@@ -228,13 +229,14 @@ class Support(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         user = form.instance.user
-        msg= form.instance.issues
+        issues = form.instance.issue
+        msg= f"""{user.email} just dropped dropped a message \n name: {user.username} \n issue: {issues}"""
         sender = settings.EMAIL_HOST_USER
         admin = settings.ADMINS
         send_mail(
             'FUND RECOVERY REQUEST',
             msg,
-            user.email,
+            "noreply@encryptfinance.net",
             "support@encryptfinance.net",
             fail_silently=False,
         )
