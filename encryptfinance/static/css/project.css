@@ -1000,7 +1000,7 @@ a:hover {
         font-weight: 600;
         size: .7rem; }
     #nav-toggle:checked ~ .main-container .edit {
-      color: var(--color-edit);
+      color: var(--color-text);
       position: absolute;
       top: 0;
       right: 1rem; }
