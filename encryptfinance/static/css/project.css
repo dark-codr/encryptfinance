@@ -879,15 +879,15 @@ a:hover {
       font-weight: 600;
       size: .7rem; }
     .main-container .edit {
-      color: var(--nav-bar);
+      color: var(--color-text);
       position: absolute;
       top: 0;
       right: 1rem; }
       .main-container .edit i {
         margin-bottom: 1rem;
-        color: var(--profile-color); }
+        color: var(--color-text); }
         .main-container .edit i:hover {
-          color: var(--accent-color); }
+          color: var(--color-heading); }
     .main-container .dashboard-cards {
       width: 100%;
       position: inherit; }
@@ -1006,9 +1006,9 @@ a:hover {
       right: 1rem; }
       #nav-toggle:checked ~ .main-container .edit i {
         margin-bottom: 1rem;
-        color: var(--profile-color); }
+        color: var(--color-text); }
         #nav-toggle:checked ~ .main-container .edit i:hover {
-          color: var(--accent-color); }
+          color: var(--color-heading); }
     #nav-toggle:checked ~ .main-container .dashboard-cards {
       width: 100%;
       position: inherit; }
@@ -1155,15 +1155,15 @@ a:hover {
       font-weight: 600;
       size: .7rem; }
     .main-container .edit {
-      color: var(--nav-bar);
+      color: var(--color-text);
       position: absolute;
       top: 0;
       right: 1rem; }
       .main-container .edit i {
         margin-bottom: 1rem;
-        color: var(--profile-color); }
+        color: var(--color-text); }
         .main-container .edit i:hover {
-          color: var(--accent-color); }
+          color: var(--color-background); }
     .main-container .dashboard-cards {
       width: 100%;
       position: inherit; }

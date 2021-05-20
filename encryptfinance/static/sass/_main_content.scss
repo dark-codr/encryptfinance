@@ -259,17 +259,17 @@
     }
 
     .edit {
-      color: var(--nav-bar);
+      color: var(--color-text);
       position: absolute;
       top: 0;
       right: 1rem;
 
       i {
         margin-bottom: 1rem;
-        color: var(--profile-color);
+        color: var(--color-text);
 
         &:hover {
-          color: var(--accent-color)
+          color: var(--color-heading)
         }
       }
     }
@@ -431,10 +431,10 @@
 
       i {
         margin-bottom: 1rem;
-        color: var(--profile-color);
+        color: var(--color-text);
 
         &:hover {
-          color: var(--accent-color)
+          color: var(--color-heading)
         }
       }
     }
@@ -635,17 +635,17 @@
     }
 
     .edit {
-      color: var(--nav-bar);
+      color: var(--color-text);
       position: absolute;
       top: 0;
       right: 1rem;
 
       i {
         margin-bottom: 1rem;
-        color: var(--profile-color);
+        color: var(--color-text);
 
         &:hover {
-          color: var(--accent-color)
+          color: var(--color-background)
         }
       }
     }
