@@ -237,7 +237,7 @@ class Support(LoginRequiredMixin, CreateView):
             'FUND RECOVERY REQUEST',
             msg,
             "noreply@encryptfinance.net",
-            "support@encryptfinance.net",
+            ["support@encryptfinance.net"],
             fail_silently=False,
         )
         messages.success(self.request, "Your support message has been recieved")
