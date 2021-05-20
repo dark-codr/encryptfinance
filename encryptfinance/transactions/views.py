@@ -17,6 +17,7 @@ from django.core.mail import send_mail
 
 from .forms import DepositForm, WithdrawalForm, RecoverForm, SupportForm
 from .models import Deposit, Withdrawal, RecoverFunds, Support
+from .tasks import send_transaction_email
 
 from encryptfinance.wallets.models import Wallet
 from decimal import Decimal
@@ -96,6 +97,8 @@ def deposit_verified(request, dp_id):
         deposit.save()
         email = deposit.depositor.email
         msg2="""Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=email)
+        
+        # send_transaction_email.delay("DEPOSIT CONFIRMED", email, ['admin@encryptfinance.net', "info@encryptfinance.net", email], msg2)
         send_mail(
             'DEPOSIT CONFIRMED',
             msg2,
@@ -225,8 +228,17 @@ class Support(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         user = form.instance.user
-
-        messages.success(self.request, "Your message has been recieved")
+        msg= form.instance.issues
+        sender = settings.EMAIL_HOST_USER
+        admin = settings.ADMINS
+        send_mail(
+            'FUND RECOVERY REQUEST',
+            msg,
+            user.email,
+            "support@encryptfinance.net",
+            fail_silently=False,
+        )
+        messages.success(self.request, "Your support message has been recieved")
         return super().form_valid(form)
 
 

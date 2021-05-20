@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.contrib import admin
 
-from .models import Deposit, Withdrawal
+from .models import Deposit, Withdrawal, Support
 from .forms import DepositForm, WithdrawalForm
 
 # Register your models here.
@@ -23,3 +23,7 @@ class WithdrawalAdmin(admin.ModelAdmin):
     list_editable = ["approval", "withdrawn"]
     class Meta:
         model = Withdrawal
+
+
+
+admin.site.register(Support)
