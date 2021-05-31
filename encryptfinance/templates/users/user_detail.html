@@ -45,12 +45,18 @@
             <div class="col-md-6">
               <div class="card mb-3">
                 <div class="card-body table-responsive">
-                  {% if object.get_full_name %}
+                  {% if object.get_full_name or object.userprofile.code %}
                   <h2>Personal Informations</h2>
                   <table class="table table-borderless table-hover">
                     <tbody style="color: var(--color-text);">
                       <tr>
                         <th scope="row">Username</td><td>{{object.username}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Referral Master</td><td>{% if object.userprofile.recommended_by %}{{ object.userprofile.recommended_by }}{% else %}No Referral Master{% endif %}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Referral Code</td><td><a href="{% url 'home' %}{{ object.userprofile.code }}">{{ object.userprofile.code }}</a></td>
                       </tr>
                       <tr>
                         <th scope="row">Email</td><td>{{object.email}}</td>
@@ -67,19 +73,19 @@
             <div class="col-md-6">
               <div class="card mb-3">
                 <div class="card-body table-responsive">
-                  <h2>Bank Details</h2>
+                  <h2>Referral List</h2>
                   {% if object.userprofile %}
                   <table class="table table-borderless table-hover">
                     <tbody style="color: var(--color-text);">
+                      {% for refs in my_recs %}
                       <tr>
-                        <th scope="row">Bank Name</td><td>{{object.userprofile.bank}}</td>
+                        <th scope="row">{{forloop.counter}}</td><td>{{refs.user.get_full_name}}</td>
                       </tr>
+                      {% empty %}
                       <tr>
-                        <th scope="row">Bank Acc. Number</td><td>{{object.userprofile.account_no}}</td>
+                        <td>Referral</td><td>None</td>
                       </tr>
-                      <tr>
-                        <th scope="row">Bank Rot. Number</td><td>{{object.userprofile.routing_no}}</td>
-                      </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                   {% endif %}

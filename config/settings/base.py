@@ -102,6 +102,9 @@ THIRD_PARTY_APPS = [
     "languages_plus",
     # required for serving swagger api documentation
     'drf_yasg',
+    # referrals with pinax-referrals 
+    # https://github.com/pinax/pinax-referrals#installation
+    "pinax.referrals",
 ]
 
 LOCAL_APPS = [
@@ -177,6 +180,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
+    "pinax.referrals.middleware.SessionJumpingMiddleware",
     # Countries-plus middleware
     "countries_plus.middleware.AddRequestCountryMiddleware",
 ]
@@ -416,6 +420,7 @@ SWAGGER_SETTINGS = {
 }
 
 from datetime import timedelta
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=4),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=60),

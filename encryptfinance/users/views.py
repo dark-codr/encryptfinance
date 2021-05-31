@@ -1,37 +1,53 @@
 from __future__ import absolute_import
 
-import requests
+from decimal import Decimal
 
+from allauth.account.views import SignupView
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.mail import send_mail, EmailMessage
-from django.urls import reverse
+from django.core.mail import EmailMessage, send_mail
 from django.http import Http404
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView, CreateView
-from django.template.loader import render_to_string, get_template
+from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import get_template, render_to_string
+from django.urls import reverse
 from django.utils import timezone
-from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView, DetailView, RedirectView, UpdateView
 
+from . import app_settings
+from .forms import UserCreationForm, UserPersonalForm, UserProfileForm, UserVerifyForm
+from .models import UserProfile, UserVerify
 
-from .models import UserVerify, UserProfile
-from .forms import UserProfileForm, UserVerifyForm, UserPersonalForm
 User = get_user_model()
 
 
+def home(request, *args, **kwargs):
+    code = str(kwargs.get('ref_code'))
+    try:
+        profile = UserProfile.objects.get(code=code)
+        request.session['ref_profile'] = profile.user.id
+        print('user', profile.user.id)
+    except:
+        pass
+    # print(request.session.get_expiry_age())
+    return render(request, 'pages/home.html', {})
+    
+   
 class UserDetailView(LoginRequiredMixin, DetailView):
 
     model = User
     slug_field = "username"
     slug_url_kwarg = "username"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["crypto"] = get_crypto_data()
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        object = self.object
+        recommends = object.userprofile.get_recommended_profiles()
+        context["my_recs"] = recommends
+        return context
     
 
 

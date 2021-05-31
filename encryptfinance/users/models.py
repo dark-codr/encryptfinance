@@ -1,39 +1,36 @@
 from __future__ import absolute_import
 
-import os
-import uuid
-import random
 import datetime
-
+import os
+import random
+import uuid
 from decimal import Decimal
 
+from countries_plus.models import Country
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db.models import (
-    CharField,
-    ForeignKey,
-    TextField,
-    OneToOneField,
-    EmailField,
-    DateTimeField,
-    ImageField,
     CASCADE,
     BooleanField,
-    DecimalField,
-    FileField,
-    UUIDField,
-    URLField,
+    CharField,
     DateField,
+    DateTimeField,
+    DecimalField,
+    EmailField,
+    FileField,
+    ForeignKey,
+    ImageField,
+    OneToOneField,
+    TextField,
+    URLField,
+    UUIDField,
 )
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
-
 from model_utils.models import TimeStampedModel
-from countries_plus.models import Country
 
-
+from ..utils.ref_code import ref_generator
 from ..utils.validators import (
     validate_uploaded_image_extension,
     validate_uploaded_pdf_extension,
@@ -323,7 +320,9 @@ class UserProfile(TimeStampedModel):
         ("Zions Bancorporation", "Zions Bancorporation"),
         ("Other Bank", "Other Bank"),
     )
-    user = OneToOneField(to=User, on_delete=CASCADE, related_name="userprofile")
+    user = OneToOneField(User, on_delete=CASCADE, related_name="userprofile")
+    code = CharField(max_length=7, blank=True)
+    recommended_by = ForeignKey(User, on_delete=CASCADE, blank=True, null=True, related_name='ref_by')
     passport = FileField(
         _("User Profile Passport"),
         upload_to=profile_image,
@@ -378,6 +377,7 @@ class UserProfile(TimeStampedModel):
             )
         ],
     )
+    fk_name = 'user'
 
     @property
     def country_code(self):
@@ -392,6 +392,23 @@ class UserProfile(TimeStampedModel):
         verbose_name = "User Profile"
         verbose_name_plural = "User Profiles"
         ordering = ["-modified"]
+
+
+    def get_recommended_profiles(self):
+        qs = UserProfile.objects.all()
+        # empty recommended lists
+        my_recs = []
+        for profile in qs:
+            if profile.recommended_by == self.user:
+                my_recs.append(profile)
+        return my_recs
+
+    def save(self, *args, **kwargs):
+        if self.code == '':
+            code = ref_generator()
+            self.code = code
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return (
