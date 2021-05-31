@@ -321,7 +321,7 @@ class UserProfile(TimeStampedModel):
         ("Other Bank", "Other Bank"),
     )
     user = OneToOneField(User, on_delete=CASCADE, related_name="userprofile")
-    code = CharField(max_length=7, blank=True)
+    code = CharField(max_length=7, blank=True, default=ref_generator())
     recommended_by = ForeignKey(User, on_delete=CASCADE, blank=True, null=True, related_name='ref_by')
     passport = FileField(
         _("User Profile Passport"),

@@ -56,7 +56,7 @@
                         <th scope="row">Referral Master</td><td>{% if object.userprofile.recommended_by %}{{ object.userprofile.recommended_by }}{% else %}No Referral Master{% endif %}</td>
                       </tr>
                       <tr>
-                        <th scope="row">Referral Code</td><td><a href="{% url 'home' %}{{ object.userprofile.code }}">{{ object.userprofile.code }}</a></td>
+                        <th scope="row">Referral Code</td><td><a style="color:orange" href="{% url 'home' %}{{ object.userprofile.code }}">{{ object.userprofile.code }}</a></td>
                       </tr>
                       <tr>
                         <th scope="row">Email</td><td>{{object.email}}</td>
