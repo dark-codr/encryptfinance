@@ -275,3 +275,5 @@ encryptfinance/media/
 .env
 .envs/*
 !.envs/.local/
+*.dump
+*.dump.1
