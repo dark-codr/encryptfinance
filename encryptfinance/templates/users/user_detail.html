@@ -56,7 +56,7 @@
                         <th scope="row">Referral Master</td><td>{% if object.userprofile.recommended_by %}{{ object.userprofile.recommended_by }}{% else %}No Referral Master{% endif %}</td>
                       </tr>
                       <tr>
-                        <th scope="row">Referral Code</td><td><a style="color:orange" href="{% url 'home' %}{{ object.userprofile.code }}">{{ object.userprofile.code }}</a></td>
+                        <th scope="row">Referral Link</td><td>{% if object.username %}<a style="color:green" href="{% url 'ref-home' object.username %}">https://www.encryptfinance.net{% url 'ref-home' object.username %}</a>{% else %}Update Profile{% endif %}</td>
                       </tr>
                       <tr>
                         <th scope="row">Email</td><td>{{object.email}}</td>

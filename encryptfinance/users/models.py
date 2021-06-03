@@ -321,7 +321,7 @@ class UserProfile(TimeStampedModel):
         ("Other Bank", "Other Bank"),
     )
     user = OneToOneField(User, on_delete=CASCADE, related_name="userprofile")
-    code = CharField(max_length=7, blank=True, default=ref_generator())
+    # code = CharField(max_length=7, blank=True)
     recommended_by = ForeignKey(User, on_delete=CASCADE, blank=True, null=True, related_name='ref_by')
     passport = FileField(
         _("User Profile Passport"),
@@ -403,11 +403,11 @@ class UserProfile(TimeStampedModel):
                 my_recs.append(profile)
         return my_recs
 
-    def save(self, *args, **kwargs):
-        if self.code == '':
-            code = ref_generator()
-            self.code = code
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.code == '':
+    #         code = ref_generator()
+    #         self.code = code
+    #     super().save(*args, **kwargs)
 
 
     def __str__(self):

@@ -25,11 +25,11 @@ User = get_user_model()
 
 
 def home(request, *args, **kwargs):
-    code = str(kwargs.get('ref_code'))
+    username = str(kwargs.get('username'))
     try:
-        profile = UserProfile.objects.get(code=code)
-        request.session['ref_profile'] = profile.user.id
-        print('user', profile.user.id)
+        user = User.objects.get(username=username)
+        request.session['ref_profile'] = user.id
+        print('user', user.id)
     except:
         pass
     # print(request.session.get_expiry_age())

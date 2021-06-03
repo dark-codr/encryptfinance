@@ -18,7 +18,7 @@ sitemaps = {
 
 urlpatterns = [
     path("", home, name="home"),
-    path('<str:ref_code>/', home, name='home'),
+    path('ref=<username>/', home, name='ref-home'),
     path("accounts/mt5-webtrader/", TemplateView.as_view(template_name="users/mt5.html"), name="mt5"),
     path("accounts/dashboard/", TemplateView.as_view(template_name="users/dashboard.html"), name="dashboard"),
     path(
