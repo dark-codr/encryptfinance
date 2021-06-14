@@ -1,26 +1,30 @@
 from datetime import datetime, timedelta
+from decimal import Decimal
+
 from django.conf import settings
 from django.contrib import messages
-from django.utils import timezone
-from django.core.exceptions import PermissionDenied
-from django.utils.safestring import mark_safe
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail, send_mass_mail
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls.base import reverse
-from django.views.generic.edit import CreateView
-from django.views.generic import DetailView, ListView
+from django.utils import timezone
 from django.utils.http import is_safe_url
-
-from django.core.mail import send_mail
-
-from .forms import DepositForm, WithdrawalForm, RecoverForm, SupportForm
-from .models import Deposit, Withdrawal, RecoverFunds, Support
-# from .tasks import send_transaction_email
+from django.utils.safestring import mark_safe
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView
 
 from encryptfinance.wallets.models import Wallet
-from decimal import Decimal
+
+from .forms import DepositForm, RecoverForm, SupportForm, WithdrawalForm
+from .models import Deposit, RecoverFunds, Support, Withdrawal
+
+# from .tasks import send_user_email
+
+# from .tasks import send_transaction_email
+
 
 User = get_user_model()
 
@@ -64,16 +68,27 @@ class DepositFormView(LoginRequiredMixin, CreateView):
         user = form.instance.depositor
         email = user.email
         amount = form.instance.amount
-        msg = """Your deposit of: ${amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
+        msg = """Your deposit of: ${amount} is pending and will be completed after you complete payment.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
         messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')
+        sender = settings.EMAIL_HOST_USER
+        admin = settings.ADMINS
         msg2="""Deposit request has been made for: ${amount}""".format(amount=amount)
-        send_mail(
-            'DEPOSIT REQUEST',
-            msg2,
-            'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net', email],
-            fail_silently=False,
+        emails = (
+            (
+                'DEPOSIT REQUEST',
+                msg,
+                sender,
+                [email]
+            ),
+
+            (
+                'DEPOSIT REQUEST',
+                msg2,
+                sender,
+                [admin]
+            )
         )
+        results = send_mass_mail(emails, fail_silently=False)
         return super().form_valid(form)
         
 
@@ -96,17 +111,19 @@ def deposit_verified(request, dp_id):
         deposit.depositor.balance = balance
         deposit.depositor.save()
         deposit.save()
-        email = deposit.depositor.email
+        demail = deposit.depositor.email
         msg2="""Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=email)
-        
+        sender = settings.EMAIL_HOST_USER
+        admin = settings.ADMINS
+
         # send_transaction_email.delay("DEPOSIT CONFIRMED", email, ['admin@encryptfinance.net', "info@encryptfinance.net", email], msg2)
-        send_mail(
+        email = (
             'DEPOSIT CONFIRMED',
             msg2,
-            'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net', "info@encryptfinance.net", email],
-            fail_silently=False,
+            sender,
+            [admin, demail],
         )
+        results = send_mail(email, fail_silently=False)
     return redirect("transactions:history")
 
 
@@ -142,19 +159,37 @@ class WithdrawalFormView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.withdrawer = self.request.user
         wdr = form.instance.withdrawer
+        wmail = wdr.email
         amount = form.instance.amount
         if amount < wdr.balance:
             msg = """Your request for the withdrawal of {amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
             msg2="""'Withdrawal request has been made for: ${amount}""".format(amount=amount)
             messages.success(self.request, msg)
+            sender = settings.EMAIL_HOST_USER
             admin = settings.ADMINS
-            send_mail(
-                'WITHDRAWAL REQUEST',
-                msg2,
-                settings.DEFAULT_FROM_EMAIL,
-                admin,
-                fail_silently=False,
+            # send_mail(
+            #     'WITHDRAWAL REQUEST',
+            #     msg2,
+            #     settings.DEFAULT_FROM_EMAIL,
+            #     admin,
+            #     fail_silently=False,
+            # )
+            email = (
+                (
+                    'WITHDRAWAL REQUEST',
+                    msg2,
+                    sender,
+                    [admin],
+                ),
+
+                (
+                    'WITHDRAWAL REQUEST',
+                    msg,
+                    sender,
+                    [wmail],
+                )
             )
+            results = send_mass_mail(email, fail_silently=False)
         elif amount > wdr.balance:
             messages.info(self.request, "Insufficient Balance")
         else:
@@ -176,14 +211,16 @@ def withdrawal_verified(request, wd_id):
         withdraw.withdrawer.save()
         withdraw.save()
         msg2="""'Withdrawal request of ${amount} has been sent to: {wallet}""".format(amount=withdraw.amount, wallet=withdraw.wallet_id)
-        email = withdraw.withdrawer.email
-        send_mail(
+        sender = settings.EMAIL_HOST_USER
+        admin = settings.ADMINS
+        wemail = withdraw.withdrawer.email
+        email = (
             'WITHDRAWAL CONFIRMED',
             msg2,
-            'noreply@encryptfinance.net',
-            ['admin@encryptfinance.net', "info@encryptfinance.net", email],
-            fail_silently=False,
+            sender,
+            [admin, wemail],
         )
+        results = send_mail(email, fail_silently=False)
     return redirect("transactions:history")
 
 class RecoverFormView(LoginRequiredMixin, CreateView):
@@ -205,13 +242,13 @@ class RecoverFormView(LoginRequiredMixin, CreateView):
             messages.success(self.request, msg)
             sender = settings.EMAIL_HOST_USER
             admin = settings.ADMINS
-            send_mail(
+            email = (
                 'FUND RECOVERY REQUEST',
                 msg2,
-                sender,
-                admin,
-                fail_silently=False,
+                sender
+                [admin],
             )
+            results = send_mail(email, fail_silently=False)
         elif date > today:
             messages.error(self.request, "Can't proceed any further")
         else:
@@ -232,15 +269,15 @@ class Support(LoginRequiredMixin, CreateView):
         issues = form.instance.issue
         msg= f"""{user.email} just dropped dropped a message \n name: {user.username} \n issue: {issues}"""
         sender = settings.EMAIL_HOST_USER
-        admin = settings.ADMINS
-        send_mail(
-            'FUND RECOVERY REQUEST',
-            msg,
-            "noreply@encryptfinance.net",
-            ["support@encryptfinance.net"],
-            fail_silently=False,
-        )
         messages.success(self.request, "Your support message has been recieved")
+        admin = settings.ADMINS
+        email = (
+            'DIRECT SUPPORT REQUEST',
+            msg,
+            sender
+            [admin, "support@encryptfinance.net"],
+        )
+        results = send_mail(email, fail_silently=False)
         return super().form_valid(form)
 
 

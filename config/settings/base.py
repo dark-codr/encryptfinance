@@ -102,9 +102,6 @@ THIRD_PARTY_APPS = [
     "languages_plus",
     # required for serving swagger api documentation
     'drf_yasg',
-    # referrals with pinax-referrals 
-    # https://github.com/pinax/pinax-referrals#installation
-    "pinax.referrals",
 ]
 
 LOCAL_APPS = [
@@ -180,7 +177,6 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
-    "pinax.referrals.middleware.SessionJumpingMiddleware",
     # Countries-plus middleware
     "countries_plus.middleware.AddRequestCountryMiddleware",
 ]
@@ -318,6 +314,16 @@ if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+CELERY_EMAIL_TASK_CONFIG = {
+    'queue': 'email',
+    'name': 'djcelery_email_send',
+    'rate_limit': '50/m',
+    'ignore_result': True,
+}
+INSTALLED_APPS += (
+    'djcelery_email',
+    # 'django_celery_results',
+)
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
@@ -362,15 +368,7 @@ ACCOUNT_ADAPTER = "encryptfinance.users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "encryptfinance.users.adapters.SocialAccountAdapter"
 
 ACCOUNT_FORMS = {
-    # "add_email": "allauth.account.forms.AddEmailForm",
-    # "change_password": "allauth.account.forms.ChangePasswordForm",
-    # "disconnect": "allauth.socialaccount.forms.DisconnectForm",
-    # "login": "allauth.account.forms.LoginForm",
-    # "reset_password": "allauth.account.forms.ResetPasswordForm",
-    # "reset_password_from_key": "allauth.account.forms.ResetPasswordKeyForm",
-    # "set_password": "allauth.account.forms.SetPasswordForm",
     "signup": "encryptfinance.users.forms.UserCreationForm",
-    # "signup": "allauth.socialaccount.forms.SignupForm",
 }
 
 
