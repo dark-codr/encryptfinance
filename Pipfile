@@ -84,6 +84,7 @@ django-coverage-plugin = "==1.8.0"
 pytest-django = "==4.2.0"
 pinax-referrals = "*"
 django-mptt = "*"
+django-celery-email = "*"
 
 [dev-packages]
 ipdb = "==0.13.7"
