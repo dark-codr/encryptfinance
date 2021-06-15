@@ -82,6 +82,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
+    "djcelery_email",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -266,10 +267,12 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND",
-    default="django.core.mail.backends.smtp.EmailBackend",
-)
+# EMAIL_BACKEND = env(
+#     "DJANGO_EMAIL_BACKEND",
+#     default="django.core.mail.backends.smtp.EmailBackend",
+# )
+EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
