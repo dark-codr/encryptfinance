@@ -60,8 +60,8 @@ class DepositFormView(LoginRequiredMixin, CreateView):
         amount = form.instance.amount
         msg = """Your deposit of: ${amount} is pending and will be completed after you complete payment.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
         messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')
-        sender = settings.EMAIL_HOST_USER
-        admin = settings.ADMINS
+        sender = "noreply@encryptfinance.net"
+        admin = "admin@encryptfinance.net"
         msg2="""Deposit request has been made for: ${amount}""".format(amount=amount)
         emails = (
             (
@@ -100,9 +100,8 @@ def deposit_verified(request, dp_id):
         deposit.save()
         demail = deposit.depositor.email
         msg2="""Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=email)
-        sender = settings.EMAIL_HOST_USER
-        admin = settings.ADMINS
-
+        sender = "noreply@encryptfinance.net"
+        admin = "admin@encryptfinance.net"
         email = (
             'DEPOSIT CONFIRMED',
             msg2,
@@ -142,8 +141,8 @@ class WithdrawalFormView(LoginRequiredMixin, CreateView):
             msg = """Your request for the withdrawal of {amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
             msg2="""'Withdrawal request has been made for: ${amount}""".format(amount=amount)
             messages.success(self.request, msg)
-            sender = settings.EMAIL_HOST_USER
-            admin = settings.ADMINS
+            sender = "noreply@encryptfinance.net"
+            admin = "admin@encryptfinance.net"
             email = (
                 (
                     'WITHDRAWAL REQUEST',
@@ -181,8 +180,8 @@ def withdrawal_verified(request, wd_id):
         withdraw.withdrawer.save()
         withdraw.save()
         msg2="""'Withdrawal request of ${amount} has been sent to: {wallet}""".format(amount=withdraw.amount, wallet=withdraw.wallet_id)
-        sender = settings.EMAIL_HOST_USER
-        admin = settings.ADMINS
+        sender = "noreply@encryptfinance.net"
+        admin = "admin@encryptfinance.net"
         wemail = withdraw.withdrawer.email
         email = (
             'WITHDRAWAL CONFIRMED',
@@ -210,8 +209,8 @@ class RecoverFormView(LoginRequiredMixin, CreateView):
             msg = f"""Your request for the fund recovery of {form.instance.amount} is pending and will be verified within the next 48hrs.\n\nPlease be patient while the transaction completes."""
             msg2=f"""'Fund Recovery request has been made for: ${form.instance.amount} from {form.instance.previous_broker} by {form.instance.requester}"""
             messages.success(self.request, msg)
-            sender = settings.EMAIL_HOST_USER
-            admin = settings.ADMINS
+            sender = "noreply@encryptfinance.net"
+            admin = "admin@encryptfinance.net"
             email = (
                 'FUND RECOVERY REQUEST',
                 msg2,
@@ -238,9 +237,9 @@ class Support(LoginRequiredMixin, CreateView):
         user = form.instance.user
         issues = form.instance.issue
         msg= f"""{user.email} just dropped dropped a message \n name: {user.username} \n issue: {issues}"""
-        sender = settings.EMAIL_HOST_USER
+        sender = "noreply@encryptfinance.net"
+        admin = "admin@encryptfinance.net"
         messages.success(self.request, "Your support message has been recieved")
-        admin = settings.ADMINS
         email = (
             'DIRECT SUPPORT REQUEST',
             msg,
