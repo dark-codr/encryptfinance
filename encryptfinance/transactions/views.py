@@ -59,7 +59,6 @@ class DepositFormView(LoginRequiredMixin, CreateView):
         email = user.email
         amount = form.instance.amount
         msg = """Your deposit of: ${amount} is pending and will be completed after you complete payment.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
-        messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')
         sender = "noreply@encryptfinance.net"
         admin = "admin@encryptfinance.net"
         msg2="""Deposit request has been made for: ${amount}""".format(amount=amount)
@@ -79,6 +78,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
             )
         )
         results = send_mass_mail(emails, fail_silently=False)
+        messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')
         return super().form_valid(form)
         
 
