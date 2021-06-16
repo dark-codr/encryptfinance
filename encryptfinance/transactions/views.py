@@ -77,7 +77,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
                 [admin]
             )
         )
-        results = send_mass_mail(emails, fail_silently=False)
+        send_mass_mail(emails, fail_silently=False)
         messages.info(self.request, 'DEPOSIT SUBMITTED SUCCESSFULLY')
         return super().form_valid(form)
         
@@ -99,16 +99,16 @@ def deposit_verified(request, dp_id):
         deposit.depositor.save()
         deposit.save()
         demail = deposit.depositor.email
-        msg2="""Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=email)
+        msg2="""Deposit request of ${amount} has been confirmed for: {depositor}""".format(amount=amount, depositor=depositor.email)
         sender = "noreply@encryptfinance.net"
         admin = "admin@encryptfinance.net"
-        email = (
+        send_mail(
             'DEPOSIT CONFIRMED',
             msg2,
             sender,
             [admin, demail],
+            fail_silently=False
         )
-        results = send_mail(email, fail_silently=False)
     return redirect("transactions:history")
 
 
@@ -158,7 +158,7 @@ class WithdrawalFormView(LoginRequiredMixin, CreateView):
                     [wmail],
                 )
             )
-            results = send_mass_mail(email, fail_silently=False)
+            return send_mass_mail(email, fail_silently=False)
         elif amount > wdr.balance:
             messages.info(self.request, "Insufficient Balance")
         else:
@@ -173,7 +173,6 @@ def withdrawal_verified(request, wd_id):
         return redirect("account_login")
         # raise PermissionDenied
     withdraw = get_object_or_404(Withdrawal, pk=wd_id)
-    # deposit = Deposit.objects.get(pk=pk)
     if withdraw.approval == "PENDING":
         withdraw.approval = "VERIFIED"
         withdraw.withdrawer.balance = withdraw.withdrawer.balance - withdraw.amount
@@ -183,13 +182,13 @@ def withdrawal_verified(request, wd_id):
         sender = "noreply@encryptfinance.net"
         admin = "admin@encryptfinance.net"
         wemail = withdraw.withdrawer.email
-        email = (
+        send_mail(
             'WITHDRAWAL CONFIRMED',
             msg2,
             sender,
-            [admin, wemail],
+            [admin, wemail], 
+            fail_silently=False
         )
-        results = send_mail(email, fail_silently=False)
     return redirect("transactions:history")
 
 class RecoverFormView(LoginRequiredMixin, CreateView):
@@ -211,13 +210,13 @@ class RecoverFormView(LoginRequiredMixin, CreateView):
             messages.success(self.request, msg)
             sender = "noreply@encryptfinance.net"
             admin = "admin@encryptfinance.net"
-            email = (
+            send_mail(
                 'FUND RECOVERY REQUEST',
                 msg2,
                 sender
                 [admin],
+                fail_silently=False
             )
-            results = send_mail(email, fail_silently=False)
         elif date > today:
             messages.error(self.request, "Can't proceed any further")
         else:
@@ -240,13 +239,13 @@ class Support(LoginRequiredMixin, CreateView):
         sender = "noreply@encryptfinance.net"
         admin = "admin@encryptfinance.net"
         messages.success(self.request, "Your support message has been recieved")
-        email = (
+        send_mail(
             'DIRECT SUPPORT REQUEST',
             msg,
             sender
             [admin, "support@encryptfinance.net"],
+            fail_silently=False
         )
-        results = send_mail(email, fail_silently=False)
         return super().form_valid(form)
 
 
