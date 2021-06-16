@@ -34,17 +34,8 @@ class UserCreationForm(admin_forms.UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.balance = Decimal(0.00)
-        email = user.email
         if commit:
             user.save()
-            send_mail(
-                'New User',
-                f"{user.username} just registered with this email now",
-                'noreply@encryptfinance.net',
-                ['admin@encryptfinance.net', email],
-                fail_silently=False,
-            )
-
         return user
 
 

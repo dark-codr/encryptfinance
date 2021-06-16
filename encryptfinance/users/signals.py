@@ -1,6 +1,6 @@
 from allauth.account.signals import user_signed_up
 from django.contrib.auth import get_user_model
-from django.core.mail import EmailMessage, send_mail
+from django.core.mail import EmailMessage, send_mail, send_mass_mail
 from django.db.models import F
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -35,7 +35,7 @@ def save_user_profile(sender, instance, created, *args, **kwargs):
 @receiver(user_signed_up)
 def user_signed_up_(request, user, **kwargs):
     profile_id = request.session.get("ref_profile")
-    print("profile_id", profile_id)
+    # print("profile_id", profile_id)
     if profile_id is not None:
         recommended_by_profile = UserProfile.objects.get(id=profile_id)
         recommender_email = recommended_by_profile.user.email
@@ -43,10 +43,35 @@ def user_signed_up_(request, user, **kwargs):
         registered_profile = UserProfile.objects.get(user=registered_user)
         registered_profile.recommended_by = recommended_by_profile.user
         registered_profile.save()
-        send_mail(
-            f"New User Registered with {profile_id} code",
-            f"{user.username} just registered with this referrer  \n User: {recommended_by_profile}  now",
-            "noreply@encryptfinance.net",
-            ["admin@encryptfinance.net", recommender_email, registered_user.email],
-            fail_silently=False,
+        email = (
+            (
+                f"New User Registered with {profile_id}",
+                f"{registered_user.username} just registered with this referrer  \n User: {recommended_by_profile.user.username}.",
+                "noreply@encryptfinance.net",
+                ["admin@encryptfinance.net"],
+            ),
+
+            (
+                f"New Referrer Registered",
+                f"{registered_user.username} just registered with your referrer link. \n User: {recommended_by_profile.user.username}.",
+                "noreply@encryptfinance.net",
+                [recommended_by_profile.user.email],
+            ),
+
+            (
+                f'Welcome {registered_user.username}',
+                f"{registered_user.username} We are happy to have you with us. \n\nPlease Note: You were referred by {recommended_by_profile}.",
+                "noreply@encryptfinance.net",
+                [registered_user.email],
+            )
         )
+        return send_mass_mail(email, fail_silently=False)
+    else:
+        return send_mail(
+            f"New User Registered without Referral",
+            f"{user.username} just registered now with email: {user.email}",
+            "noreply@encryptfinance.net",
+            ["admin@encryptfinance.net"],
+            fail_silently=False
+        )
+    

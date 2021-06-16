@@ -49,7 +49,7 @@ urlpatterns += [
     # path("accounts/signup/", view=AccountSignupView.as_view(), name="sign_up"),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type='text/plain'), name="robots"),
-    path('cookies/', include('cookie_consent.urls')),
+    path('cookies/', include('cookie_consent.urls', namespace="cookies")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]

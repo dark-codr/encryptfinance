@@ -32,7 +32,6 @@ def home(request, *args, **kwargs):
         print('user', user.id)
     except:
         pass
-    # print(request.session.get_expiry_age())
     return render(request, 'pages/home.html', {})
     
    
@@ -58,7 +57,6 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     model = UserProfile
     form_class = UserProfileForm
-    # second_form_class = UserProfileForm
     template_name = 'users/user_form.html'
     success_message = _("Your personal information was successfully updated")
     slug_field = "username"
@@ -81,11 +79,6 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         self.user = request.user
         return super().get(request, *args, **kwargs)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["profileform"] = self.form_class(self.request.POST, self.request.FILES, instance=self.request.user)
-    #     return context
-    
 
     def form_valid(self, form):
         form.save()
@@ -98,7 +91,6 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         frm = settings.EMAIL_HOST_USER
         mail = EmailMessage(
                     title, 
-                    #f"{self.request.user.username} just updated his profile at {self.created}", 
                     message,
                     frm, 
                     [recepient], 

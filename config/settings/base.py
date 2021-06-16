@@ -233,6 +233,9 @@ TEMPLATES = [
                 "encryptfinance.utils.context_processors.settings_context",
 
                 # third parties context_processors
+                "countries_plus.context_processors.add_request_country",
+
+                # MAIN APP CONTEXT_PROCESSORS
                 "encryptfinance.users.context_processors.recent_testimonials",
                 "encryptfinance.flatpages_main.context_processors.recent_faq",
             ],
@@ -483,10 +486,8 @@ DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
-if DEBUG:
-    COUNTRIES_PLUS_COUNTRY_HEADER = 'CF_IPCOUNTRY'
-else:
-    COUNTRIES_PLUS_COUNTRY_HEADER = 'CF_IPCOUNTRY'
+HTTP_CF_COUNTRY = 'US'
+COUNTRIES_PLUS_COUNTRY_HEADER = 'HTTP_CF_COUNTRY'
 COUNTRIES_PLUS_DEFAULT_ISO = 'US'
 
 

@@ -21,11 +21,6 @@ from encryptfinance.wallets.models import Wallet
 from .forms import DepositForm, RecoverForm, SupportForm, WithdrawalForm
 from .models import Deposit, RecoverFunds, Support, Withdrawal
 
-# from .tasks import send_user_email
-
-# from .tasks import send_transaction_email
-
-
 User = get_user_model()
 
 # Create your views here.
@@ -38,11 +33,7 @@ class DebitLists(LoginRequiredMixin, ListView):
     allow_empty = True	
     paginate_by = 20
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["date"] = timezone.now() - timedelta(minutes=2)
-    #     return context
-    
+   
 
 class WithdrawalLists(LoginRequiredMixin, ListView):
     model = Withdrawal
@@ -56,7 +47,6 @@ class WithdrawalLists(LoginRequiredMixin, ListView):
 class DepositFormView(LoginRequiredMixin, CreateView):
     model = Deposit
     template_name = 'transactions/depositform.html'
-    # success_message = 'Deposit is PENDING'
     form_class = DepositForm
 
 
@@ -96,9 +86,7 @@ class DepositFormView(LoginRequiredMixin, CreateView):
 def deposit_verified(request, dp_id):
     if not request.user.is_authenticated and request.user.is_admin:
         return redirect(is_safe_url("account_login"))
-        # raise PermissionDenied
     deposit = get_object_or_404(Deposit, pk=dp_id)
-    # deposit = Deposit.objects.all().get(pk=dp_id)
     if deposit.approval == "PENDING":
         deposit.approval = "VERIFIED"
         depositor = deposit.depositor
@@ -106,7 +94,6 @@ def deposit_verified(request, dp_id):
         depositor.deposit_date = timezone.now()
         balance = deposit.depositor.balance
         amount = deposit.amount
-        dec_am = Decimal(amount)
         balance = Decimal(balance) + Decimal(amount)
         deposit.depositor.balance = balance
         deposit.depositor.save()
@@ -116,7 +103,6 @@ def deposit_verified(request, dp_id):
         sender = settings.EMAIL_HOST_USER
         admin = settings.ADMINS
 
-        # send_transaction_email.delay("DEPOSIT CONFIRMED", email, ['admin@encryptfinance.net', "info@encryptfinance.net", email], msg2)
         email = (
             'DEPOSIT CONFIRMED',
             msg2,
@@ -130,15 +116,6 @@ def deposit_verified(request, dp_id):
 class AllTransactions(LoginRequiredMixin, ListView):
     model = User
     template_name = "transactions/history.html"
-    # context_object_name = "investors"
-
-    # def get_queryset(self):
-    #     queryset = {
-    #         'all_deposits': Deposit.objects.all().filter(depositor=self.request.user.username), 
-    #         'all_deposits': Withdrawal.objects.all().filter(withdrawer=self.request.user.username)
-    #         }
-    #     return queryset
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         deposits = Deposit.objects.all().filter(depositor=self.request.user.id)[0:6]
@@ -167,13 +144,6 @@ class WithdrawalFormView(LoginRequiredMixin, CreateView):
             messages.success(self.request, msg)
             sender = settings.EMAIL_HOST_USER
             admin = settings.ADMINS
-            # send_mail(
-            #     'WITHDRAWAL REQUEST',
-            #     msg2,
-            #     settings.DEFAULT_FROM_EMAIL,
-            #     admin,
-            #     fail_silently=False,
-            # )
             email = (
                 (
                     'WITHDRAWAL REQUEST',
