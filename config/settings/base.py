@@ -274,8 +274,8 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 #     "DJANGO_EMAIL_BACKEND",
 #     default="django.core.mail.backends.smtp.EmailBackend",
 # )
-CELERY_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+CELERY_EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5

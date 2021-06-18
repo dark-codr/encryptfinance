@@ -242,7 +242,7 @@ class Support(LoginRequiredMixin, CreateView):
         send_mail(
             'DIRECT SUPPORT REQUEST',
             msg,
-            sender
+            sender,
             [admin, "support@encryptfinance.net"],
             fail_silently=False
         )
