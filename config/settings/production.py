@@ -162,7 +162,7 @@ EMAIL_PORT = 465
 
 # EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
-
+EMAIL_TIMEOUT = 240 #4MINS
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/settings/#django.conf.settings.COMPRESS_ENABLED
