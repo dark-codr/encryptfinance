@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from django.core.mail import send_mail
 from django import forms
 from .models import Deposit, Withdrawal, User, RecoverFunds, Support
+from decimal import Decimal
 
 class DepositForm(forms.ModelForm):
     class Meta:
@@ -21,9 +22,11 @@ class WithdrawalForm(forms.ModelForm):
         fields = ["amount", "wallet_id"]
 
     def save(self, commit=True):
-        form = super(WithdrawalForm, self).save(commit=False)
-        if commit and form.amount < form.withdrawer.balance:
+        form = super().save(commit=False)
+        user_b = form.withdrawer.balance
+        if commit and form.amount < user_b:
             form.save()
+            print("Working form after save")
         return form
             
 

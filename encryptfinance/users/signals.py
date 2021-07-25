@@ -35,7 +35,7 @@ def save_user_profile(sender, instance, created, *args, **kwargs):
 @receiver(user_signed_up)
 def user_signed_up_(request, user, **kwargs):
     profile_id = request.session.get("ref_profile")
-    # print("profile_id", profile_id)
+    print("profile_id", profile_id)
     if profile_id is not None:
         recommended_by_profile = UserProfile.objects.get(id=profile_id)
         recommender_email = recommended_by_profile.user.email

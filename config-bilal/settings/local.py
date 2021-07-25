@@ -8,7 +8,7 @@ DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
     "DJANGO_SECRET_KEY",
-    default="bZNcdPArknlWbp2NKI9VTzBrSA4Sok2ceGmENWXjncvaWKOFdNHbAuL9dLXegTva",
+    default="GnewUcwv6qjvAYPYRhvj1FdOAWiJx3xUSFyMHnbZn6VzQUEOsIMY7jOQt1hbisYu",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
@@ -26,13 +26,9 @@ CACHES = {
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-CELERY_EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
-
 
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
@@ -59,12 +55,5 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 CELERY_TASK_ALWAYS_EAGER = True
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-eager-propagates
 CELERY_TASK_EAGER_PROPAGATES = True
-# CELERY_BEAT_SCHEDULE = {
-#     'produce-csv-reports': {
-#         'task': 'celery_uncovered.toyex.tasks.produce_hot_repo_report_task',
-#         'schedule': crontab(minute=0, hour=0),  # midnight,
-#         'args': ('today',)
-#     },
-# }
 # Your stuff...
 # ------------------------------------------------------------------------------

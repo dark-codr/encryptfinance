@@ -33,15 +33,6 @@ class UserProfile(admin.StackedInline):
         self.fk_name = getattr(self.model, 'fk_name', None)
         super().__init__(parent_model, admin_site)
 
-    # def passport(self, obj):
-    #     return mark_safe(
-    #         '<img src="{url}" width="{width}" height={height} />'.format(
-    #             url=obj.passport.url,
-    #             width=obj.passport.width,
-    #             height=obj.passport.height,
-    #         )
-    #     )
-
 
 class UserVerify(admin.StackedInline):
     form = UserVerifyForm

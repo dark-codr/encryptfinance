@@ -82,7 +82,6 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
-    "djcelery_email",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -101,7 +100,7 @@ THIRD_PARTY_APPS = [
     # //https://pypi.org/project/django-countries-plus/
     "countries_plus",
     "languages_plus",
-    # required for serving swagger api documentation
+    # requand are only installed when someone else desires to use our repository after we push to github only for local use and not production ired for serving swagger api documentation
     'drf_yasg',
 ]
 
@@ -232,10 +231,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "encryptfinance.utils.context_processors.settings_context",
 
-                # # third parties context_processors
-                # "countries_plus.context_processors.add_request_country",
-
-                # MAIN APP CONTEXT_PROCESSORS
+                # third parties context_processors
                 "encryptfinance.users.context_processors.recent_testimonials",
                 "encryptfinance.flatpages_main.context_processors.recent_faq",
             ],
@@ -270,26 +266,21 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-# EMAIL_BACKEND = env(
-#     "DJANGO_EMAIL_BACKEND",
-#     default="django.core.mail.backends.smtp.EmailBackend",
-# )
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND",
     default="django.core.mail.backends.smtp.EmailBackend",
 )
-# CELERY_EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
-
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
-EMAIL_TIMEOUT = None
+EMAIL_TIMEOUT = 5
 
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
 ADMIN_URL = "dashboard/"
 ADMIN_DOC_URL = "dashboard/doc/"
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Jesse Paker""", "noreply@encryptfinance.net")]
+ADMINS = [("""Roy Findelich""", "noreply@encryptfinance.net")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
@@ -324,16 +315,6 @@ if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-# CELERY_EMAIL_TASK_CONFIG = {
-#     'queue': 'email',
-#     'name': 'djcelery_email_send',
-#     'rate_limit': '50/m',
-#     'ignore_result': True,
-# }
-# INSTALLED_APPS += (
-#     'djcelery_email',
-#     # 'django_celery_results',
-# )
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
@@ -378,9 +359,16 @@ ACCOUNT_ADAPTER = "encryptfinance.users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "encryptfinance.users.adapters.SocialAccountAdapter"
 
 ACCOUNT_FORMS = {
+    # "add_email": "allauth.account.forms.AddEmailForm",
+    # "change_password": "allauth.account.forms.ChangePasswordForm",
+    # "disconnect": "allauth.socialaccount.forms.DisconnectForm",
+    # "login": "allauth.account.forms.LoginForm",
+    # "reset_password": "allauth.account.forms.ResetPasswordForm",
+    # "reset_password_from_key": "allauth.account.forms.ResetPasswordKeyForm",
+    # "set_password": "allauth.account.forms.SetPasswordForm",
     "signup": "encryptfinance.users.forms.UserCreationForm",
+    # "signup": "allauth.socialaccount.forms.SignupForm",
 }
-
 
 # django-compressor
 # ------------------------------------------------------------------------------
@@ -428,7 +416,6 @@ SWAGGER_SETTINGS = {
 }
 
 from datetime import timedelta
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=4),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=60),
@@ -488,10 +475,6 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
-
-# HTTP_CF_COUNTRY = 'US'
-# COUNTRIES_PLUS_COUNTRY_HEADER = 'HTTP_CF_COUNTRY'
-# COUNTRIES_PLUS_DEFAULT_ISO = 'US'
 
 if DEBUG:
     COUNTRIES_PLUS_COUNTRY_HEADER = 'CF_IPCOUNTRY'

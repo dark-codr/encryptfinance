@@ -17,7 +17,7 @@
           <div class="card-header">
             <h3>Make your withdrawals</h3>
           </div>
-          <form class="form-horizontal mt-4" method="post" action="{% url 'transactions:withdraw' %}" enctype="multipart/form-data">
+          <form class="form-horizontal mt-4" method="POST" action="{% url 'transactions:withdraw' %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
 

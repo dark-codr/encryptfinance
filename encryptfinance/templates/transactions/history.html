@@ -52,31 +52,33 @@
               </td>  
             </tr>
             {% endfor %}
-            {% for wd in withdrawals %}
-            <tr>
-              <td>
-                {{ wd.withdrawer }}
-              </td>
-              <td {% if wd.approval == "VERIFIED" %}class="text-danger font-weight-bold"{% endif %}>
-                {{ wd.amount }}
-              </td>
-              <td>
-                Withdrawal
-              </td>
-              <td>
-                {{ wd.created }}
-              </td>
-              <td class="font-weight-bold">
-                {{ wd.approval }}
-              </td>
-            </tr>
-            {% empty %}
-            <tr>
-              <td colspan="6" class="text-center"> 
-                No Withdrawals has been made yet.
-              </td>
-            </tr>
-            {% endfor %}
+            {% if withdrawals %}
+              {% for wd in withdrawals %}
+              <tr>
+                <td>
+                  {{ wd.withdrawer }}
+                </td>
+                <td {% if wd.approval == "VERIFIED" %}class="text-danger font-weight-bold"{% endif %}>
+                  {{ wd.amount }}
+                </td>
+                <td>
+                  Withdrawal
+                </td>
+                <td>
+                  {{ wd.created }}
+                </td>
+                <td class="font-weight-bold">
+                  {{ wd.approval }}
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center"> 
+                  No Withdrawals has been made yet.
+                </td>
+              </tr>
+              {% endfor %}
+            {% endif %}
           </tbody>
         </table>
         </div>

@@ -17,7 +17,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, RedirectView, UpdateView
 
-from . import app_settings
+# from . import app_settings
 from .forms import UserCreationForm, UserPersonalForm, UserProfileForm, UserVerifyForm
 from .models import UserProfile, UserVerify
 

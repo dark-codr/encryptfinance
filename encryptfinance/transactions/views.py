@@ -135,36 +135,59 @@ class WithdrawalFormView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.withdrawer = self.request.user
         wdr = form.instance.withdrawer
-        wmail = wdr.email
         amount = form.instance.amount
         if amount < wdr.balance:
             msg = """Your request for the withdrawal of {amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
-            msg2="""'Withdrawal request has been made for: ${amount}""".format(amount=amount)
+            msg2="""'{user}, you made a withdrawal request for: ${amount}. Please wait within 24hrs for approval and crediting. \nThank you.""".format(amount=amount, user=wdr.username)
             messages.success(self.request, msg)
-            sender = "noreply@encryptfinance.net"
-            admin = "admin@encryptfinance.net"
-            email = (
-                (
-                    'WITHDRAWAL REQUEST',
-                    msg2,
-                    sender,
-                    [admin],
-                ),
-
-                (
-                    'WITHDRAWAL REQUEST',
-                    msg,
-                    sender,
-                    [wmail],
-                )
+            admin = settings.ADMINS
+            send_mail(
+                'WITHDRAWAL REQUEST',
+                msg2,
+                settings.DEFAULT_FROM_EMAIL,
+                ["admin@encryptfinance.net", wdr.email],
+                fail_silently=False,
             )
-            return send_mass_mail(email, fail_silently=False)
         elif amount > wdr.balance:
             messages.info(self.request, "Insufficient Balance")
         else:
             messages.info(self.request, "Form Error")
 
         return super().form_valid(form)
+
+
+    # def form_valid(self, form):
+    #     form.instance.withdrawer = self.request.user
+    #     wdr = form.instance.withdrawer
+    #     wmail = wdr.email
+    #     amount = form.instance.amount
+    #     if amount < wdr.balance:
+    #         msg = """Your request for the withdrawal of {amount} is pending and will be verified within the next 24hrs.\n\nPlease be patient while the transaction completes.""".format(amount=amount)
+    #         msg2="""'Withdrawal request has been made for: ${amount}""".format(amount=amount)
+    #         messages.success(self.request, msg)
+    #         sender = "noreply@encryptfinance.net"
+    #         admin = "admin@encryptfinance.net"
+    #         email = (
+    #             (
+    #                 'WITHDRAWAL REQUEST',
+    #                 msg2,
+    #                 sender,
+    #                 [admin],
+    #             ),
+    #             (
+    #                 'WITHDRAWAL REQUEST',
+    #                 msg,
+    #                 sender,
+    #                 [wmail],
+    #             ),
+    #         )
+    #         return send_mass_mail(email, fail_silently=False)
+    #     elif amount > wdr.balance:
+    #         messages.info(self.request, "Insufficient Balance")
+    #     else:
+    #         messages.info(self.request, "Form Error")
+
+    #     return super().form_valid(form)
 
 
 @login_required
