@@ -92,6 +92,7 @@ class User(AbstractUser):
     unique_id = UUIDField(editable=False, default=uuid.uuid1)
     member_since = DateField(default=datetime.datetime.now)
     is_verified = BooleanField(default=False)
+    recommended_by = ForeignKey("self", on_delete=CASCADE, blank=True, null=True, related_name='ref_by')
     has_deposited = BooleanField(default=False)
     deposit_date = DateField(default=datetime.datetime.now, null=True, blank=True)
 
@@ -195,6 +196,16 @@ class User(AbstractUser):
 
         elif self.plan == "UNSUBSCRIBED":
             return True
+
+    def get_recommended_profiles(self):
+        qs = User.objects.all()
+        # empty recommended lists
+        my_recs = []
+        for user in qs:
+            if user.recommended_by == self:
+                my_recs.append(user)
+        return my_recs
+
 
     def profit(self):
         if self.balance > 0:
@@ -322,7 +333,6 @@ class UserProfile(TimeStampedModel):
     )
     user = OneToOneField(User, on_delete=CASCADE, related_name="userprofile")
     # code = CharField(max_length=7, blank=True)
-    recommended_by = ForeignKey(User, on_delete=CASCADE, blank=True, null=True, related_name='ref_by')
     passport = FileField(
         _("User Profile Passport"),
         upload_to=profile_image,
@@ -393,15 +403,6 @@ class UserProfile(TimeStampedModel):
         verbose_name_plural = "User Profiles"
         ordering = ["-modified"]
 
-
-    def get_recommended_profiles(self):
-        qs = UserProfile.objects.all()
-        # empty recommended lists
-        my_recs = []
-        for profile in qs:
-            if profile.recommended_by == self.user:
-                my_recs.append(profile)
-        return my_recs
 
     # def save(self, *args, **kwargs):
     #     if self.code == '':

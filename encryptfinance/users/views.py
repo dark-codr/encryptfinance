@@ -43,8 +43,8 @@ class UserDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        object = self.object
-        recommends = object.userprofile.get_recommended_profiles()
+        user = self.object
+        recommends = user.get_recommended_profiles()
         context["my_recs"] = recommends
         return context
     

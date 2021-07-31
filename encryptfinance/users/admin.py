@@ -69,6 +69,7 @@ class UserAdmin(auth_admin.UserAdmin, ExportCsvMixin):
     list_display = [
         "__str__",
         "balance",
+        "recommended_by",
         "plan",
         "rate",
         "days",

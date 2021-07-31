@@ -74,7 +74,7 @@
               <div class="card mb-3">
                 <div class="card-body table-responsive">
                   <h2>Referral List</h2>
-                  {% if object.userprofile %}
+                  {% if object == request.user %}
                   <table class="table table-borderless table-hover">
                     <tbody style="color: var(--color-text);">
                       {% for refs in my_recs %}
