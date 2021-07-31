@@ -40,7 +40,7 @@ def user_signed_up_(request, user, **kwargs):
         recommender_email = recommended_by_profile.email
         registered_user = user
         registered_profile = user
-        registered_profile = recommended_by_profile
+        registered_profile.recommended_by = recommended_by_profile
         print("registered profile", registered_profile)
         registered_profile.save()
         email = (
