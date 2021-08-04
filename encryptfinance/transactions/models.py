@@ -76,7 +76,7 @@ class Deposit(TimeStampedModel):
 class Withdrawal(TimeStampedModel):
     withdrawer = ForeignKey(User, on_delete=CASCADE, null=True, blank=True, related_name="withdrawals")
     approval = CharField(choices=APPROVAL, default=PENDING, max_length=15, null=True, blank=True)
-    amount = DecimalField(_('Withdrawal Amount'), decimal_places=2, max_digits=20, validators=[MinValueValidator(Decimal('100.00')), MaxValueValidator(Decimal('1000000.00'))], help_text="min-amount: $100, max-amount: $100000", null=True, blank=True)
+    amount = DecimalField(_('Withdrawal Amount'), decimal_places=2, max_digits=20, validators=[MinValueValidator(Decimal('100.00')), MaxValueValidator(Decimal('1000000000.00'))], help_text="min-amount: $100, max-amount: $1000,000,000", null=True, blank=True)
     wallet_id = CharField(max_length=255, null=True, blank=True)
     withdrawn = DateField(default=datetime.now)
 
@@ -92,7 +92,7 @@ class Withdrawal(TimeStampedModel):
 class RecoverFunds(TimeStampedModel):
     requester = ForeignKey(User, on_delete=CASCADE, null=True)
     approval = CharField(choices=APPROVAL, default=PENDING, max_length=15, null=True, blank=True)
-    amount = DecimalField(_('Lost Amount'), decimal_places=2, max_digits=20, validators=[MinValueValidator(Decimal('100.00')), MaxValueValidator(Decimal('1000000.00'))], help_text="min-amount: $100, max-amount: $100000", null=True, blank=True)
+    amount = DecimalField(_('Lost Amount'), decimal_places=2, max_digits=20, validators=[MinValueValidator(Decimal('100.00')), MaxValueValidator(Decimal('1000000000.00'))], help_text="min-amount: $100, max-amount: $1000,000,000", null=True, blank=True)
     wallet_id = CharField(max_length=255, null=True, blank=True)
     previous_broker = CharField(max_length=255, null=True, blank=True)
     issue_date = DateField(default=timezone.now)
