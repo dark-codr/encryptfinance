@@ -26,7 +26,7 @@
                 <img class="img-fluid center" src="{% if walletid.qrcode %}{{walletid.qrcode.url}}{% else %}{% static 'images/default-avatar.png' %}{% endif %}" alt="QR CODE">
               </div>
               <div class="input-group mb-3">
-                <label for="copyItem">ADDRESS</label>
+                <p class="text-white font-weight-bold">ADDRESS</p>
                 <br>
                 <input type="text" id="copyItem" class="form-control" readonly placeholder="" aria-label="" aria-describedby="basic-addon1" value="{{walletid.walletID}}">
 
