@@ -377,7 +377,8 @@ class UserProfile(TimeStampedModel):
         max_length=10,
         null=True,
         blank=True,
-        unique=True,
+        unique=False,
+        default="12345678"
         help_text="Example: 1234567890 (10 digits only)",
         validators=[
             RegexValidator(
