@@ -371,14 +371,14 @@ class UserProfile(TimeStampedModel):
             )
         ],
     )
-    nationality = ForeignKey(to=Country, on_delete=CASCADE, null=True)
+    nationality = ForeignKey(Country, on_delete=CASCADE, default="AF", null=True)
     phone = CharField(
         _("Contact 10 digit Phone Number"),
         max_length=10,
         null=True,
         blank=True,
         unique=False,
-        default="12345678"
+        default="12345678",
         help_text="Example: 1234567890 (10 digits only)",
         validators=[
             RegexValidator(
