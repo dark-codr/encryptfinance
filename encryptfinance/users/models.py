@@ -397,7 +397,7 @@ class UserProfile(TimeStampedModel):
             return country_code
 
     def international_number(self):
-        return f"{self.nationality.phone}{self.phone}"
+        return f"{self.nationality.phone}{self.phone}" if self.phone else None
 
     class Meta:
         verbose_name = "User Profile"
