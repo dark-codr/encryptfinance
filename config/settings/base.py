@@ -2,6 +2,9 @@
 Base settings to build other settings files upon.
 """
 from pathlib import Path
+from django.contrib.messages import constants as messages
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _
 
 import environ
 
@@ -45,6 +48,7 @@ DATABASES = {
     "default": env.db("DATABASE_URL", default="postgres://edavids:Jeloblisvent123.@127.0.0.1:5432/encryptfinance"),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -83,12 +87,11 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_celery_beat",
     "djcelery_email",
-    "rest_framework",
-    "rest_framework.authtoken",
-    "corsheaders",
+
     # bootstrap django package
     "bootstrap4",
     "bootstrap_datepicker_plus",
+    
     # WYSWIC TEXT EDITOR
     "ckeditor",
     "ckeditor_uploader",
@@ -177,9 +180,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
-    # Countries-plus middleware
-    "countries_plus.middleware.AddRequestCountryMiddleware",
 ]
 
 # STATIC
@@ -324,16 +324,6 @@ if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-# CELERY_EMAIL_TASK_CONFIG = {
-#     'queue': 'email',
-#     'name': 'djcelery_email_send',
-#     'rate_limit': '50/m',
-#     'ignore_result': True,
-# }
-# INSTALLED_APPS += (
-#     'djcelery_email',
-#     # 'django_celery_results',
-# )
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
@@ -350,6 +340,7 @@ CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#beat-scheduler
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
@@ -387,87 +378,49 @@ ACCOUNT_FORMS = {
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
 INSTALLED_APPS += ["compressor"]
 STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
-# django-rest-framework
-# -------------------------------------------------------------------------------
-# django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-}
-
-SWAGGER_SETTINGS = {
-
-    'SECURITY_DEFINITIONS':{
-        "Add Auth Token eg. [Bearer] [Paste JWT Token]":{
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        }
-    },
-    'VALIDATOR_URL': ['http://127.0.0.1:3000','https://encryptfinance.net'],
-    'USE_SESSION_AUTH': True,
-    'LOGIN_URL': LOGIN_URL,
-    'LOGOUT_URL': LOGOUT_URL,
-    'DOC_EXPANSION': None,
-    'APIS_SORTER': None,
-    'OPERATIONS_SORTER': None,
-    'JSON_EDITOR': True,
-    'SHOW_REQUEST_HEADERS': True,
-    'SUPPORTED_SUBMIT_METHODS': [
-        'get',
-        'post',
-        'put',
-        'delete',
-        'patch'
-    ],
-    'ACCEPT_HEADER_VERSION': None,  # e.g. '1.0'
-}
-
-from datetime import timedelta
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=4),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=60),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-    'UPDATE_LAST_LOGIN': True,
-
-    'ALGORITHM': 'HS256',
-    'VERIFYING_KEY': None,
-    'AUDIENCE': None,
-    'ISSUER': None,
-
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    'TOKEN_TYPE_CLAIM': 'token_type',
-
-    'JTI_CLAIM': 'jti',
-
-    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-}
-
-# django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
-
-
-
-
 
 
 
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+JET_CHANGE_FORM_SIBLING_LINKS = True
+JET_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultIndexDashboard'
+JET_APP_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultAppIndexDashboard'
+JET_THEMES = [
+    {
+        'theme': 'default', # theme folder name
+        'color': '#47bac1', # color of the theme's button in user menu
+        'title': 'Default' # theme title
+    },
+    {
+        'theme': 'green',
+        'color': '#44b78b',
+        'title': 'Green'
+    },
+    {
+        'theme': 'light-green',
+        'color': '#2faa60',
+        'title': 'Light Green'
+    },
+    {
+        'theme': 'light-violet',
+        'color': '#a464c4',
+        'title': 'Light Violet'
+    },
+    {
+        'theme': 'light-blue',
+        'color': '#5EADDE',
+        'title': 'Light Blue'
+    },
+    {
+        'theme': 'light-gray',
+        'color': '#222',
+        'title': 'Light Gray'
+    }
+]
+
+
 CKEDITOR_FILENAME_GENERATOR = "encryptfinance.utils.get_filename.get_filename"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
@@ -476,9 +429,72 @@ CKEDITOR_BROWSE_SHOW_DIRS = True
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
 CKEDITOR_CONFIGS = {
-    "default": {
-        "toolbar": None,
+    'default': {
+        'skin': 'moono',
         # 'skin': 'office2013',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                       'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                "Magicline",
+                "Mathjax",
+                'Preview',
+                'Maximize',
+                'Youtube',
+            ]},
+        ],
+        'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        'height': '25%',
+        'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        'toolbarCanCollapse': True,
+        'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath',
+            "magicline",
+            "mathjax",
+            'youtube'
+        ]),
     }
 }
 
@@ -493,10 +509,6 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 # COUNTRIES_PLUS_COUNTRY_HEADER = 'HTTP_CF_COUNTRY'
 # COUNTRIES_PLUS_DEFAULT_ISO = 'US'
 
-if DEBUG:
-    COUNTRIES_PLUS_COUNTRY_HEADER = 'CF_IPCOUNTRY'
-else:
-    COUNTRIES_PLUS_COUNTRY_HEADER = 'CF_IPCOUNTRY'
 COUNTRIES_PLUS_DEFAULT_ISO = 'US'
 
 
@@ -516,6 +528,3 @@ EXCLUDE_FROM_MINIFYING = ("/admin/*", "/jet/*", "/jet/dashboard/*")
 KEEP_COMMENTS_ON_MINIFYING = True
 
 COOKIE_CONSENT_LOG_ENABLED = False
-
-# latest update for django 3.2
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

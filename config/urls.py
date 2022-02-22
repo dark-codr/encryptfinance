@@ -49,17 +49,15 @@ urlpatterns += [
     # path("accounts/signup/", view=AccountSignupView.as_view(), name="sign_up"),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
     path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type='text/plain'), name="robots"),
-    path('cookies/', include('cookie_consent.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('tinymce/', include('tinymce.urls')),
 ]
 
 
 # API URLS
-urlpatterns += [
-    # API base url
-    path("api/", include("config.api_router")),
-]
+# urlpatterns += [
+#     # API base url
+#     path("api/", include("config.api_router")),
+# ]
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
