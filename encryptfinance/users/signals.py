@@ -16,9 +16,9 @@ def create_user_verify(sender, instance, created, *args, **kwargs):
         UserVerify.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
-def save_user_verify(sender, instance, created, *args, **kwargs):
-    instance.userverify.save()
+# @receiver(post_save, sender=User)
+# def save_user_verify(sender, instance, created, *args, **kwargs):
+#     instance.userverify.save()
 
 
 @receiver(post_save, sender=User)
@@ -27,9 +27,9 @@ def create_user_profile(sender, instance, created, *args, **kwargs):
         UserProfile.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, created, *args, **kwargs):
-    instance.userprofile.save()
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, created, *args, **kwargs):
+#     instance.userprofile.save()
 
 
 @receiver(user_signed_up)
