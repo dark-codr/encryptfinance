@@ -142,7 +142,7 @@ INSTALLED_APPS += ["anymail"]  # noqa F405
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 # https://anymail.readthedocs.io/en/stable/esps
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-CELERY_EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
+# CELERY_EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 
 # ANYMAIL = {}
 EMAIL_HOST = env("EMAIL_HOST", default="smtp.gmail.com")
