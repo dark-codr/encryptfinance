@@ -53,7 +53,7 @@ class UserAdmin(auth_admin.UserAdmin, ExportCsvMixin):
         ),
         (
             _("Account Balance"),
-            {"fields": ("balance")}
+            {"fields": ("balance",)}
         ),
         (
             _("Permissions"),
