@@ -52,6 +52,10 @@ class UserAdmin(auth_admin.UserAdmin, ExportCsvMixin):
             {"fields": ("first_name", "middle_name", "last_name", "email")},
         ),
         (
+            _("Account Balance"),
+            {"fields": ("balance")}
+        ),
+        (
             _("Permissions"),
             {
                 "fields": (
