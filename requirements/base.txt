@@ -58,7 +58,8 @@ whoosh==2.7.4
 # Admin
 # ------------------------------------------------------------------------------
 django-jet2==1.0.12
-FeedParser==5.2.1
+#FeedParser==5.2.1
+feedparser==6.0.8
 python-magic==0.4.15
 django-ipware==3.0.1
 
