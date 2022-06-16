@@ -170,6 +170,8 @@ MIDDLEWARE = [
 
     # Django default security middlewares
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
