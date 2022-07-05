@@ -29,7 +29,7 @@ cssselect==1.1.0
 decorator==5.1.1
 defusedxml==0.7.1
 distlib==0.3.4
-Django==3.2.3
+Django==3.2.14
 django-admin-honeypot==1.1.0
 django-allauth==0.44.0
 django-appconf==1.0.5
